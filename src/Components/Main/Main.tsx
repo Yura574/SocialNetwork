@@ -1,5 +1,6 @@
 import React from "react";
 import classes from './Main.module.css';
+import {MyPosts} from "./MyPosts/MyPosts";
 
 
 export function Main() {
@@ -12,12 +13,7 @@ export function Main() {
                     alt="img"/>
             </div>
             <div>Ava+description</div>
-            <div>New post</div>
-            <div>My post</div>
-            <div>
-                <div>post1</div>
-                <div>post2</div>
-            </div>
+            <MyPosts/>
         </main>
     )
 }
