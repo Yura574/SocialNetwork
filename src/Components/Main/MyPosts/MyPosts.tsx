@@ -8,10 +8,9 @@ export function MyPosts() {
             <textarea></textarea>
             <span><button> add</button></span>
             <div>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
+                <Post message={'My first post'} like={15}/>
+                <Post message={'My second post'} like={20}/>
+
             </div>
         </div>
     )
