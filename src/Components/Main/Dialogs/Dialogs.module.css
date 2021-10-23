@@ -1,0 +1,21 @@
+import React from "react";
+
+export function Dialogs() {
+    return (
+        <div>
+            <div className={Dialogs}>Dialogs</div>
+            <div>
+                <div>Yura</div>
+                <div>Alenka</div>
+                <div>Valera</div>
+                <div>Marina</div>
+                <div>Dima</div>
+            </div>
+            <div>
+                <div>Hello</div>
+                <div>What car is you bought?</div>
+                <div>How is it?</div>
+            </div>
+        </div>
+    )
+}
