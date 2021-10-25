@@ -3,6 +3,7 @@ import classes from "./Dialogs.module.css";
 
 type MessageItemType = {
     message: string
+    id: number
 }
 
 export function MessageItem (props: MessageItemType){

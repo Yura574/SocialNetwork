@@ -5,21 +5,29 @@ import {MessageItem} from "./MessageItem";
 
 
 export function Dialogs() {
+
+    const dialogsData = [
+        {id: 1, name: 'Yura'},
+        {id: 2, name: 'Alenka'}
+    ]
+
+    const messageData= [
+        {id: 1, message: 'Hello'},
+        {id: 2, message: 'What car is you bought?'}
+    ]
+
     return (
         <div>
             <div>Dialogs</div>
             <div className={classes.dialogs}>
                 <div className={classes.dialogsName}>
-                    <DialogsItem name={'Yura'} id={1}/>
-                    <DialogsItem name={'Alenka'} id={2}/>
-                    <DialogsItem name={'Maksim'} id={3}/>
-                    <DialogsItem name={'Marina'} id={4}/>
-                    <DialogsItem name={'Dima'} id={5}/>
+                    <DialogsItem name={dialogsData[0].name} id={dialogsData[0].id}/>
+                    <DialogsItem name={dialogsData[1].name} id={dialogsData[1].id}/>
+
                 </div>
                 <div className={classes.dialogsMessages}>
-                    <MessageItem message={'Hello'}/>
-                    <MessageItem message={'What car is you bought?'}/>
-                    <MessageItem message={'How is it?'}/>
+                    <MessageItem message={messageData[0].message} id={messageData[0].id}/>
+                    <MessageItem message={messageData[1].message} id={messageData[1].id}/>
                 </div>
             </div>
         </div>
