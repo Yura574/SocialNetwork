@@ -4,10 +4,10 @@ import {Header} from "./Components/Header/Header";
 import {NavBar} from "./Components/Navbar/Navbar";
 import {Main} from "./Components/Main/Main";
 import {BrowserRouter} from "react-router-dom";
-import {DataType} from "./index";
+import {StateType} from "./Redux/state";
 
 
-function App(props: DataType) {
+function App(props:StateType ) {
     debugger
 
     return (
@@ -15,9 +15,7 @@ function App(props: DataType) {
             <div className="App">
                 <Header/>
                 <NavBar/>
-                <Main dialogsData={props.dialogsData}
-                      messageData={props.messageData}
-                      postData={props.postData}
+                <Main state={props.state}
                      />
             </div>
         </BrowserRouter>

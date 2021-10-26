@@ -1,10 +1,10 @@
 import React from "react";
 import {Post} from "../Post/Post";
 import classes from "./MyPosts.module.css";
-import {PostDataType} from "../../../../index";
+import {ProfilePage} from "../../../../Redux/state";
 
 
-export function MyPosts(props: PostDataType) {
+export function MyPosts(props: ProfilePage) {
 
 
     return (

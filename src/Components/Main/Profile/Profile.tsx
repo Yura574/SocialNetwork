@@ -1,10 +1,10 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostDataType, PostElementType} from "../../../index";
+import {ProfilePage} from "../../../Redux/state";
 
 
-export function Profile(props: PostDataType) {
+export function Profile(props: ProfilePage) {
     debugger
     return (
         <div>

@@ -2,10 +2,10 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import {DialogsItem} from "./DialogsItem";
 import {MessageItem} from "./MessageItem";
-import {DataType, DialogsDataType} from "../../../index";
+import {MessagesPage} from "../../../Redux/state";
 
 
-export function Dialogs(props: DialogsDataType) {
+export function Dialogs(props: MessagesPage) {
 debugger
 
     const name = props.dialogsData.map(d => <DialogsItem name={d.name} id={d.id}/>)
