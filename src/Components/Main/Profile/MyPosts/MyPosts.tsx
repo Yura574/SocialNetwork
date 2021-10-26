@@ -1,14 +1,11 @@
 import React from "react";
 import {Post} from "../Post/Post";
 import classes from "./MyPosts.module.css";
+import {PostDataType} from "../../../../index";
 
 
-export function MyPosts() {
+export function MyPosts(props: PostDataType) {
 
-    const postData = [
-        {id: 1, message:'My first post', like: 15},
-        {id: 1, message:'My second post', like: 20}
-    ]
 
     return (
         <div >
@@ -20,8 +17,8 @@ export function MyPosts() {
             </div>
 
             <div>
-                <Post message={postData[0].message} like={postData[0].like}/>
-                <Post message={postData[1].message} like={postData[1].like}/>
+
+                {props.postData.map( p => <Post message={p.message} like={p.like}/>)}
 
             </div>
         </div>
