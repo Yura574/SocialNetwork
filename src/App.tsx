@@ -6,13 +6,14 @@ import {Main} from "./Components/Main/Main";
 import {BrowserRouter} from "react-router-dom";
 import {MessagesPage, ProfilePage} from "./Redux/state";
 
-type StateType ={
+type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
-    addPost: (textPost:string)=> void
+    addPost: (textPost: string) => void
+    addMessage: (textMessage: string) => void
 }
 
-function App(props:StateType ) {
+function App(props: StateType) {
     debugger
 
     return (
@@ -23,7 +24,8 @@ function App(props:StateType ) {
                 <Main messagesPage={props.messagesPage}
                       profilePage={props.profilePage}
                       addPost={props.addPost}
-                     />
+                      addMessage={props.addMessage}
+                />
             </div>
         </BrowserRouter>
     );

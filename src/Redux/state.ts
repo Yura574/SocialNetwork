@@ -66,4 +66,11 @@ export function addPost(textPost: string) {
     }
         state.profilePage.postData.push(text)
 }
+export function addMessage(textMessage: string){
+    const message: MessageElementType = {
+        id:10,
+        message: textMessage
+    }
+    state.messagesPage.messageData.push(message)
+}
 

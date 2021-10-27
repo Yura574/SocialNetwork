@@ -12,6 +12,7 @@ type MainType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
     addPost: (textPost: string) => void
+    addMessage: (textMessage: string) => void
 }
 
 export function Main(props: MainType) {
@@ -22,7 +23,8 @@ export function Main(props: MainType) {
                                                             addPost={props.addPost}/>}/>
             <Route path={'/dialogs'}
                    render={() => <Dialogs dialogsData={props.messagesPage.dialogsData}
-                                          messageData={props.messagesPage.messageData}/>}/>
+                                          messageData={props.messagesPage.messageData}
+                                          addMessage={props.addMessage}/>}/>
             <Route path={'/news'} render={() => <News/>}/>
             <Route path={'/music'} render={() => <Music/>}/>
             <Route path={'/setting'} render={() => <Setting/>}/>
