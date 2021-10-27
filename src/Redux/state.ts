@@ -20,17 +20,14 @@ export type ProfilePage = {
     postData: Array<PostElementType>
 }
 
-export type DataType = {
+export type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
 }
 
-export type StateType = {
-   state: DataType
-}
 
 
-export let state = {
+export let state: StateType = {
     messagesPage: {
         dialogsData: [
             {id: 1, name: 'Yura'},
@@ -58,5 +55,15 @@ export let state = {
     }
 
 
+}
+
+export function addPost(textPost: string) {
+    debugger
+    const text: PostElementType ={
+        id: 5,
+        message: textPost,
+        like: 0
+    }
+        state.profilePage.postData.push(text)
 }
 

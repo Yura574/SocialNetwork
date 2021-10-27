@@ -6,16 +6,23 @@ import {Dialogs} from "./Dialogs/Dialogs";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Setting} from "./Setting/Setting";
-import {StateType} from "../../Redux/state";
+import {MessagesPage, ProfilePage} from "../../Redux/state";
 
+type MainType = {
+    messagesPage: MessagesPage
+    profilePage: ProfilePage
+    addPost: (textPost: string) => void
+}
 
-export function Main(props: StateType) {
+export function Main(props: MainType) {
+
     return (
         <div className={classes.main}>
-            <Route path={'/profile'} render={() => <Profile postData={props.state.profilePage.postData}/>}/>
+            <Route path={'/profile'} render={() => <Profile postData={props.profilePage.postData}
+                                                            addPost={props.addPost}/>}/>
             <Route path={'/dialogs'}
-                   render={() => <Dialogs dialogsData={props.state.messagesPage.dialogsData}
-                                          messageData={props.state.messagesPage.messageData}/>}/>
+                   render={() => <Dialogs dialogsData={props.messagesPage.dialogsData}
+                                          messageData={props.messagesPage.messageData}/>}/>
             <Route path={'/news'} render={() => <News/>}/>
             <Route path={'/music'} render={() => <Music/>}/>
             <Route path={'/setting'} render={() => <Setting/>}/>

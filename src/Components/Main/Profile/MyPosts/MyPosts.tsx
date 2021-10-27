@@ -1,16 +1,22 @@
 import React from "react";
 import {Post} from "../Post/Post";
 import classes from "./MyPosts.module.css";
-import {ProfilePage} from "../../../../Redux/state";
+import {PostElementType} from "../../../../Redux/state";
 
+type MyPostsType = {
+    postData: Array<PostElementType>
+    addPost: (textPost: string) => void
+}
 
-export function MyPosts(props: ProfilePage) {
+export function MyPosts(props: MyPostsType) {
 
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     function addPost() {
-        const text = newPostElement.current?.value
-    }
+        if(newPostElement.current){
+        const textPost = newPostElement.current?.value
+        props.addPost(textPost)
+    }}
 
 
     return (

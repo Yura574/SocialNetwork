@@ -4,8 +4,13 @@ import {Header} from "./Components/Header/Header";
 import {NavBar} from "./Components/Navbar/Navbar";
 import {Main} from "./Components/Main/Main";
 import {BrowserRouter} from "react-router-dom";
-import {StateType} from "./Redux/state";
+import {MessagesPage, ProfilePage} from "./Redux/state";
 
+type StateType ={
+    messagesPage: MessagesPage
+    profilePage: ProfilePage
+    addPost: (textPost:string)=> void
+}
 
 function App(props:StateType ) {
     debugger
@@ -15,7 +20,9 @@ function App(props:StateType ) {
             <div className="App">
                 <Header/>
                 <NavBar/>
-                <Main state={props.state}
+                <Main messagesPage={props.messagesPage}
+                      profilePage={props.profilePage}
+                      addPost={props.addPost}
                      />
             </div>
         </BrowserRouter>
