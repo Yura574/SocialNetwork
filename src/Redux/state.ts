@@ -1,3 +1,5 @@
+import {render} from "../render";
+
 export type DialogsElementType = {
     id: number
     name: string
@@ -64,13 +66,15 @@ export function addPost(textPost: string) {
         message: textPost,
         like: 0
     }
-        state.profilePage.postData.push(text)
+        state.profilePage.postData.unshift(text)
+    render(state)
 }
 export function addMessage(textMessage: string){
     const message: MessageElementType = {
         id:10,
         message: textMessage
     }
-    state.messagesPage.messageData.push(message)
+    state.messagesPage.messageData.unshift(message)
+    render(state)
 }
 

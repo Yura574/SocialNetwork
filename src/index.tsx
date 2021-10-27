@@ -1,20 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+
 import reportWebVitals from './reportWebVitals';
-import {addMessage, addPost, state} from "./Redux/state";
+import { state} from "./Redux/state";
+import {render} from "./render";
 
 
-ReactDOM.render(
-    <React.StrictMode>
-        <App messagesPage={state.messagesPage}
-             profilePage={state.profilePage}
-             addPost={addPost}
-             addMessage={addMessage}/>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+render(state)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

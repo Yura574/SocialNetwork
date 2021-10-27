@@ -22,6 +22,7 @@ export function Dialogs(props: DialogsType) {
         if (newMessage.current) {
             const textMessage = newMessage.current?.value
             props.addMessage(textMessage)
+            newMessage.current.value = ''
         }
     }
 
