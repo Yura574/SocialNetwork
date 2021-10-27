@@ -16,12 +16,9 @@ export type MessagesPage = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
 }
-
 export type ProfilePage = {
     postData: Array<PostElementType>
 }
-
-
 
 export type DataType = {
     messagesPage: MessagesPage
@@ -32,12 +29,6 @@ export type StateType = {
    state: DataType
 }
 
-// export type ProfilePageOneType ={
-//     ProfilePage: ProfilePage
-// }
-// export type MessagesPageOneType ={
-//     messagesPage: MessagesPage
-// }
 
 export let state = {
     messagesPage: {

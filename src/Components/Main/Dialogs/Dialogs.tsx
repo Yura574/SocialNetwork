@@ -10,6 +10,14 @@ debugger
 
     const name = props.dialogsData.map(d => <DialogsItem name={d.name} id={d.id}/>)
     const message = props.messageData.map(m => <MessageItem message={m.message} id={m.id}/>)
+
+    const newMessage = React.createRef<HTMLInputElement>()
+
+    function sendMessage() {
+    const textMessage = newMessage.current?.value
+        alert(textMessage)
+    }
+
     return (
         <div>
             <div>Dialogs</div>
@@ -20,6 +28,7 @@ debugger
                 </div>
                 <div className={classes.dialogsMessages}>
                     {message}
+                    <input ref={newMessage}/> <button onClick={sendMessage}> send</button>
                 </div>
             </div>
         </div>
