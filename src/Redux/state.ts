@@ -17,6 +17,7 @@ export type PostElementType = {
 export type MessagesPage = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
+    newMessageText: string
 }
 export type ProfilePage = {
     postData: Array<PostElementType>
@@ -47,7 +48,8 @@ export let state: StateType = {
             {id: 5, message: 'What car is ?'},
             {id: 6, message: 'What car is you ?'},
             {id: 7, message: 'What car is you bought?'},
-        ]
+        ],
+        newMessageText: ''
     },
 
     profilePage: {
@@ -75,12 +77,18 @@ export function newTextPost(newText: string) {
     state.profilePage.newPostText = newText
     render(state)
 }
-export function addMessage(textMessage: string){
+export function addMessage(){
     const message: MessageElementType = {
         id:10,
-        message: textMessage
+        message: state.messagesPage.newMessageText
     }
     state.messagesPage.messageData.unshift(message)
+    state.messagesPage.newMessageText = ''
+    render(state)
+}
+
+export function addNewMessage(newMessage: string){
+    state.messagesPage.newMessageText = newMessage
     render(state)
 }
 

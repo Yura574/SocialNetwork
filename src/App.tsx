@@ -10,8 +10,9 @@ type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
     addPost: () => void
-    addMessage: (textMessage: string) => void
+    addMessage: () => void
     newTextPost: (newText: string) => void
+    addNewMessage: (newMessage:string) => void
 }
 
 function App(props: StateType) {
@@ -27,6 +28,7 @@ function App(props: StateType) {
                       addPost={props.addPost}
                       addMessage={props.addMessage}
                       newTextPost={props.newTextPost}
+                      addNewMessage={props.addNewMessage}
                 />
             </div>
         </BrowserRouter>

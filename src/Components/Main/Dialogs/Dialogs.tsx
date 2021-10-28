@@ -7,7 +7,9 @@ import {DialogsElementType, MessageElementType} from "../../../Redux/state";
 type DialogsType = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
-    addMessage: (textMassage: string) => void
+    newMessageText: string
+    addMessage: () => void
+    addNewMessage: (newMessage: string)=> void
 }
 
 export function Dialogs(props: DialogsType) {
@@ -19,12 +21,13 @@ export function Dialogs(props: DialogsType) {
     const newMessage = React.createRef<HTMLInputElement>()
 
     function sendMessage() {
-        if (newMessage.current) {
-            const textMessage = newMessage.current?.value
-            props.addMessage(textMessage)
-            newMessage.current.value = ''
-        }
+            props.addMessage()
     }
+    function onChangeNewMessage() {
+        if(newMessage.current){
+        let textMessage = newMessage.current.value
+            props.addNewMessage(textMessage)
+    }}
 
     return (
         <div>
@@ -36,7 +39,7 @@ export function Dialogs(props: DialogsType) {
                 </div>
                 <div className={classes.dialogsMessages}>
                     {message}
-                    <input ref={newMessage}/>
+                    <input ref={newMessage} value={props.newMessageText} onChange={onChangeNewMessage}/>
                     <button onClick={sendMessage}> send</button>
                 </div>
             </div>
