@@ -1,5 +1,8 @@
-import {render} from "../render";
 
+let  rerender= (state: StateType) =>{
+
+    console.log('render')
+}
 export type DialogsElementType = {
     id: number
     name: string
@@ -71,11 +74,11 @@ export function addPost() {
     }
         state.profilePage.postData.unshift(text)
     state.profilePage.newPostText = ''
-    render(state)
+    rerender(state)
 }
 export function newTextPost(newText: string) {
     state.profilePage.newPostText = newText
-    render(state)
+    rerender(state)
 }
 export function addMessage(){
     const message: MessageElementType = {
@@ -84,11 +87,16 @@ export function addMessage(){
     }
     state.messagesPage.messageData.unshift(message)
     state.messagesPage.newMessageText = ''
-    render(state)
+    rerender(state)
 }
 
 export function addNewMessage(newMessage: string){
     state.messagesPage.newMessageText = newMessage
-    render(state)
+    rerender(state)
 }
+
+export function subscribe(observer: () => void) {
+    rerender = observer
+}
+
 
