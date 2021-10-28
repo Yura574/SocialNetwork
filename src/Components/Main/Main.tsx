@@ -6,13 +6,14 @@ import {Dialogs} from "./Dialogs/Dialogs";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Setting} from "./Setting/Setting";
-import {MessagesPage, ProfilePage} from "../../Redux/state";
+import {MessagesPage, newTextPost, ProfilePage} from "../../Redux/state";
 
 type MainType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
-    addPost: (textPost: string) => void
+    addPost: () => void
     addMessage: (textMessage: string) => void
+    newTextPost:(newText: string) =>void
 }
 
 export function Main(props: MainType) {
@@ -20,7 +21,9 @@ export function Main(props: MainType) {
     return (
         <div className={classes.main}>
             <Route path={'/profile'} render={() => <Profile postData={props.profilePage.postData}
-                                                            addPost={props.addPost}/>}/>
+                                                            newPostText={props.profilePage.newPostText}
+                                                            addPost={props.addPost}
+                                                            newTextPost={props.newTextPost}/>}/>
             <Route path={'/dialogs'}
                    render={() => <Dialogs dialogsData={props.messagesPage.dialogsData}
                                           messageData={props.messagesPage.messageData}

@@ -20,6 +20,7 @@ export type MessagesPage = {
 }
 export type ProfilePage = {
     postData: Array<PostElementType>
+    newPostText: string
 }
 
 export type StateType = {
@@ -53,20 +54,25 @@ export let state: StateType = {
         postData: [
             {id: 1, message: 'My first post', like: 15},
             {id: 1, message: 'My second post', like: 20}
-        ]
+        ],
+        newPostText: ''
     }
 
 
 }
 
-export function addPost(textPost: string) {
-    debugger
+export function addPost() {
     const text: PostElementType ={
         id: 5,
-        message: textPost,
+        message: state.profilePage.newPostText,
         like: 0
     }
         state.profilePage.postData.unshift(text)
+    state.profilePage.newPostText = ''
+    render(state)
+}
+export function newTextPost(newText: string) {
+    state.profilePage.newPostText = newText
     render(state)
 }
 export function addMessage(textMessage: string){

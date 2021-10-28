@@ -1,11 +1,13 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostElementType, ProfilePage} from "../../../Redux/state";
+import {newTextPost, PostElementType} from "../../../Redux/state";
 
-type ProfileType ={
+type ProfileType = {
     postData: Array<PostElementType>
-    addPost: (textPost: string) => void
+    newPostText: string
+    addPost: () => void
+    newTextPost: (newText: string) => void
 }
 
 
@@ -14,7 +16,10 @@ export function Profile(props: ProfileType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts postData={props.postData} addPost={props.addPost}/>
+            <MyPosts postData={props.postData}
+                     addPost={props.addPost}
+                     newPostText={props.newPostText}
+                     newTextPost={props.newTextPost}/>
         </div>
     )
 }

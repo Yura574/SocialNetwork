@@ -9,8 +9,9 @@ import {MessagesPage, ProfilePage} from "./Redux/state";
 type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
-    addPost: (textPost: string) => void
+    addPost: () => void
     addMessage: (textMessage: string) => void
+    newTextPost: (newText: string) => void
 }
 
 function App(props: StateType) {
@@ -25,6 +26,7 @@ function App(props: StateType) {
                       profilePage={props.profilePage}
                       addPost={props.addPost}
                       addMessage={props.addMessage}
+                      newTextPost={props.newTextPost}
                 />
             </div>
         </BrowserRouter>
