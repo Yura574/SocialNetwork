@@ -124,7 +124,7 @@ export let store: StoreType = {
     },
     dispatch(action: ActionType){
         debugger
-        if(action.type ==="ADD_POST"){
+        if(action.type ===ADD_POST){
             const text: PostElementType = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -134,11 +134,11 @@ export let store: StoreType = {
             this._state.profilePage.newPostText = ''
             this._setRender(this._state)
         }
-        if(action.type === "NEW_TEXT_POST"){
+        if(action.type === NEW_TEXT_POST){
             this._state.profilePage.newPostText = action.newText
             this._setRender(this._state)
         }
-        if(action.type === "ADD_MESSAGE"){
+        if(action.type === ADD_MESSAGE){
             const message: MessageElementType = {
                 id: 10,
                 message: this._state.messagesPage.newMessageText
@@ -147,9 +147,30 @@ export let store: StoreType = {
             this._state.messagesPage.newMessageText = ''
             this._setRender(this._state)
         }
-        if(action.type === "ON_CHANGE_NEW_MESSAGE"){
+        if(action.type === ON_CHANGE_NEW_MESSAGE){
             this._state.messagesPage.newMessageText = action.newMessage
             this._setRender(this._state)
         }
     }
 }
+
+const ADD_POST = 'ADD_POST'
+const NEW_TEXT_POST = "NEW_TEXT_POST"
+const ADD_MESSAGE = "ADD_MESSAGE"
+const ON_CHANGE_NEW_MESSAGE = "ON_CHANGE_NEW_MESSAGE"
+
+
+export const addPostAction = (): AddPostActionType => ({
+    type: ADD_POST
+})
+export const changeAction  = (newText: string): NewPostTextActionType => ({
+    type: NEW_TEXT_POST,
+    newText: newText
+})
+export const addMessageAC = (): AddMessageActionType => (
+    {type: ADD_MESSAGE }
+)
+
+export const onChangeNewMessageAC = (textMessage: string): OnChangeNewMessageActionType => (
+    {type: ON_CHANGE_NEW_MESSAGE, newMessage: textMessage}
+)
