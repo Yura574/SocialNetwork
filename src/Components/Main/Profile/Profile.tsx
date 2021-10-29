@@ -1,7 +1,7 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {newTextPost, PostElementType} from "../../../Redux/state";
+import { PostElementType} from "../../../Redux/state";
 
 type ProfileType = {
     postData: Array<PostElementType>
