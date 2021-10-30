@@ -1,3 +1,6 @@
+import {profile_reducer} from "./profile_reducer";
+import {dialogs_reducer} from "./dialogs_reducer";
+
 export type DialogsElementType = {
     id: number
     name: string
@@ -26,6 +29,7 @@ export type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
 }
+
 export type StoreType = {
     _state: StateType
     _setRender: (_state: StateType) => void
@@ -90,55 +94,12 @@ export let store: StoreType = {
         this._setRender = observer
     },
     dispatch(action: ActionType) {
-        if (action.type === ADD_POST) {
-            const post: PostElementType = {
-                id: 2,
-                message: this.getState().profilePage.newPost,
-                like: 0
-            }
-            this.getState().profilePage.postData.push(post)
-            this.getState().profilePage.newPost = ''
-            this._setRender(this.getState())
-        }
-        if (action.type === ON_CHANGE_POST_TEXT) {
-            this.getState().profilePage.newPost = action.newPostText
-                this._setRender(this.getState())
-        }
-        if (action.type === 'ADD_MESSAGE') {
-            const message: MessageElementType = {
-                id: 5,
-                message: this.getState().messagesPage.newMessage
-            }
-            this.getState().messagesPage.messageData.push(message)
-            this.getState().messagesPage.newMessage = ''
-            this._setRender(this.getState())
-        }
-        if (action.type === ON_CHANGE_MESSAGE_TEXT) {
-            this.getState().messagesPage.newMessage = action.newMessageText
-            this._setRender(this.getState())
-        }
+
+        this._state.profilePage = profile_reducer(this._state.profilePage, action)
+        this._state.messagesPage = dialogs_reducer(this._state.messagesPage, action)
+        this._setRender(this._state)
     }
 
 }
 
-const ADD_POST = "ADD_POST"
-const ON_CHANGE_POST_TEXT = "ON_CHANGE_POST_TEXT"
-const ADD_MESSAGE = "ADD_MESSAGE"
-const ON_CHANGE_MESSAGE_TEXT = "ON_CHANGE_MESSAGE_TEXT"
-
-export const addPostAC = (): AddPostAC_Type => ({
-    type: ADD_POST
-})
-
-export const onChangePostTextAC = (newPostText: string): OnChangePostTextAC_Type => ({
-    type: ON_CHANGE_POST_TEXT,
-    newPostText: newPostText
-})
-export const addMessageAC = (): AddMessageAC_Type => ({
-    type: ADD_MESSAGE
-})
-export const onChangeMessageTextAC = (newMessageText: string): OnChangeMessageTextAC_Type => ({
-    type: ON_CHANGE_MESSAGE_TEXT,
-    newMessageText: newMessageText
-})
 

@@ -2,11 +2,10 @@ import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import {
     ActionType,
-    addMessageAC,
-    DialogsElementType,
+        DialogsElementType,
     MessageElementType,
-    onChangeMessageTextAC,
 } from "../../../Redux/state";
+import {addMessageAC, onChangeMessageTextAC} from "../../../Redux/dialogs_reducer";
 
 type DialogsType = {
     dialogsData: Array<DialogsElementType>

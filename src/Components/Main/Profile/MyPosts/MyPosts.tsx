@@ -3,11 +3,10 @@ import {Post} from "../Post/Post";
 import classes from "./MyPosts.module.css";
 import {
     AddPostAC_Type,
-    addPostAC,
-    onChangePostTextAC,
     OnChangePostTextAC_Type,
     PostElementType
 } from "../../../../Redux/state";
+import {addPostAC, onChangePostTextAC} from "../../../../Redux/profile_reducer";
 
 type MyPostsType = {
     postData: Array<PostElementType>
