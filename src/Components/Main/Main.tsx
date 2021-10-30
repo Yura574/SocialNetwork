@@ -11,10 +11,7 @@ import {ActionType, MessagesPage, ProfilePage} from "../../Redux/state";
 type MainType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
-    dispatch: (action: ActionType) => void
-    // addMessage: () => void
-    // newTextPost: (newText: string) => void
-    // addNewMessage: (newMessage: string) => void
+    dispatch: (action: ActionType)=> void
 }
 
 export function Main(props: MainType) {
@@ -22,14 +19,14 @@ export function Main(props: MainType) {
     return (
         <div className={classes.main}>
             <Route path={'/profile'} render={() => <Profile postData={props.profilePage.postData}
-                                                            newPostText={props.profilePage.newPostText}
+                                                            newPost={props.profilePage.newPost}
                                                             dispatch={props.dispatch}
             />}/>
             <Route path={'/dialogs'}
                    render={() => <Dialogs dialogsData={props.messagesPage.dialogsData}
                                           messageData={props.messagesPage.messageData}
+                                          newMessage={props.messagesPage.newMessage}
                                           dispatch={props.dispatch}
-                                          newMessageText={props.messagesPage.newMessageText}
                    />}/>
             <Route path={'/news'} render={() => <News/>}/>
             <Route path={'/music'} render={() => <Music/>}/>

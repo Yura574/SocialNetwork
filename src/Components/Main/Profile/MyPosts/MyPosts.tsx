@@ -1,30 +1,29 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import {Post} from "../Post/Post";
 import classes from "./MyPosts.module.css";
-import {ActionType, addPostAction, changeAction, PostElementType} from "../../../../Redux/state";
+import {
+    AddPostAC_Type,
+    addPostAC,
+    onChangePostTextAC,
+    OnChangePostTextAC_Type,
+    PostElementType
+} from "../../../../Redux/state";
 
 type MyPostsType = {
     postData: Array<PostElementType>
-    newPostText: string
-    dispatch: (action: ActionType) => void
+    newPost: string
+    dispatch: (action: AddPostAC_Type| OnChangePostTextAC_Type )=> void
 }
 
 
 export function MyPosts(props: MyPostsType) {
-
-    const newPostElement = React.createRef<HTMLTextAreaElement>()
-
-    function addPost() {
-
-        props.dispatch(addPostAction())
+    const post = props.postData.map(p => <Post message={p.message} like={p.like}/>)
+    const onChangePostText=(e:ChangeEvent<HTMLTextAreaElement>)=>{
+            let newPostText = e.target.value
+            props.dispatch(onChangePostTextAC(newPostText))
     }
-
-    function newPostText() {
-
-        if (newPostElement.current) {
-            const newText = newPostElement.current.value
-            props.dispatch(changeAction(newText))
-        }
+    const addPost =() => {
+        props.dispatch(addPostAC())
     }
 
 
@@ -32,8 +31,8 @@ export function MyPosts(props: MyPostsType) {
         <div>
             <h3>My posts</h3>
             <div className={classes.postsWrapper}>
-
-                <textarea ref={newPostElement} onChange={newPostText} value={props.newPostText}/>
+                {post}
+                <textarea value={props.newPost} onChange={onChangePostText}/>
                 <div>
                     <button onClick={addPost}> add</button>
                 </div>
@@ -41,7 +40,6 @@ export function MyPosts(props: MyPostsType) {
 
             <div>
 
-                {props.postData.map(p => <Post message={p.message} like={p.like}/>)}
 
             </div>
         </div>

@@ -9,7 +9,7 @@ import {ActionType, MessagesPage, ProfilePage} from "./Redux/state";
 type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionType)=> void
 }
 
 function App(props: StateType) {
@@ -21,7 +21,7 @@ debugger
                 <NavBar/>
                 <Main messagesPage={props.messagesPage}
                       profilePage={props.profilePage}
-                      dispatch={props.dispatch}
+                      dispatch = { props.dispatch}
                 />
             </div>
         </BrowserRouter>

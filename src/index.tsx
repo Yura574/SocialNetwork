@@ -12,7 +12,7 @@ export function render () {
         <React.StrictMode>
             <App messagesPage={store.getState().messagesPage}
                  profilePage={store.getState().profilePage}
-                 dispatch={store.dispatch.bind(store)}
+                 dispatch = {store.dispatch.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')
@@ -20,6 +20,7 @@ export function render () {
 }
 render()
 store.subscribe(render)
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
