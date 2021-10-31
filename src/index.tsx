@@ -10,9 +10,9 @@ import { store} from "./Redux/state";
 export function render () {
     ReactDOM.render(
         <React.StrictMode>
-            <App messagesPage={store.getState().messagesPage}
-                 profilePage={store.getState().profilePage}
-                 dispatch = {store.dispatch.bind(store)}
+            <App messagesPage={store._state.messagesPage}
+                 profilePage={store._state.profilePage}
+                 dispatch={store.dispatch.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')

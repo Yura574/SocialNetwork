@@ -1,45 +1,38 @@
 import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
-import {
-    ActionType,
-        DialogsElementType,
-    MessageElementType,
-} from "../../../Redux/state";
+import {ActionTypes, DialogsElementType, MessageElementType,} from "../../../Redux/state";
 import {addMessageAC, onChangeMessageTextAC} from "../../../Redux/dialogs_reducer";
 
 type DialogsType = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
     newMessage: string
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 
 export function Dialogs(props: DialogsType) {
-    debugger
-    const names = props.dialogsData.map(p => <div>{p.name}</div>)
-    const messages = props.messageData.map(m => <div>{m.message}</div>)
 
-    const onChangeMessage = (e: ChangeEvent<HTMLInputElement>) => {
-        const message = e.target.value
-        props.dispatch(onChangeMessageTextAC(message))
-    }
+    const name = props.dialogsData.map( d => <div>{d.name}</div>)
+    const message = props.messageData.map(m =><div> {m.message}</div>)
+
     const sendMessage = () => {
         props.dispatch(addMessageAC())
+    }
+    const onChangeMessageText = (e: ChangeEvent<HTMLInputElement>) => {
+        const message = e.target.value
+        props.dispatch(onChangeMessageTextAC(message))
     }
     return (
         <div>
             <div>Dialogs</div>
             <div className={classes.dialogs}>
                 <div className={classes.dialogsName}>
-                    <div>{names} </div>
-
+                    <div>{name}</div>
                 </div>
                 <div className={classes.dialogsMessages}>
-                    {messages}
-                    <input
-                        value={props.newMessage}
-                        onChange={onChangeMessage}/>
+                    {message}
+                    <input value={props.newMessage} onChange={onChangeMessageText}/>
                     <button onClick={sendMessage}> send</button>
                 </div>
             </div>

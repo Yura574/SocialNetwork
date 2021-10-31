@@ -1,10 +1,15 @@
-import {ActionType, AddMessageAC_Type, MessageElementType, MessagesPage, OnChangeMessageTextAC_Type} from "./state";
+import {
+    ActionTypes,
+    AddMessageAC_Type,
+    MessageElementType,
+    MessagesPage,
+    OnChangeMessageText_type,
+} from "./state";
 
-const ADD_MESSAGE = "ADD_MESSAGE"
-const ON_CHANGE_MESSAGE_TEXT = "ON_CHANGE_MESSAGE_TEXT"
+const ADD_MESSAGE = 'ADD_MESSAGE'
+const ON_CHANGE_MESSAGE_TEXT = 'ON_CHANGE_MESSAGE_TEXT'
 
-
-export const dialogs_reducer = (state: MessagesPage, action: ActionType) => {
+export const dialogs_reducer = (state: MessagesPage, action: ActionTypes) => {
     switch (action.type) {
         case ADD_MESSAGE:
             const message: MessageElementType = {
@@ -22,11 +27,11 @@ export const dialogs_reducer = (state: MessagesPage, action: ActionType) => {
     }
 }
 
-
 export const addMessageAC = (): AddMessageAC_Type => ({
     type: ADD_MESSAGE
 })
-export const onChangeMessageTextAC = (newMessageText: string): OnChangeMessageTextAC_Type => ({
+
+export const onChangeMessageTextAC = (messageText: string): OnChangeMessageText_type => ({
     type: ON_CHANGE_MESSAGE_TEXT,
-    newMessageText: newMessageText
+    newMessageText: messageText
 })

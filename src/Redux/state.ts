@@ -29,28 +29,32 @@ export type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
 }
-
 export type StoreType = {
     _state: StateType
-    _setRender: (_state: StateType) => void
+    _setState: (_state: StateType) => void
     getState: () => StateType
     subscribe: (observer: () => void) => void
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
-export type ActionType = AddPostAC_Type | OnChangePostTextAC_Type | AddMessageAC_Type| OnChangeMessageTextAC_Type
+export type ActionTypes =
+    AddPostAC_Type |
+    OnChangePostText_Type |
+    AddMessageAC_Type |
+    OnChangeMessageText_type
+
 export type AddPostAC_Type = {
-    type: "ADD_POST"
+    type: 'ADD_POST'
 }
-export type OnChangePostTextAC_Type = {
-    type: "ON_CHANGE_POST_TEXT"
+export type OnChangePostText_Type = {
+    type: 'ON_CHANGE_POST_TEXT'
     newPostText: string
 }
 export type AddMessageAC_Type = {
-    type: "ADD_MESSAGE"
+    type: 'ADD_MESSAGE'
 }
-export type OnChangeMessageTextAC_Type = {
-    type: "ON_CHANGE_MESSAGE_TEXT"
+export type OnChangeMessageText_type = {
+    type: 'ON_CHANGE_MESSAGE_TEXT',
     newMessageText: string
 }
 
@@ -85,20 +89,21 @@ export let store: StoreType = {
             newPost: 'aaa'
         }
     },
-    _setRender() {
+    _setState(_state) {
+
     },
     getState() {
         return this._state
     },
-    subscribe(observer: () => void) {
-        this._setRender = observer
+    subscribe(observer) {
+        this._setState = observer
     },
-    dispatch(action: ActionType) {
-
+    dispatch(action) {
         this._state.profilePage = profile_reducer(this._state.profilePage, action)
         this._state.messagesPage = dialogs_reducer(this._state.messagesPage, action)
-        this._setRender(this._state)
+        this._setState(this._state)
     }
+
 
 }
 

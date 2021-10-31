@@ -6,12 +6,12 @@ import {Dialogs} from "./Dialogs/Dialogs";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Setting} from "./Setting/Setting";
-import {ActionType, MessagesPage, ProfilePage} from "../../Redux/state";
+import {ActionTypes, MessagesPage, ProfilePage} from "../../Redux/state";
 
 type MainType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
-    dispatch: (action: ActionType)=> void
+    dispatch: (action: ActionTypes)=> void
 }
 
 export function Main(props: MainType) {
