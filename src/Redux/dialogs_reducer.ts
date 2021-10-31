@@ -9,7 +9,27 @@ import {
 const ADD_MESSAGE = 'ADD_MESSAGE'
 const ON_CHANGE_MESSAGE_TEXT = 'ON_CHANGE_MESSAGE_TEXT'
 
-export const dialogs_reducer = (state: MessagesPage, action: ActionTypes) => {
+const initialState: MessagesPage = {
+    dialogsData: [
+        {id: 1, name: 'Yura'},
+        {id: 2, name: 'Alenka'},
+        {id: 3, name: 'Alenka'},
+        {id: 4, name: 'Alenka'},
+        {id: 5, name: 'Alenka'},
+    ],
+    messageData: [
+        {id: 1, message: 'Hello'},
+        {id: 2, message: 'What car is you bought?'},
+        {id: 3, message: 'What '},
+        {id: 4, message: 'What car '},
+        {id: 5, message: 'What car is ?'},
+        {id: 6, message: 'What car is you ?'},
+        {id: 7, message: 'What car is you bought?'},
+    ],
+    newMessage: 'ddd'
+}
+
+export const dialogs_reducer = (state: MessagesPage = initialState, action: ActionTypes) => {
     switch (action.type) {
         case ADD_MESSAGE:
             const message: MessageElementType = {

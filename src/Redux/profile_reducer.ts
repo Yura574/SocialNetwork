@@ -2,8 +2,15 @@ import {ActionTypes, AddPostAC_Type, OnChangePostText_Type, PostElementType, Pro
 
 const ADD_POST = 'ADD_POST'
 const ON_CHANGE_POST_TEXT = 'ON_CHANGE_POST_TEXT'
+const initialState: ProfilePage = {
+           postData: [
+            {id: 1, message: 'My first post', like: 15},
+            {id: 1, message: 'My second post', like: 20}
+        ],
+        newPost: 'aaa'
+    }
 
-export const profile_reducer = (state: ProfilePage, action: ActionTypes) => {
+export const profile_reducer = (state: ProfilePage = initialState, action: ActionTypes) => {
     switch (action.type) {
         case ADD_POST:
             const post: PostElementType = {
