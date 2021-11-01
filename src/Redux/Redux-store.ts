@@ -4,7 +4,7 @@ import {dialogs_reducer} from "./dialogs_reducer";
 
 export const reducers = combineReducers({
     profilePage: profile_reducer,
-    messagesPage: dialogs_reducer
+    dialogsPage: dialogs_reducer
 
 })
 

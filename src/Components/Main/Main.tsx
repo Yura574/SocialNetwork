@@ -5,12 +5,7 @@ import {Profile} from "./Profile/Profile";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Setting} from "./Setting/Setting";
-import {StoreType} from "../../Redux/state";
-import {DialogsContainer} from "./Dialogs/DialogsContainer";
-
-// type MainType = {
-//     store: StoreType
-// }
+import DialogsContainer from "./Dialogs/DialogsContainer";
 
 export function Main() {
 

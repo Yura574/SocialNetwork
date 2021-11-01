@@ -5,7 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {store} from "./Redux/Redux-store";
 import {BrowserRouter} from "react-router-dom";
-import StoreContext from './StoreContext';
+import {Provider} from "react-redux";
 
 
 export function render() {
@@ -13,10 +13,10 @@ export function render() {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <StoreContext.Provider value={store}>
+                <Provider store={store}>
 
                     <App/>
-                </StoreContext.Provider>
+                </Provider>
 
 
             </BrowserRouter>
