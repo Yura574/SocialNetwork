@@ -25,17 +25,19 @@ export type ProfilePage = {
     newPost: string
 }
 //
+
 export type StateType = {
-    messagesPage: MessagesPage
     profilePage: ProfilePage
+    dialogsPage: MessagesPage
 }
-// export type StoreType = {
-//     _state: StateType
-//     _setState: (_state: StateType) => void
-//     getState: () => StateType
-//     subscribe: (observer: () => void) => void
-//     dispatch: (action: ActionTypes) => void
-// }
+
+export type StoreType = {
+
+    getState: () => StateType
+    subscribe: (observer: () => void) => void
+    dispatch: (action: ActionTypes) => void
+
+}
 
 export type ActionTypes =
     AddPostAC_Type |

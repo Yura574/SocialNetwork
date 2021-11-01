@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {Post} from "../Post/Post";
+import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
 import {AddPostAC_Type, OnChangePostText_Type, PostElementType} from "../../../../Redux/state";
 import {addPostAC, onChangePostTextAC} from "../../../../Redux/profile_reducer";
@@ -7,18 +7,18 @@ import {addPostAC, onChangePostTextAC} from "../../../../Redux/profile_reducer";
 type MyPostsType = {
     postData: Array<PostElementType>
     newPost: string
-    dispatch: (action: AddPostAC_Type | OnChangePostText_Type) => void
-
+    addPost: () => void
+    onChangePost: (postText:string) => void
 }
 
 
 export function MyPosts(props: MyPostsType) {
     const addPost = () => {
-        props.dispatch(addPostAC())
+        props.addPost()
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let post = e.target.value
-        props.dispatch(onChangePostTextAC(post))
+        props.onChangePost(post)
     }
     return (
         <div>

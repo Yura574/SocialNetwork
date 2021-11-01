@@ -4,17 +4,14 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {store} from "./Redux/Redux-store";
-import {StateType} from "./Redux/state";
 
 
 
 export function render () {
-    debugger
+    // debugger
     ReactDOM.render(
         <React.StrictMode>
-            <App messagesPage={store.getState().messagesPage}
-                 profilePage={store.getState().profilePage}
-                 dispatch={store.dispatch.bind(store)}
+            <App store={store}
             />
         </React.StrictMode>,
         document.getElementById('root')

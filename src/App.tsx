@@ -4,24 +4,19 @@ import {Header} from "./Components/Header/Header";
 import {NavBar} from "./Components/Navbar/Navbar";
 import {Main} from "./Components/Main/Main";
 import {BrowserRouter} from "react-router-dom";
-import {ActionTypes, MessagesPage, ProfilePage} from "./Redux/state";
+import {StoreType} from "./Redux/state";
 
-type StateType = {
-    messagesPage: MessagesPage
-    profilePage: ProfilePage
-    dispatch: (action: ActionTypes) => void
+type AppStore = {
+  store: any
 }
 
-function App(props: StateType) {
-debugger
+function App(props: AppStore) {
     return (
         <BrowserRouter>
             <div className="App">
                 <Header/>
                 <NavBar/>
-                <Main messagesPage={props.messagesPage}
-                      profilePage={props.profilePage}
-                      dispatch={props.dispatch}
+                <Main store={props.store}
                 />
             </div>
         </BrowserRouter>
