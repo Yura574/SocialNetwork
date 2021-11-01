@@ -4,19 +4,27 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {store} from "./Redux/Redux-store";
+import {BrowserRouter} from "react-router-dom";
+import StoreContext from './StoreContext';
 
 
-
-export function render () {
+export function render() {
     // debugger
     ReactDOM.render(
         <React.StrictMode>
-            <App store={store}
-            />
+            <BrowserRouter>
+                <StoreContext.Provider value={store}>
+
+                    <App/>
+                </StoreContext.Provider>
+
+
+            </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
+
 render()
 store.subscribe(render)
 

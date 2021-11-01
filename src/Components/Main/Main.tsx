@@ -8,18 +8,18 @@ import {Setting} from "./Setting/Setting";
 import {StoreType} from "../../Redux/state";
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
 
-type MainType = {
-    store: StoreType
-}
+// type MainType = {
+//     store: StoreType
+// }
 
-export function Main(props: MainType) {
+export function Main() {
 
     return (
         <div className={classes.main}>
             <Route path={'/profile'} render={() =>
-                <Profile store={props.store}/>}/>
+                <Profile />}/>
             <Route path={'/dialogs'} render={() =>
-                <DialogsContainer store={props.store}/>}/>
+                <DialogsContainer />}/>
             <Route path={'/news'} render={() => <News/>}/>
             <Route path={'/music'} render={() => <Music/>}/>
             <Route path={'/setting'} render={() => <Setting/>}/>

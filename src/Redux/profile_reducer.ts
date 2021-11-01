@@ -18,7 +18,7 @@ export const profile_reducer = (state: ProfilePage = initialState, action: Actio
                 message: state.newPost,
                 like: 0
             }
-            state.postData.push(post)
+            state.postData.unshift(post)
             state.newPost = ''
             return state
         case ON_CHANGE_POST_TEXT:
