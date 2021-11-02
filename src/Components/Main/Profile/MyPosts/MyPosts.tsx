@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
-import { PostElementType} from "../../../../Redux/state";
+import {PostElementType} from "../../../../Redux/profile_reducer";
 
 
 type MyPostsType = {

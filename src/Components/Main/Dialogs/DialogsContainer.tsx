@@ -1,9 +1,14 @@
 import React from "react";
-import {addMessageAC, onChangeMessageTextAC} from "../../../Redux/dialogs_reducer";
+import {
+    addMessageAC,
+    DialogsElementType,
+    MessageElementType,
+    onChangeMessageTextAC
+} from "../../../Redux/dialogs_reducer";
 import {Dialogs} from "./Dialogs";
-import {store} from "../../../Redux/Redux-store";
-import {ActionTypes, StateType} from "../../../Redux/state";
 import {connect} from "react-redux";
+import {StateType} from "../../../Redux/Redux-store";
+import {Dispatch} from "redux";
 
 // export function DialogsContainer() {
 //         const sendMessage = () => {
@@ -25,8 +30,19 @@ import {connect} from "react-redux";
 //         )
 //     }
 
-export const mapStateToProps = (state: StateType) => {
-    debugger
+type MapStateToPropsType = {
+    dialogsData: Array<DialogsElementType>
+    messageData: Array<MessageElementType>
+    newMessage: string
+}
+
+type MapDispatchToProps = {
+    sendMessage: () => void
+    onChangeMessageText: (text: string) => void
+}
+
+
+export const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
         dialogsData: state.dialogsPage.dialogsData,
         messageData: state.dialogsPage.messageData,
@@ -34,7 +50,8 @@ export const mapStateToProps = (state: StateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
+    debugger
     return {
         sendMessage: () => {
             dispatch(addMessageAC())

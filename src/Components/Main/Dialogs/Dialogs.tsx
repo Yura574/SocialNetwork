@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
-import {DialogsElementType, MessageElementType,} from "../../../Redux/state";
+import {DialogsElementType, MessageElementType} from "../../../Redux/dialogs_reducer";
 
 type DialogsType = {
     dialogsData: Array<DialogsElementType>

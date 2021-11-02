@@ -1,37 +1,39 @@
 // import {profile_reducer} from "./profile_reducer";
 // import {dialogs_reducer} from "./dialogs_reducer";
+export type A = {
 
-export type DialogsElementType = {
+}
+ type DialogsElementType = {
     id: number
     name: string
 }
-export type MessageElementType = {
+ type MessageElementType = {
     id: number,
     message: string
 }
-export type PostElementType = {
+ type PostElementType = {
     id: number,
     message: string,
     like: number
 }
 
-export type MessagesPage = {
+ type MessagesPage = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
     newMessage: string
 }
-export type ProfilePage = {
+ type ProfilePage = {
     postData: Array<PostElementType>
     newPost: string
 }
 //
 
-export type StateType = {
+ type StateType = {
     profilePage: ProfilePage
     dialogsPage: MessagesPage
 }
 
-export type StoreType = {
+ type StoreType = {
 
     getState: () => StateType
     subscribe: (observer: () => void) => void
@@ -39,23 +41,23 @@ export type StoreType = {
 
 }
 
-export type ActionTypes =
+ type ActionTypes =
     AddPostAC_Type |
     OnChangePostText_Type |
     AddMessageAC_Type |
     OnChangeMessageText_type
 
-export type AddPostAC_Type = {
+ type AddPostAC_Type = {
     type: 'ADD_POST'
 }
-export type OnChangePostText_Type = {
+ type OnChangePostText_Type = {
     type: 'ON_CHANGE_POST_TEXT'
     newPostText: string
 }
-export type AddMessageAC_Type = {
+ type AddMessageAC_Type = {
     type: 'ADD_MESSAGE'
 }
-export type OnChangeMessageText_type = {
+ type OnChangeMessageText_type = {
     type: 'ON_CHANGE_MESSAGE_TEXT',
     newMessageText: string
 }

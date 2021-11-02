@@ -1,10 +1,25 @@
-import {
-    ActionTypes,
-    AddMessageAC_Type,
-    MessageElementType,
-    MessagesPage,
-    OnChangeMessageText_type,
-} from "./state";
+export type DialogsElementType = {
+    id: number
+    name: string
+}
+export type MessageElementType = {
+    id: number,
+    message: string
+}
+export type MessagesPage = {
+    dialogsData: Array<DialogsElementType>
+    messageData: Array<MessageElementType>
+    newMessage: string
+}
+
+type AddMessageAC_Type = {
+    type: 'ADD_MESSAGE'
+}
+type OnChangeMessageText_type = {
+    type: 'ON_CHANGE_MESSAGE_TEXT',
+    newMessageText: string
+}
+
 
 const ADD_MESSAGE = 'ADD_MESSAGE'
 const ON_CHANGE_MESSAGE_TEXT = 'ON_CHANGE_MESSAGE_TEXT'
@@ -29,19 +44,22 @@ const initialState: MessagesPage = {
     newMessage: 'ddd'
 }
 
-export const dialogs_reducer = (state: MessagesPage = initialState, action: ActionTypes) => {
+export const dialogs_reducer = (state: MessagesPage = initialState, action: AddMessageAC_Type | OnChangeMessageText_type): MessagesPage => {
     switch (action.type) {
         case ADD_MESSAGE:
-            const message: MessageElementType = {
-                id: 5,
-                message: state.newMessage
+            const message = state.newMessage
+            return {
+                ...state,
+                newMessage: '',
+                messageData: [...state.messageData, {id: 5, message: message}]
             }
-            state.messageData.push(message)
-            state.newMessage = ''
-            return state
-        case ON_CHANGE_MESSAGE_TEXT:
-            state.newMessage = action.newMessageText
-            return state
+
+        case ON_CHANGE_MESSAGE_TEXT: {
+            return {
+                ...state,
+                newMessage: action.newMessageText
+            }
+        }
         default:
             return state
     }
