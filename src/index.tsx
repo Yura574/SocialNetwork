@@ -9,12 +9,10 @@ import {Provider} from "react-redux";
 
 
 export function render() {
-    // debugger
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
                 <Provider store={store}>
-
                     <App/>
                 </Provider>
 
@@ -26,7 +24,6 @@ export function render() {
 }
 
 render()
-store.subscribe(render)
 
 
 // If you want to start measuring performance in your app, pass a function

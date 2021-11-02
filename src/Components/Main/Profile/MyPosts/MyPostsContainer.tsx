@@ -1,5 +1,4 @@
 import React from "react";
-
 import {connect} from "react-redux";
 import {MyPosts} from "./MyPosts";
 import {addPostAC, onChangePostTextAC, PostElementType} from "../../../../Redux/profile_reducer";
@@ -15,7 +14,7 @@ type MapDispatchToProps = {
     onChangePost: (text: string) => void
 }
 
-export const mapStateToProps = (state: StateType): MapStateToProps => {
+export const mapStateToProps = (    state: StateType): MapStateToProps => {
     return {
         postData: state.profilePage.postData,
         newPost: state.profilePage.newPost

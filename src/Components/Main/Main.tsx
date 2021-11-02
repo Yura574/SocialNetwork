@@ -12,9 +12,9 @@ export function Main() {
     return (
         <div className={classes.main}>
             <Route path={'/profile'} render={() =>
-                <Profile />}/>
+                <Profile/>}/>
             <Route path={'/dialogs'} render={() =>
-                <DialogsContainer />}/>
+                <DialogsContainer/>}/>
             <Route path={'/news'} render={() => <News/>}/>
             <Route path={'/music'} render={() => <Music/>}/>
             <Route path={'/setting'} render={() => <Setting/>}/>

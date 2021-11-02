@@ -10,25 +10,6 @@ import {connect} from "react-redux";
 import {StateType} from "../../../Redux/Redux-store";
 import {Dispatch} from "redux";
 
-// export function DialogsContainer() {
-//         const sendMessage = () => {
-//             store.dispatch(addMessageAC())
-//         }
-//         const onChangeMessageText = (messageText: string) => {
-//
-//            store.dispatch(onChangeMessageTextAC(messageText))
-//         }
-//
-//
-//         return (
-//             <Dialogs dialogsData={store.getState().messagesPage.dialogsData}
-//                      messageData={store.getState().messagesPage.messageData}
-//                      newMessage={store.getState().messagesPage.newMessage}
-//                      sendMessage={sendMessage}
-//                      onChangeMessageText={onChangeMessageText}
-//             />
-//         )
-//     }
 
 type MapStateToPropsType = {
     dialogsData: Array<DialogsElementType>
@@ -40,7 +21,6 @@ type MapDispatchToProps = {
     sendMessage: () => void
     onChangeMessageText: (text: string) => void
 }
-
 
 export const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
