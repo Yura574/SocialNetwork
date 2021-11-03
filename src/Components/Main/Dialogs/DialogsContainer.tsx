@@ -22,7 +22,7 @@ type MapDispatchToProps = {
     onChangeMessageText: (text: string) => void
 }
 
-export const mapStateToProps = (state: StateType): MapStateToPropsType => {
+ const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
         dialogsData: state.dialogsPage.dialogsData,
         messageData: state.dialogsPage.messageData,

@@ -14,7 +14,7 @@ type MapDispatchToProps = {
     onChangePost: (text: string) => void
 }
 
-export const mapStateToProps = (    state: StateType): MapStateToProps => {
+const mapStateToProps = (    state: StateType): MapStateToProps => {
     return {
         postData: state.profilePage.postData,
         newPost: state.profilePage.newPost
