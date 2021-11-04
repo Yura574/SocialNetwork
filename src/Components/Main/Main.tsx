@@ -6,6 +6,7 @@ import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Setting} from "./Setting/Setting";
 import DialogsContainer from "./Dialogs/DialogsContainer";
+import UsersContainer from "./UsersPage/UsersContainer";
 
 export function Main() {
 
@@ -18,6 +19,7 @@ export function Main() {
             <Route path={'/news'} render={() => <News/>}/>
             <Route path={'/music'} render={() => <Music/>}/>
             <Route path={'/setting'} render={() => <Setting/>}/>
+            <Route path={'/users'} render={() => <UsersContainer />}/>
         </div>
     )
 }
