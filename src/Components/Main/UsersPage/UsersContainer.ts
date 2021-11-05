@@ -1,4 +1,3 @@
-
 import {connect} from "react-redux";
 import {StateType} from "../../../Redux/Redux-store";
 import {Dispatch} from "redux";
@@ -7,7 +6,8 @@ import {Users} from "./User";
 
 
 type MapStateToPropsType = {
-   users: Array<UserType>
+    users: Array<UserType>
+    // name: Array<sri>
 }
 
 type MapDispatchToProps = {
@@ -18,7 +18,8 @@ type MapDispatchToProps = {
 
 const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        // name: state.usersPage.users.map( n => <div> n.name</div>)
     }
 }
 

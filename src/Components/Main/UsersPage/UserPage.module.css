@@ -3,3 +3,32 @@
     height: 100px;
     border-radius: 50%;
 }
+.users {
+    display: flex;
+}
+.follow {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+.follow button {
+    margin-top: 5px;
+    border-radius: 10px;
+}
+
+.descriptionFollows {
+    border: 1px solid black;
+    width: 100%;
+    margin: 10px 0 10px 30px;
+    border-radius: 10px;
+}
+.name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+    height: 100%;
+    padding-left: 15px
+}

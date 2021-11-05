@@ -13,7 +13,7 @@ type DialogsType = {
 
 export function Dialogs(props: DialogsType) {
 
-    const name = props.dialogsData.map(d => <div>{d.name}</div>)
+    const name = props.dialogsData.map(d =>  <div>{d.name}</div>)
     const message = props.messageData.map(m => <div> {m.message}</div>)
 
     const sendMessage = () => {

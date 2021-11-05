@@ -8,6 +8,8 @@ export type UserType = {
     follow: boolean
     status: string
     location: LocationType
+    name: string
+
 }
 export type UsersPageType = {
     users: Array<UserType>
@@ -34,11 +36,11 @@ export const SET_USERS = "SET_USERS"
 
 const initialState: UsersPageType = {
     users: [
-        {id: 1, photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
+        {id: 1, name: 'Yura', photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
             follow: true, status: 'I am student', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: 2, photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
+        {id: 2, name:'Alenka',  photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
             follow: true, status: 'I am student', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: 3, photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
+        {id: 3, name:'Marina',  photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
             follow: true, status: 'I am student', location: {city: 'Minsk', country: 'Belarus'}},
     ]
 }
