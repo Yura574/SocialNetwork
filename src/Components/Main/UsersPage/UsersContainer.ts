@@ -19,7 +19,6 @@ type MapDispatchToProps = {
 const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
         users: state.usersPage.users,
-        // name: state.usersPage.users.map( n => <div> n.name</div>)
     }
 }
 

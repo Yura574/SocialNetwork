@@ -10,21 +10,40 @@ type UsersType = {
 }
 
 export function Users(props: UsersType) {
-// const name = props.users.map( n => n.name)
+    debugger
+
+    if (props.users.length === 0) {
+        props.setUsers([])
+    }
+
     return (
         <div>
             <div>Users</div>
             <div>
                 <div>
                     {props.users.map(u => {
-                        return <div className={classes.users}>
+                        return <div key={u.id} className={classes.users}>
                             <div className={classes.follow}><img src={u.photo} alt={'avatar'} className={classes.img}/>
-                                <button onClick={() => props.follow(u.id)}>follow</button>
+                                {u.follow
+                                    ? <button onClick={() => {
+                                        props.unfollow(u.id)
+                                    }}>Follow</button>
+                                    : <button onClick={() => props.follow(u.id)}>Unfollow</button>}
                             </div>
                             <div className={classes.descriptionFollows}>
-                                <div className={classes.name}>
-                                    <div>{u.name}</div>
-                                    <div>{u.status}</div>
+                                <div className={classes.nameInform}>
+                                    <div className={classes.name}>
+                                        <div>{u.name}</div>
+                                        <div>{u.status}</div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            {u.location.city}
+                                        </div>
+                                        <div>
+                                            {u.location.country}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

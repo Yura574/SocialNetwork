@@ -5,6 +5,7 @@ import {NavBar} from "./Components/Navbar/Navbar";
 import {Main} from "./Components/Main/Main";
 
 function App() {
+    debugger
     return (
 
             <div className="App">

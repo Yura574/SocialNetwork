@@ -24,11 +24,15 @@
     margin: 10px 0 10px 30px;
     border-radius: 10px;
 }
+.nameInform {
+    display: flex;
+justify-content: space-between;
+
+    height: 70%;
+    padding: 20px
+}
 .name {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 200px;
-    height: 100%;
-    padding-left: 15px
 }

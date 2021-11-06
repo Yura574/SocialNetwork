@@ -9,6 +9,7 @@ import DialogsContainer from "./Dialogs/DialogsContainer";
 import UsersContainer from "./UsersPage/UsersContainer";
 
 export function Main() {
+    debugger
 
     return (
         <div className={classes.main}>
