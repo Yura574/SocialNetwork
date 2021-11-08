@@ -1,6 +1,8 @@
+import axios from "axios";
 import React from "react";
 import {UserType} from "../../../Redux/users_reducer";
 import classes from './UserPage.module.css'
+
 
 type UsersType = {
     users: Array<UserType>
@@ -13,7 +15,10 @@ export function Users(props: UsersType) {
     debugger
 
     if (props.users.length === 0) {
-        props.setUsers([])
+        debugger
+axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+    props.setUsers
+})
     }
 
     return (
@@ -38,10 +43,10 @@ export function Users(props: UsersType) {
                                     </div>
                                     <div>
                                         <div>
-                                            {u.location.city}
+                                            {'u.location.city'}
                                         </div>
                                         <div>
-                                            {u.location.country}
+                                            {'u.location.country'}
                                         </div>
                                     </div>
                                 </div>

@@ -7,7 +7,6 @@ import {Users} from "./User";
 
 type MapStateToPropsType = {
     users: Array<UserType>
-    // name: Array<sri>
 }
 
 type MapDispatchToProps = {
@@ -18,12 +17,11 @@ type MapDispatchToProps = {
 
 const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
-        users: state.usersPage.users,
+        users: state.usersPage.users
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-    debugger
     return {
         follow: (userId: number) => {
             dispatch(followAC(userId))

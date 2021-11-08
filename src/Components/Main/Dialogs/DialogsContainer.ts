@@ -30,7 +30,6 @@ type MapDispatchToProps = {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-    debugger
     return {
         sendMessage: () => {
             dispatch(addMessageAC())
