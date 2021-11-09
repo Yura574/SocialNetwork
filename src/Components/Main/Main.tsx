@@ -9,7 +9,6 @@ import DialogsContainer from "./Dialogs/DialogsContainer";
 import UsersContainer from "./UsersPage/UsersContainer";
 
 export function Main() {
-
     return (
         <div className={classes.main}>
             <Route path={'/profile'} render={() =>

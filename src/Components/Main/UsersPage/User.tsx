@@ -11,51 +11,55 @@ type UsersType = {
     setUsers: (users: Array<UserType>) => void
 }
 
-export function Users(props: UsersType) {
-    debugger
-
-    if (props.users.length === 0) {
-        debugger
-axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-    props.setUsers
-})
+export class Users extends React.Component <UsersType> {
+    getUsers = () => {
+        if (this.props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                this.props.setUsers(response.data.items)
+            })
+        }
     }
 
-    return (
-        <div>
-            <div>Users</div>
+    render() {
+        console.log('sd')
+        return (
             <div>
+                <button onClick={this.getUsers}>Get Users</button>
                 <div>
-                    {props.users.map(u => {
-                        return <div key={u.id} className={classes.users}>
-                            <div className={classes.follow}><img src={u.photo} alt={'avatar'} className={classes.img}/>
-                                {u.follow
-                                    ? <button onClick={() => {
-                                        props.unfollow(u.id)
-                                    }}>Follow</button>
-                                    : <button onClick={() => props.follow(u.id)}>Unfollow</button>}
-                            </div>
-                            <div className={classes.descriptionFollows}>
-                                <div className={classes.nameInform}>
-                                    <div className={classes.name}>
-                                        <div>{u.name}</div>
-                                        <div>{u.status}</div>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            {'u.location.city'}
+                    <div>
+                        {this.props.users.map(u => <div key={u.id} className={classes.users}>
+                                <div className={classes.follow}>
+                                    <img
+                                        src={u.photo != null ? u.photo : 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg'}
+                                        alt={'avatar'} className={classes.img}/>
+                                    {u.follow
+                                        ? <button onClick={() => {
+                                            this.props.unfollow(u.id)
+                                        }}>Unfollow</button>
+                                        : <button onClick={() => this.props.follow(u.id)}>Follow</button>}
+                                </div>
+                                <div className={classes.descriptionFollows}>
+                                    <div className={classes.nameInform}>
+                                        <div className={classes.name}>
+                                            <div>{u.name}</div>
+                                            <div>{u.status}</div>
                                         </div>
                                         <div>
-                                            {'u.location.country'}
+                                            <div>
+                                                {'u.location.city'}
+                                            </div>
+                                            <div>
+                                                {'u.location.country'}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    })}
+                        )}
+                    </div>
                 </div>
-            </div>
 
-        </div>
-    )
+            </div>
+        )
+    }
 }

@@ -9,7 +9,6 @@ import {Provider} from "react-redux";
 
 
 export function render() {
-    // debugger
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
