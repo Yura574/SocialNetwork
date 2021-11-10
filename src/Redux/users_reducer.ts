@@ -3,16 +3,23 @@ export type LocationType = {
     country: string
 }
 export type UserType = {
+    name: string
     id: number
-    photo: string
-    follow: boolean
+    photos: {
+        small: string
+        large: string
+    }
+    followed: boolean
     status: string
     location: LocationType
-    name: string
+
 
 }
 export type UsersPageType = {
     users: Array<UserType>
+    pageCount: number
+    currentPage: number
+    allPage: number
 }
 
 export type FollowAC_type = {
@@ -27,28 +34,28 @@ export type SetUsersAC_type = {
     type: "SET_USERS"
     users: Array<UserType>
 }
-export type ActionUserType = FollowAC_type | UnFollowAC_type | SetUsersAC_type
+export type SetCurrentPageAC_type = {
+    type: "SET_CURRENT_PAGE"
+    page: number
+}
+export type SetAllPageAC_type = {
+    type: "SET_ALL_PAGE"
+    page: number
+}
+export type ActionUserType = FollowAC_type | UnFollowAC_type | SetUsersAC_type | SetCurrentPageAC_type | SetAllPageAC_type
 
 export const FOLLOW = "FOLLOW"
 export const UNFOLLOW = "UNFOLLOW"
 export const SET_USERS = "SET_USERS"
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
+export const SET_ALL_PAGE = "SET_ALL_PAGE"
 
 
 const initialState: UsersPageType = {
-    users: [
-        // {
-        //     id: 1, name: 'Yura', photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
-        //     follow: false, status: 'I am student', location: {city: 'Minsk', country: 'Belarus'}
-        // },
-        // {
-        //     id: 2, name: 'Alenka', photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
-        //     follow: true, status: 'I am student', location: {city: 'Minsk', country: 'Belarus'}
-        // },
-        // {
-        //     id: 3, name: 'Marina', photo: 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg',
-        //     follow: true, status: 'I am student', location: {city: 'Minsk', country: 'Belarus'}
-        // },
-    ]
+    users: [],
+    pageCount: 5,
+    currentPage: 0,
+    allPage: 0
 }
 
 export const users_reducer = (state: UsersPageType = initialState, action: ActionUserType): UsersPageType => {
@@ -75,7 +82,11 @@ export const users_reducer = (state: UsersPageType = initialState, action: Actio
             }
         case SET_USERS:
             return {
-                ...state, users: [ ...action.users]
+                ...state, users: [...action.users]
+            }
+        case SET_CURRENT_PAGE:
+            return  {
+                ...state, currentPage: action.page
             }
 
         default:
@@ -87,13 +98,19 @@ export const followAC = (userId: number) => ({
     type: FOLLOW,
     userId: userId
 })
-
 export const unFollowAC = (userId: number) => ({
     type: UNFOLLOW,
     userId: userId
 })
-
 export const setUsersAC = (users: Array<UserType>) => ({
     type: SET_USERS,
     users: users
+})
+export const setCurrentPageAC = (page: number) => ({
+    type: SET_CURRENT_PAGE,
+    page: page
+})
+export const setAllPageAC = (page: number) => ({
+    type: SET_ALL_PAGE,
+    page: page
 })
