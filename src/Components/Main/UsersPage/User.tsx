@@ -12,7 +12,8 @@ type UsersType = {
 }
 
 export class Users extends React.Component <UsersType> {
-    getUsers = () => {
+
+    componentDidMount() {
         if (this.props.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
                 this.props.setUsers(response.data.items)
@@ -24,7 +25,6 @@ export class Users extends React.Component <UsersType> {
         console.log('sd')
         return (
             <div>
-                <button onClick={this.getUsers}>Get Users</button>
                 <div>
                     <div>
                         {this.props.users.map(u => <div key={u.id} className={classes.users}>
