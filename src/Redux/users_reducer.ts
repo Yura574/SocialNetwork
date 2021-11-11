@@ -17,9 +17,9 @@ export type UserType = {
 }
 export type UsersPageType = {
     users: Array<UserType>
-    pageCount: number
+    pageSize: number
     currentPage: number
-    allPage: number
+    totalCount: number
 }
 
 export type FollowAC_type = {
@@ -36,26 +36,27 @@ export type SetUsersAC_type = {
 }
 export type SetCurrentPageAC_type = {
     type: "SET_CURRENT_PAGE"
-    page: number
+    currentPage: number
 }
-export type SetAllPageAC_type = {
-    type: "SET_ALL_PAGE"
-    page: number
+export type SetTotalCountAC_type = {
+    type: "SET_TOTAL_COUNT"
+    totalCount: number
 }
-export type ActionUserType = FollowAC_type | UnFollowAC_type | SetUsersAC_type | SetCurrentPageAC_type | SetAllPageAC_type
+
+export type ActionUserType = FollowAC_type | UnFollowAC_type | SetUsersAC_type | SetCurrentPageAC_type | SetTotalCountAC_type
 
 export const FOLLOW = "FOLLOW"
 export const UNFOLLOW = "UNFOLLOW"
 export const SET_USERS = "SET_USERS"
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
-export const SET_ALL_PAGE = "SET_ALL_PAGE"
+export const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
 
 
 const initialState: UsersPageType = {
     users: [],
-    pageCount: 5,
+    pageSize: 5,
     currentPage: 0,
-    allPage: 0
+    totalCount: 0
 }
 
 export const users_reducer = (state: UsersPageType = initialState, action: ActionUserType): UsersPageType => {
@@ -86,7 +87,11 @@ export const users_reducer = (state: UsersPageType = initialState, action: Actio
             }
         case SET_CURRENT_PAGE:
             return  {
-                ...state, currentPage: action.page
+                ...state, currentPage: action.currentPage
+            }
+        case SET_TOTAL_COUNT:
+            return  {
+                ...state, totalCount: action.totalCount
             }
 
         default:
@@ -106,11 +111,11 @@ export const setUsersAC = (users: Array<UserType>) => ({
     type: SET_USERS,
     users: users
 })
-export const setCurrentPageAC = (page: number) => ({
+export const setCurrentPageAC = (currentPage: number) => ({
     type: SET_CURRENT_PAGE,
-    page: page
+    currentPage: currentPage
 })
-export const setAllPageAC = (page: number) => ({
-    type: SET_ALL_PAGE,
-    page: page
+export const setTotalCountAC = (totalCount: number) => ({
+    type: SET_TOTAL_COUNT,
+    totalCount: totalCount
 })

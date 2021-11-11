@@ -1,11 +1,13 @@
-.img{
+.img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
 }
+
 .users {
     display: flex;
 }
+
 .follow {
     display: flex;
     flex-direction: column;
@@ -13,6 +15,7 @@
     margin-left: 20px;
     margin-top: 15px;
 }
+
 .follow button {
     margin-top: 5px;
     border-radius: 10px;
@@ -24,15 +27,20 @@
     margin: 10px 0 10px 30px;
     border-radius: 10px;
 }
+
 .nameInform {
     display: flex;
-justify-content: space-between;
-
+    justify-content: space-between;
     height: 70%;
     padding: 20px
 }
+
 .name {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.usersPage {
+    font-weight: bold;
 }
