@@ -36,3 +36,19 @@ justify-content: space-between;
     flex-direction: column;
     justify-content: space-between;
 }
+
+.currentUsersPage {
+    font-weight: bold;
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px 2px 0 2px;
+}
+.usersPage {
+    display: inline-block;
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 5px;
+
+    margin: 5px 2px 0 2px;
+}
