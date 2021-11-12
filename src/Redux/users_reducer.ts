@@ -13,8 +13,6 @@ export type UserType = {
     photos: photosType
     followed: boolean
     location: LocationType
-
-
 }
 export type UsersPageType = {
     users: Array<UserType>
