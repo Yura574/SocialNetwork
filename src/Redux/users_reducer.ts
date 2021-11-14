@@ -11,7 +11,7 @@ export type UserType = {
     name: string
     status: string
     photos: photosType
-    followed: boolean
+    follow: boolean
     location: LocationType
 }
 export type UsersPageType = {
