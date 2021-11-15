@@ -104,6 +104,5 @@ const mapDispatchToProps: MapDispatchToPropsType = {
 
 
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
-// export default UsersContainer
 
 

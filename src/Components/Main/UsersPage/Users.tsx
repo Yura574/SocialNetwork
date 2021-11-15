@@ -1,6 +1,7 @@
 import classes from "./UserPage.module.css";
 import React from "react";
 import {UserType} from "../../../Redux/users_reducer";
+import { NavLink } from "react-router-dom";
 
 type UsersType = {
     users: Array<UserType>
@@ -18,7 +19,6 @@ export function Users (props: UsersType) {
     for (let i = 1; i <= pageCount; i++){
         page.push(i)
     }
-
     return (
         <div>
             <div>
@@ -28,9 +28,11 @@ export function Users (props: UsersType) {
             </div>
             {props.users.map(u => <div key={u.id} className={classes.users}>
                     <div className={classes.follow}>
-                        <img
+                        <NavLink to={'profile/' + u.id}>
+                         <img
                             src={u.photos.small != null ? u.photos.small : 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg'}
                             alt={'avatar'} className={classes.img}/>
+                        </NavLink>
                         {u.follow
                             ? <button onClick={() => {
                                 props.unfollow(u.id)

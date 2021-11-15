@@ -1,3 +1,4 @@
+import {ProfileUserType} from "../Components/Main/Profile/ProfileContainer";
 
 export type PostElementType = {
     id: number,
@@ -7,27 +8,35 @@ export type PostElementType = {
 export type ProfilePage = {
     postData: Array<PostElementType>
     newPost: string
+    profile: any
 }
 
 type AddPostAC_Type = {
     type: 'ADD_POST'
 }
-type OnChangePostText_Type = {
+type OnChangePostTextAC_Type = {
     type: 'ON_CHANGE_POST_TEXT'
     newPostText: string
+}
+type setUserProfileAC_Type = {
+    type: 'SET_USER_PROFILE'
+    profile: ProfileUserType
 }
 
 const ADD_POST = 'ADD_POST'
 const ON_CHANGE_POST_TEXT = 'ON_CHANGE_POST_TEXT'
-const initialState: ProfilePage = {
-           postData: [
-            {id: 1, message: 'My first post', like: 15},
-            {id: 1, message: 'My second post', like: 20}
-        ],
-        newPost: 'aaa'
-    }
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
-export const profile_reducer = (state: ProfilePage = initialState, action: AddPostAC_Type | OnChangePostText_Type): ProfilePage => {
+const initialState: ProfilePage = {
+    postData: [
+        {id: 1, message: 'My first post', like: 15},
+        {id: 1, message: 'My second post', like: 20}
+    ],
+    profile: null,
+    newPost: 'aaa'
+}
+
+export const profile_reducer = (state: ProfilePage = initialState, action: AddPostAC_Type | OnChangePostTextAC_Type | setUserProfileAC_Type): ProfilePage => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -41,6 +50,12 @@ export const profile_reducer = (state: ProfilePage = initialState, action: AddPo
                 newPost: action.newPostText
             }
 
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            }
+
         default:
             return state
     }
@@ -49,7 +64,11 @@ export const addPostAC = (): AddPostAC_Type => ({
     type: ADD_POST
 })
 
-export const onChangePostTextAC = (postText: string): OnChangePostText_Type => ({
+export const onChangePostTextAC = (postText: string): OnChangePostTextAC_Type => ({
     type: ON_CHANGE_POST_TEXT,
     newPostText: postText
+})
+export const setUserProfile = (profile: any): setUserProfileAC_Type => ({
+    type: SET_USER_PROFILE,
+    profile
 })

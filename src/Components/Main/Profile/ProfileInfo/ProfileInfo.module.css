@@ -1,8 +1,26 @@
-.image{
+.image {
     width: 100%;
     height: 200px;
 }
 
 .description {
+    display: flex;
     padding: 10px;
+
+}
+.profileData {
+    margin-left: 20px;
+}
+
+.ava {
+    border-radius: 50%;
+}
+.contacts{
+    display: flex;
+}
+.contactsItems{
+    margin-left: 10px;
+}
+.imageJob {
+    width: 100px;
 }
