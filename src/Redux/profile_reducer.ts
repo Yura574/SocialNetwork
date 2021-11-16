@@ -8,7 +8,7 @@ export type PostElementType = {
 export type ProfilePage = {
     postData: Array<PostElementType>
     newPost: string
-    profile: any
+    profile: ProfileUserType | null
 }
 
 type AddPostAC_Type = {

@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import axios from "axios";
 import {setUserProfile} from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/Redux-store";
+import {RouteComponentProps, withRouter} from "react-router";
 
 type ContactsType = {
     facebook: string
@@ -29,34 +30,46 @@ export type ProfileUserType = {
     userId: number
     photos: PhotosType
 }
-type ProfileDataType = {
-    profile: ProfileUserType
-    setUserProfile: (profile: ProfileUserType) => void
-
+type MapStateToPropsType = {
+   profile: ProfileUserType | null
+}
+type MapDispatchToPropsType = {
+   setUserProfile: (profile: ProfileUserType) => void
 }
 
-export class ProfileData extends React.Component<ProfileDataType> {
+type PathParamType = {
+    userId: string
+}
+
+type PropsType = RouteComponentProps<PathParamType> & ProfileDataType
+
+type ProfileDataType = MapStateToPropsType & MapDispatchToPropsType
+export class ProfileData extends React.Component<PropsType> {
+
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/2').then(response => {
+        let userId = this.props.match.params.userId
+        axios.get('https://social-network.samuraijs.com/api/1.0/profile/'+ userId).then(response => {
             this.props.setUserProfile(response.data)
         })
     }
 
     render() {
         return <>
-            <Profile profile={this.props.profile}/>
+             <Profile profile={this.props.profile}/>
         </>
 
 
     }
 }
 
-let mapStateToProps = (state: StateType) => ({
+let mapStateToProps = (state: StateType): MapStateToPropsType => ({
     profile: state.profilePage.profile
 })
 
-let mapDispatchToProps = {
+let mapDispatchToProps : MapDispatchToPropsType = {
     setUserProfile
 }
 
-export const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileData)
+let ProfileDataWithRoute = withRouter(ProfileData)
+
+export const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileDataWithRoute)

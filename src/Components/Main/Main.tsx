@@ -12,7 +12,7 @@ import {ProfileContainer} from "./Profile/ProfileContainer";
 export function Main() {
     return (
         <div className={classes.main}>
-            <Route path={'/profile'} render={() =>
+            <Route path={'/profile/:userId'} render={() =>
                 <ProfileContainer />}/>
             <Route path={'/dialogs'} render={() =>
                 <DialogsContainer/>}/>
