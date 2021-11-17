@@ -48,7 +48,9 @@ export class ProfileData extends React.Component<PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/'+ userId).then(response => {
+        axios.get('https://social-network.samuraijs.com/api/1.0/profile/'+ userId,{
+            withCredentials: true
+        }).then(response => {
                this.props.setUserProfile(response.data)
         })
     }

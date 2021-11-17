@@ -17,7 +17,6 @@ export class HeaderAPIData extends React.Component<HeaderAPIDataType> {
             withCredentials: true
         }).then(response => {
               if(response.data.resultCode === 0){
-                  // let {email, id, login } =
                   this.props.setUserAuthData(response.data.data)
               }
             }
