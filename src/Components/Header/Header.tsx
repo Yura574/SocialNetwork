@@ -1,12 +1,25 @@
 import React from "react";
 import classes from "./Header.module.css";
+import { DataAuthMeType} from "../../Redux/auth_reducer";
+import { NavLink } from "react-router-dom";
 
-export function Header() {
+type HeaderType = {
+    data: DataAuthMeType | null
+    isAuth: boolean
+}
+
+export function Header(props: HeaderType) {
     return (
         <header className={classes.header}>
             <img
                 src={'https://i.pinimg.com/originals/3f/3d/d9/3f3dd9219f7bb1c9617cf4f154b70383.jpg'}
                 alt={'logo'}/>
+            <div className={classes.loginBlock}>
+                {props.isAuth
+                    ? props.data?.login
+                   : <NavLink to={'login'}>Login</NavLink>
+                }
+            </div>
         </header>
     )
 }
