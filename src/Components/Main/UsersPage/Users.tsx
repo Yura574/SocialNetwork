@@ -2,7 +2,7 @@ import classes from "./UserPage.module.css";
 import React from "react";
 import {UserType} from "../../../Redux/users_reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {followAPI} from "../../../API/api";
 
 type UsersType = {
     users: Array<UserType>
@@ -39,30 +39,12 @@ export function Users(props: UsersType) {
                         </NavLink>
                         {u.followed
                             ? <button onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                    withCredentials: true,
-                                    headers: {
-                                        "API-KEY": "83eb14c5-27df-4d8f-b745-d61831d51bfa"
-                                    }
-                                }).then(response => {
-                                    if (response.data.resultCode === 0) {
-                                        props.unFollow(u.id)
-                                    }
-                                })
+                                followAPI.unfollowUser(u.id, props.unFollow)
                             }} className={classes.unfollowButton}>Unfollow</button>
 
-                            : <button onClick={() =>
-                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                    withCredentials: true,
-                                    headers: {
-                                        "API-KEY": "83eb14c5-27df-4d8f-b745-d61831d51bfa"
-                                    }
-                                }).then(response => {
-                                    if (response.data.resultCode === 0) {
-                                        props.follow(u.id)
-                                    }
-                                })
-                            }>Follow</button>}
+                            : <button onClick={() => {
+                                followAPI.followUser(u.id, props.follow)
+                            }}>Follow</button>}
                     </div>
                     <div className={classes.descriptionFollows}>
                         <div className={classes.nameInform}>

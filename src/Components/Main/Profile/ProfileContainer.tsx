@@ -1,10 +1,10 @@
 import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import axios from "axios";
 import {setUserProfile} from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/Redux-store";
 import {RouteComponentProps, withRouter} from "react-router";
+import {profileAPI} from "../../../API/api";
 
 type ContactsType = {
     facebook: string
@@ -31,10 +31,10 @@ export type ProfileUserType = {
     photos: PhotosType
 }
 type MapStateToPropsType = {
-   profile: ProfileUserType | null
+    profile: ProfileUserType | null
 }
 type MapDispatchToPropsType = {
-   setUserProfile: (profile: ProfileUserType) => void
+    setUserProfile: (profile: ProfileUserType) => void
 }
 
 type PathParamType = {
@@ -44,20 +44,17 @@ type PathParamType = {
 type PropsType = RouteComponentProps<PathParamType> & ProfileDataType
 
 type ProfileDataType = MapStateToPropsType & MapDispatchToPropsType
+
 export class ProfileData extends React.Component<PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/'+ userId,{
-            withCredentials: true
-        }).then(response => {
-               this.props.setUserProfile(response.data)
-        })
+        profileAPI.setPage(userId, this.props.setUserProfile)
     }
 
     render() {
         return <>
-             <Profile profile={this.props.profile}/>
+            <Profile profile={this.props.profile}/>
         </>
 
 
@@ -68,7 +65,7 @@ let mapStateToProps = (state: StateType): MapStateToPropsType => ({
     profile: state.profilePage.profile
 })
 
-let mapDispatchToProps : MapDispatchToPropsType = {
+let mapDispatchToProps: MapDispatchToPropsType = {
     setUserProfile
 }
 
