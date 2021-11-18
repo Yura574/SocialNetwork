@@ -10,8 +10,9 @@ type UsersType = {
     totalUsersCount: number
     currentPage: number
     follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    unFollow: (userId: number) => void
     onChangePage: (page: number) => void
+    // followed: boolean
 }
 
 export function Users(props: UsersType) {
@@ -36,7 +37,7 @@ export function Users(props: UsersType) {
                                 src={u.photos.small != null ? u.photos.small : 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg'}
                                 alt={'avatar'} className={classes.img}/>
                         </NavLink>
-                        {u.follow
+                        {u.followed
                             ? <button onClick={() => {
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                     withCredentials: true,
@@ -45,10 +46,11 @@ export function Users(props: UsersType) {
                                     }
                                 }).then(response => {
                                     if (response.data.resultCode === 0) {
-                                        props.unfollow(u.id)
+                                        props.unFollow(u.id)
                                     }
                                 })
-                            }}>Unfollow</button>
+                            }} className={classes.unfollowButton}>Unfollow</button>
+
                             : <button onClick={() =>
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                     withCredentials: true,

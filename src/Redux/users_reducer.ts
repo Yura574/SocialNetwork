@@ -11,7 +11,7 @@ export type UserType = {
     name: string
     status: string
     photos: photosType
-    follow: boolean
+    followed: boolean
     location: LocationType
 }
 export type UsersPageType = {
@@ -73,7 +73,7 @@ export const users_reducer = (state: UsersPageType = initialState, action: Actio
                 ...state,
                 users: state.users.map(u => {
                     if (u.id === action.userId) {
-                        return {...u, follow: true}
+                        return {...u, followed: true}
                     }
                     return u
                 })
@@ -83,7 +83,7 @@ export const users_reducer = (state: UsersPageType = initialState, action: Actio
                 ...state,
                 users: state.users.map(u => {
                     if (u.id === action.userId) {
-                        return {...u, follow: false}
+                        return {...u, followed: false}
                     }
                     return u
                 })

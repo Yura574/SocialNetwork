@@ -81,7 +81,7 @@ export class UsersAPIComponent extends React.Component <UsersAPIComponentsType> 
                    totalUsersCount={this.props.totalUsersCount}
                    currentPage={this.props.currentPage}
                    follow={this.props.follow}
-                   unfollow={this.props.unFollow}
+                   unFollow={this.props.unFollow}
                    onChangePage={this.onChangePage}/>
         </>
 
