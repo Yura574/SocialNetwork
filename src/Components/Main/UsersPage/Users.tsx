@@ -1,6 +1,6 @@
 import classes from "./UserPage.module.css";
 import React from "react";
-import {UserType} from "../../../Redux/users_reducer";
+import {setFollowingInProgress, UserType} from "../../../Redux/users_reducer";
 import {NavLink} from "react-router-dom";
 import {followAPI} from "../../../API/api";
 
@@ -12,7 +12,8 @@ type UsersType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     onChangePage: (page: number) => void
-    // followed: boolean
+    followingInProgress: Array<number | null>
+    setFollowingInProgress: (isFetching: boolean, userId: number) => void
 }
 
 export function Users(props: UsersType) {
@@ -38,12 +39,13 @@ export function Users(props: UsersType) {
                                 alt={'avatar'} className={classes.img}/>
                         </NavLink>
                         {u.followed
-                            ? <button onClick={() => {
-                                followAPI.unfollowUser(u.id, props.unFollow)
+                            ? <button disabled={props.followingInProgress.some(id=> id===u.id)} onClick={() => {
+                                props.setFollowingInProgress(true, u.id)
+                                followAPI.unfollowUser(u.id, props.unFollow, setFollowingInProgress)
                             }} className={classes.unfollowButton}>Unfollow</button>
 
-                            : <button onClick={() => {
-                                followAPI.followUser(u.id, props.follow)
+                            : <button disabled={props.followingInProgress.some(id=> id===u.id)} onClick={() => {
+                                followAPI.followUser(u.id, props.follow, props.setFollowingInProgress)
                             }}>Follow</button>}
                     </div>
                     <div className={classes.descriptionFollows}>
