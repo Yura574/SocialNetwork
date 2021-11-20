@@ -38,7 +38,7 @@ export const profileAPI = {
 }
 
 export const followAPI = {
-    followUser(id: number, follow: (userId: number) => void, setFollowingInProgress: (isFetching: boolean, userId: number) => void) {
+    followUser(id: number, follow: (userId: number) => void, setFollowingInProgress: (isFetching: boolean, id: number) => void) {
         instance.post(`follow/${id}`).then(response => {
             if (response.data.resultCode === 0) {
                 follow(id)

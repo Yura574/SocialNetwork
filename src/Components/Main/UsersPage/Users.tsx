@@ -12,7 +12,7 @@ type UsersType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     onChangePage: (page: number) => void
-    followingInProgress: Array<number | null>
+    followingProgress: Array<number>
     setFollowingInProgress: (isFetching: boolean, userId: number) => void
 }
 
@@ -39,12 +39,13 @@ export function Users(props: UsersType) {
                                 alt={'avatar'} className={classes.img}/>
                         </NavLink>
                         {u.followed
-                            ? <button disabled={props.followingInProgress.some(id=> id===u.id)} onClick={() => {
+                            ? <button disabled={props.followingProgress.some(id=> id===u.id)} onClick={() => {
                                 props.setFollowingInProgress(true, u.id)
-                                followAPI.unfollowUser(u.id, props.unFollow, setFollowingInProgress)
+                                followAPI.unfollowUser(u.id, props.unFollow, props.setFollowingInProgress)
                             }} className={classes.unfollowButton}>Unfollow</button>
 
-                            : <button disabled={props.followingInProgress.some(id=> id===u.id)} onClick={() => {
+                            : <button disabled={props.followingProgress.some(id=> id===u.id)} onClick={() => {
+                                props.setFollowingInProgress(true, u.id)
                                 followAPI.followUser(u.id, props.follow, props.setFollowingInProgress)
                             }}>Follow</button>}
                     </div>
