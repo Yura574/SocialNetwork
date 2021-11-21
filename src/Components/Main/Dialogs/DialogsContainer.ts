@@ -14,6 +14,7 @@ type MapStateToPropsType = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
     newMessage: string
+    isAuth: boolean
 }
 
 type MapDispatchToProps = {
@@ -25,7 +26,8 @@ type MapDispatchToProps = {
     return {
         dialogsData: state.dialogsPage.dialogsData,
         messageData: state.dialogsPage.messageData,
-        newMessage: state.dialogsPage.newMessage
+        newMessage: state.dialogsPage.newMessage,
+        isAuth: state.auth.isAuth
     }
 }
 

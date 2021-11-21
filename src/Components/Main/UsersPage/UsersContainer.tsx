@@ -10,6 +10,7 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../../common/preloader/Preloader";
+import {Redirect} from "react-router";
 
 
 type MapStateToPropsType = {
@@ -19,6 +20,7 @@ type MapStateToPropsType = {
     currentPage: number
     isFetching: boolean
     followingProgress: Array<number>
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -41,6 +43,7 @@ export class UsersAPIComponent extends React.Component <UsersAPIComponentsType> 
     }
 
     render() {
+        // if (!this.props.isAuth){return <Redirect to={'login'}/>}
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users users={this.props.users}
@@ -65,7 +68,8 @@ const mapStateToProps = (state: StateType): MapStateToPropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress
+        followingProgress: state.usersPage.followingProgress,
+        isAuth: state.auth.isAuth
 
     }
 }

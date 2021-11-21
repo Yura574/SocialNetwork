@@ -3,7 +3,7 @@ import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {setPageThunkCreator} from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/Redux-store";
-import {RouteComponentProps, withRouter} from "react-router";
+import {Redirect, RouteComponentProps, withRouter} from "react-router";
 
 
 type ContactsType = {
@@ -29,9 +29,11 @@ export type ProfileUserType = {
     fullName: string
     userId: number
     photos: PhotosType
+
 }
 type MapStateToPropsType = {
     profile: ProfileUserType | null
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     // setUserProfile: (profile: ProfileUserType) => void
@@ -54,6 +56,7 @@ export class ProfileData extends React.Component<PropsType> {
     }
 
     render() {
+        if (!this.props.isAuth) {return <Redirect to={'/login'}/>}
         return <>
             <Profile profile={this.props.profile}/>
         </>
@@ -63,7 +66,8 @@ export class ProfileData extends React.Component<PropsType> {
 }
 
 let mapStateToProps = (state: StateType): MapStateToPropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 let mapDispatchToProps: MapDispatchToPropsType = {
