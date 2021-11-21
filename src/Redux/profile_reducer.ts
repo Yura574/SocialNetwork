@@ -1,4 +1,6 @@
 import {ProfileUserType} from "../Components/Main/Profile/ProfileContainer";
+import {Dispatch} from "redux";
+import {profileAPI} from "../API/api";
 
 export type PostElementType = {
     id: number,
@@ -72,3 +74,8 @@ export const setUserProfile = (profile: any): setUserProfileAC_Type => ({
     type: SET_USER_PROFILE,
     profile
 })
+export const setPageThunkCreator = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.setPage(userId).then(response => {
+       dispatch( setUserProfile(response.data))
+    })
+}

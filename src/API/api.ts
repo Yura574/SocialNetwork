@@ -1,5 +1,4 @@
 import axios from "axios";
-import {ProfileUserType} from "../Components/Main/Profile/ProfileContainer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -19,31 +18,19 @@ export const userAPI = {
 
 export const authAPI = {
     authMe() {
-       return  instance.get('auth/me')/*.then(response => {
-                if (response.data.resultCode === 0) {
-                    setUserAuthData(response.data.data)
-                }
-            }
-        )*/
+       return  instance.get('auth/me')
     }
 }
 
 export const profileAPI = {
-    setPage(userId: string, setUserProfile: (profile: ProfileUserType) => void) {
-         instance.get(userId).then(response => {
-            setUserProfile(response.data)
-        })
+    setPage(userId: string) {
+        return  instance.get('profile/' + userId)
     }
 }
 
 export const followAPI = {
-    followUser(id: number/*, follow: (userId: number) => void, setFollowingInProgress: (isFetching: boolean, id: number) => void*/) {
-       return  instance.post(`follow/${id}`)/*.then(response => {
-            if (response.data.resultCode === 0) {
-                follow(id)
-            }
-            setFollowingInProgress(false, id)
-        })*/
+    followUser(id: number) {
+       return  instance.post(`follow/${id}`)
     },
     unfollowUser(id: number) {
        return  instance.delete(`follow/${id}`)

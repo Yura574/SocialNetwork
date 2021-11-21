@@ -187,7 +187,7 @@ export const unfollowThunkCreator = (id: number) => (dispatch: Dispatch) => {
 }
 export const followThunkCreator = (id: number) => (dispatch: Dispatch) => {
     dispatch(setFollowingInProgress(true, id))
-    followAPI.followUser(id/*, props.follow, props.setFollowingInProgress*/).then(response => {
+    followAPI.followUser(id).then(response => {
         if (response.data.resultCode === 0) {
             dispatch(follow(id))
         }

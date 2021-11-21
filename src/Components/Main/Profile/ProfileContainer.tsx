@@ -1,10 +1,10 @@
 import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../../Redux/profile_reducer";
+import {setPageThunkCreator} from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/Redux-store";
 import {RouteComponentProps, withRouter} from "react-router";
-import {profileAPI} from "../../../API/api";
+
 
 type ContactsType = {
     facebook: string
@@ -34,7 +34,8 @@ type MapStateToPropsType = {
     profile: ProfileUserType | null
 }
 type MapDispatchToPropsType = {
-    setUserProfile: (profile: ProfileUserType) => void
+    // setUserProfile: (profile: ProfileUserType) => void
+    setPageThunkCreator: (userId: string) => void
 }
 
 type PathParamType = {
@@ -49,7 +50,7 @@ export class ProfileData extends React.Component<PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        profileAPI.setPage(userId, this.props.setUserProfile)
+        this.props.setPageThunkCreator(userId)
     }
 
     render() {
@@ -66,7 +67,7 @@ let mapStateToProps = (state: StateType): MapStateToPropsType => ({
 })
 
 let mapDispatchToProps: MapDispatchToPropsType = {
-    setUserProfile
+    setPageThunkCreator
 }
 
 let ProfileDataWithRoute = withRouter(ProfileData)
