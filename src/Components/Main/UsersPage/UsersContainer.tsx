@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {StateType} from "../../../Redux/Redux-store";
 import {
-    follow,
+    follow, getUsersThunkCreator, onPageThunkCreator,
     setCurrentPage,
     setFollowingInProgress,
     setToggleIsFetching,
@@ -28,49 +28,53 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    setToggleIsFetching: (isFetching: boolean) => void
+    // setUsers: (users: Array<UserType>) => void
+    // setCurrentPage: (currentPage: number) => void
+    // setTotalUsersCount: (totalCount: number) => void
+    // setToggleIsFetching: (isFetching: boolean) => void
     setFollowingInProgress: (isFetching: boolean, userId: number) => void
+    getUsersThunkCreator: (currentPage: number, pageSize:number) => void
+    onPageThunkCreator: (pageNumber: number, pageSize: number)=> void
 }
 
-type UsersAPIComponentsType = {
-    users: Array<UserType>
-    totalUsersCount: number
-    currentPage: number
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
-    isFetching: boolean
-    pageSize: number
-    setCurrentPage: (currentPage: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    setToggleIsFetching: (isFetching: boolean) => void
-    followingProgress: Array<number >
-    setFollowingInProgress: (isFetching: boolean, userId: number) => void
-
-}
+type UsersAPIComponentsType = MapDispatchToPropsType & MapStateToPropsType
+    // {
+    // users: Array<UserType>
+    // totalUsersCount: number
+    // currentPage: number
+    // follow: (userId: number) => void
+    // unFollow: (userId: number) => void
+    // isFetching: boolean
+    // pageSize: number
+    // setCurrentPage: (currentPage: number) => void
+    // setUsers: (users: Array<UserType>) => void
+    // setTotalUsersCount: (totalUsersCount: number) => void
+    // setToggleIsFetching: (isFetching: boolean) => void
+    // followingProgress: Array<number >
+    // setFollowingInProgress: (isFetching: boolean, userId: number) => void
+// }
 
 export class UsersAPIComponent extends React.Component <UsersAPIComponentsType> {
     componentDidMount() {
-        this.props.setToggleIsFetching(true)
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.setToggleIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            }
-        )
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        // this.props.setToggleIsFetching(true)
+        // userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        //         this.props.setToggleIsFetching(false)
+        //         this.props.setUsers(data.items)
+        //         this.props.setTotalUsersCount(data.totalCount)
+        //     }
+        // )
     }
 
     onChangePage = (pageNumber: number) => {
-        this.props.setToggleIsFetching(true)
-        this.props.setCurrentPage(pageNumber)
-        userAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-                this.props.setToggleIsFetching(false)
-                this.props.setUsers(data.items)
-            }
-        )
+        this.props.onPageThunkCreator(pageNumber, this.props.pageSize)
+        // this.props.setToggleIsFetching(true)
+        // this.props.setCurrentPage(pageNumber)
+        // userAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
+        //         this.props.setToggleIsFetching(false)
+        //         this.props.setUsers(data.items)
+        //     }
+        // )
     }
 
     render() {
@@ -105,11 +109,15 @@ const mapStateToProps = (state: StateType): MapStateToPropsType => {
 const mapDispatchToProps: MapDispatchToPropsType = {
     follow,
     unFollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    setToggleIsFetching,
-    setFollowingInProgress
+    // setCurrentPage,
+    setFollowingInProgress,
+    // setTotalUsersCount,
+    // setToggleIsFetching,
+    // setUsers,
+    getUsersThunkCreator,
+    onPageThunkCreator
+
+
 }
 
 
