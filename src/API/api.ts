@@ -38,21 +38,16 @@ export const profileAPI = {
 }
 
 export const followAPI = {
-    followUser(id: number, follow: (userId: number) => void, setFollowingInProgress: (isFetching: boolean, id: number) => void) {
-        instance.post(`follow/${id}`).then(response => {
+    followUser(id: number/*, follow: (userId: number) => void, setFollowingInProgress: (isFetching: boolean, id: number) => void*/) {
+       return  instance.post(`follow/${id}`)/*.then(response => {
             if (response.data.resultCode === 0) {
                 follow(id)
             }
             setFollowingInProgress(false, id)
-        })
+        })*/
     },
-    unfollowUser(id: number, unFollow: (userId: number) => void, setFollowingInProgress: (isFetching: boolean, userId: number)=> void) {
-        instance.delete(`follow/${id}`).then(response => {
-            if (response.data.resultCode === 0) {
-                unFollow(id)
-            }
-            setFollowingInProgress(false, id)
-        })
+    unfollowUser(id: number) {
+       return  instance.delete(`follow/${id}`)
     }
 }
 

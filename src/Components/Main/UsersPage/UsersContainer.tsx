@@ -1,19 +1,15 @@
 import {connect} from "react-redux";
 import {StateType} from "../../../Redux/Redux-store";
 import {
-    follow, getUsersThunkCreator, onPageThunkCreator,
-    setCurrentPage,
-    setFollowingInProgress,
-    setToggleIsFetching,
-    setTotalUsersCount,
-    setUsers,
-    unFollow,
-    UserType
+    followThunkCreator,
+    getUsersThunkCreator,
+    onPageThunkCreator,
+    unfollowThunkCreator,
+    UserType,
 } from "../../../Redux/users_reducer";
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../../common/preloader/Preloader";
-import {userAPI} from "../../../API/api";
 
 
 type MapStateToPropsType = {
@@ -26,32 +22,34 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
+    // follow: (userId: number) => void
+    // unFollow: (userId: number) => void
     // setUsers: (users: Array<UserType>) => void
     // setCurrentPage: (currentPage: number) => void
     // setTotalUsersCount: (totalCount: number) => void
     // setToggleIsFetching: (isFetching: boolean) => void
-    setFollowingInProgress: (isFetching: boolean, userId: number) => void
-    getUsersThunkCreator: (currentPage: number, pageSize:number) => void
-    onPageThunkCreator: (pageNumber: number, pageSize: number)=> void
+    // setFollowingInProgress: (isFetching: boolean, userId: number) => void
+    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+    onPageThunkCreator: (pageNumber: number, pageSize: number) => void
+    unfollowThunkCreator: (id: number) => void
+    followThunkCreator: (id: number) => void
 }
 
 type UsersAPIComponentsType = MapDispatchToPropsType & MapStateToPropsType
-    // {
-    // users: Array<UserType>
-    // totalUsersCount: number
-    // currentPage: number
-    // follow: (userId: number) => void
-    // unFollow: (userId: number) => void
-    // isFetching: boolean
-    // pageSize: number
-    // setCurrentPage: (currentPage: number) => void
-    // setUsers: (users: Array<UserType>) => void
-    // setTotalUsersCount: (totalUsersCount: number) => void
-    // setToggleIsFetching: (isFetching: boolean) => void
-    // followingProgress: Array<number >
-    // setFollowingInProgress: (isFetching: boolean, userId: number) => void
+// {
+// users: Array<UserType>
+// totalUsersCount: number
+// currentPage: number
+// follow: (userId: number) => void
+// unFollow: (userId: number) => void
+// isFetching: boolean
+// pageSize: number
+// setCurrentPage: (currentPage: number) => void
+// setUsers: (users: Array<UserType>) => void
+// setTotalUsersCount: (totalUsersCount: number) => void
+// setToggleIsFetching: (isFetching: boolean) => void
+// followingProgress: Array<number >
+// setFollowingInProgress: (isFetching: boolean, userId: number) => void
 // }
 
 export class UsersAPIComponent extends React.Component <UsersAPIComponentsType> {
@@ -84,11 +82,15 @@ export class UsersAPIComponent extends React.Component <UsersAPIComponentsType> 
                    pageSize={this.props.pageSize}
                    totalUsersCount={this.props.totalUsersCount}
                    currentPage={this.props.currentPage}
-                   follow={this.props.follow}
-                   unFollow={this.props.unFollow}
                    onChangePage={this.onChangePage}
                    followingProgress={this.props.followingProgress}
-                   setFollowingInProgress={this.props.setFollowingInProgress}/>
+                // follow={this.props.follow}
+                // unFollow={this.props.unFollow}
+                // setFollowingInProgress={this.props.setFollowingInProgress}
+
+                   unfollowThunkCreator={this.props.unfollowThunkCreator}
+                   followThunkCreator={this.props.followThunkCreator}
+            />
         </>
 
     }
@@ -107,15 +109,18 @@ const mapStateToProps = (state: StateType): MapStateToPropsType => {
 }
 
 const mapDispatchToProps: MapDispatchToPropsType = {
-    follow,
-    unFollow,
+    // follow,
+    // unFollow,
+    // setFollowingInProgress,
     // setCurrentPage,
-    setFollowingInProgress,
     // setTotalUsersCount,
     // setToggleIsFetching,
     // setUsers,
+
     getUsersThunkCreator,
-    onPageThunkCreator
+    onPageThunkCreator,
+    unfollowThunkCreator,
+    followThunkCreator
 
 
 }

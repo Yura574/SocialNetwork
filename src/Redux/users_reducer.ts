@@ -1,4 +1,4 @@
-import {userAPI} from "../API/api";
+import {followAPI, userAPI} from "../API/api";
 import {Dispatch} from "redux";
 
 export type LocationType = {
@@ -175,4 +175,23 @@ export const onPageThunkCreator = (pageNumber: number, pageSize: number) => (dis
             dispatch(setUsers(data.items))
         }
     )
+}
+export const unfollowThunkCreator = (id: number) => (dispatch: Dispatch) => {
+    dispatch(setFollowingInProgress(true, id))
+    followAPI.unfollowUser(id).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(unFollow(id))
+        }
+        dispatch(setFollowingInProgress(false, id))
+    })
+}
+
+export const followThunkCreator = (id: number) => (dispatch: Dispatch) => {
+    dispatch(setFollowingInProgress(true, id))
+    followAPI.followUser(id/*, props.follow, props.setFollowingInProgress*/).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(follow(id))
+        }
+        dispatch(setFollowingInProgress(false, id))
+    })
 }
