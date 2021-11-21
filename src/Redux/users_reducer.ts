@@ -159,7 +159,7 @@ export const setFollowingInProgress = (isFetching: boolean, userId: number): Set
 
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
-  dispatch(setToggleIsFetching(true))
+    dispatch(setToggleIsFetching(true))
     userAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(setToggleIsFetching(false))
             dispatch(setUsers(data.items))
@@ -168,8 +168,8 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (
     )
 }
 export const onPageThunkCreator = (pageNumber: number, pageSize: number) => (dispatch: Dispatch) => {
-   dispatch(setToggleIsFetching(true))
-    setCurrentPage(pageNumber)
+    dispatch(setToggleIsFetching(true))
+    dispatch(setCurrentPage(pageNumber))
     userAPI.getUsers(pageNumber, pageSize).then(data => {
             dispatch(setToggleIsFetching(false))
             dispatch(setUsers(data.items))
@@ -185,7 +185,6 @@ export const unfollowThunkCreator = (id: number) => (dispatch: Dispatch) => {
         dispatch(setFollowingInProgress(false, id))
     })
 }
-
 export const followThunkCreator = (id: number) => (dispatch: Dispatch) => {
     dispatch(setFollowingInProgress(true, id))
     followAPI.followUser(id/*, props.follow, props.setFollowingInProgress*/).then(response => {

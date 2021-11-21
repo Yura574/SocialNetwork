@@ -1,6 +1,5 @@
 import axios from "axios";
 import {ProfileUserType} from "../Components/Main/Profile/ProfileContainer";
-import {DataAuthMeType} from "../Redux/auth_reducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -19,19 +18,19 @@ export const userAPI = {
 }
 
 export const authAPI = {
-    authMe(setUserAuthData: (data: DataAuthMeType) => void) {
-        instance.get('auth/me').then(response => {
+    authMe() {
+       return  instance.get('auth/me')/*.then(response => {
                 if (response.data.resultCode === 0) {
                     setUserAuthData(response.data.data)
                 }
             }
-        )
+        )*/
     }
 }
 
 export const profileAPI = {
     setPage(userId: string, setUserProfile: (profile: ProfileUserType) => void) {
-        instance.get(userId).then(response => {
+         instance.get(userId).then(response => {
             setUserProfile(response.data)
         })
     }
