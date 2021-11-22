@@ -1,10 +1,11 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {setPageThunkCreator} from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/Redux-store";
 import { RouteComponentProps, withRouter} from "react-router";
 import {withAuthRedirect} from "../../../redirect/withAuthRedirect";
+import {compose} from "redux";
 
 
 type ContactsType = {
@@ -43,11 +44,11 @@ type PathParamType = {
     userId: string
 }
 
-type PropsType = RouteComponentProps<PathParamType> & ProfileDataType
+type PropsType = RouteComponentProps<PathParamType> & ProfileContainerType
 
-type ProfileDataType = MapStateToPropsType & MapDispatchToPropsType
+type ProfileContainerType = MapStateToPropsType & MapDispatchToPropsType
 
-export class ProfileData extends React.Component<PropsType> {
+export class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
@@ -71,10 +72,9 @@ let mapDispatchToProps: MapDispatchToPropsType = {
     setPageThunkCreator
 }
 
-let AuthRedirectComponent = (props: PropsType) => {
-    return <ProfileData {...props}/>
-}
 
-let ProfileDataWithRoute = withRouter(AuthRedirectComponent)
 
-export const ProfileContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(ProfileDataWithRoute))
+export default compose<ComponentType> (withAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter
+)(ProfileContainer)

@@ -1,13 +1,12 @@
 import React from "react";
 import classes from "./Main.module.css";
 import {Route} from "react-router";
-import {Profile} from "./Profile/Profile";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Setting} from "./Setting/Setting";
 import DialogsContainer from "./Dialogs/DialogsContainer";
-import {UsersContainer} from "./UsersPage/UsersContainer";
-import {ProfileContainer} from "./Profile/ProfileContainer";
+import UsersContainer from "./UsersPage/UsersContainer";
+import ProfileContainer from "./Profile/ProfileContainer";
 import {Login} from "./Login/Login";
 
 export function Main() {

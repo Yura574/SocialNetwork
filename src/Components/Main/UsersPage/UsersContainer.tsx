@@ -7,10 +7,11 @@ import {
     unfollowThunkCreator,
     UserType,
 } from "../../../Redux/users_reducer";
-import React from "react";
+import React, {ComponentType} from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../../redirect/withAuthRedirect";
+import {compose} from "redux";
 
 
 type MapStateToPropsType = {
@@ -29,10 +30,10 @@ type MapDispatchToPropsType = {
     followThunkCreator: (id: number) => void
 }
 
-type UsersAPIComponentsType = MapDispatchToPropsType & MapStateToPropsType
+type UsersContainerType = MapDispatchToPropsType & MapStateToPropsType
 
 
-export class UsersAPIComponent extends React.Component <UsersAPIComponentsType> {
+export class UserContainer extends React.Component <UsersContainerType> {
     componentDidMount() {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
@@ -67,8 +68,6 @@ const mapStateToProps = (state: StateType): MapStateToPropsType => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingProgress: state.usersPage.followingProgress,
-        // isAuth: state.auth.isAuth
-
     }
 }
 
@@ -82,6 +81,10 @@ const mapDispatchToProps: MapDispatchToPropsType = {
 }
 
 
-export const UsersContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent))
+export default compose<ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect,
+)
+(UserContainer)
 
 
