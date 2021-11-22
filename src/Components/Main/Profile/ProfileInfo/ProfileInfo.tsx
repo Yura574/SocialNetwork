@@ -4,6 +4,7 @@ import {Preloader} from "../../../../common/preloader/Preloader";
 import {ProfileUserType} from "../ProfileContainer";
 import lookingJob from "../../../../assets/images/looking-for-job.jpg"
 import dontLookingJob from "../../../../assets/images/I-don-t-want-a-job-I-just-want-money.jpg"
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileUserType | null
@@ -16,15 +17,21 @@ export function ProfileInfo(props: ProfileInfoType) {
 
     return (
         <div>
-            <div>
+            {/*<div>
                 <img
                     src="https://media-exp1.licdn.com/dms/image/C4D1BAQGDmALg_8s-Yg/company-background_10000/0/1519799119530?e=2159024400&v=beta&t=4WV9YKR9L3PAEnppWmPPMk5xVnETtWvhZN8NexEzPwM"
                     alt="img" className={classes.image}/>
-            </div>
+            </div>*/}
+
             <div className={classes.description}>
-                <img className={classes.ava} src={props.profile.photos.large} alt={'avatar'}/>
+                <img className={classes.ava}
+                     src={props.profile.photos.large
+                         ? props.profile.photos.large
+                         : 'https://whatsism.com/uploads/posts/2018-07/1530546770_rmk_vdjbx10.jpg'} alt={'avatar'}/>
+
                 <div className={classes.profileData}>
                     <div>My name: {props.profile.fullName}</div>
+                    <ProfileStatus statusText={''}/>
                     <div>About me: {props.profile.aboutMe}</div>
                     <div className={classes.contacts}>
                         <div>contacts:</div>

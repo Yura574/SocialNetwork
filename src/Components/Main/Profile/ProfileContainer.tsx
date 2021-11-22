@@ -74,7 +74,7 @@ let mapDispatchToProps: MapDispatchToPropsType = {
 
 
 
-export default compose<ComponentType> (withAuthRedirect,
+export default compose<ComponentType> (
     connect(mapStateToProps, mapDispatchToProps),
     withRouter
 )(ProfileContainer)
