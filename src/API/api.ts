@@ -18,22 +18,22 @@ export const userAPI = {
 
 export const authAPI = {
     authMe() {
-       return  instance.get('auth/me')
+        return instance.get('auth/me')
     }
 }
 
 export const profileAPI = {
     setPage(userId: string) {
-        return  instance.get('profile/' + userId)
+        return instance.get(`profile/${userId}/`)
     }
 }
 
 export const followAPI = {
     followUser(id: number) {
-       return  instance.post(`follow/${id}`)
+        return instance.post(`follow/${id}`)
     },
     unfollowUser(id: number) {
-       return  instance.delete(`follow/${id}`)
+        return instance.delete(`follow/${id}`)
     }
 }
 

@@ -3,7 +3,8 @@ import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {setPageThunkCreator} from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/Redux-store";
-import {Redirect, RouteComponentProps, withRouter} from "react-router";
+import { RouteComponentProps, withRouter} from "react-router";
+import {withAuthRedirect} from "../../../redirect/withAuthRedirect";
 
 
 type ContactsType = {
@@ -33,10 +34,8 @@ export type ProfileUserType = {
 }
 type MapStateToPropsType = {
     profile: ProfileUserType | null
-    isAuth: boolean
 }
 type MapDispatchToPropsType = {
-    // setUserProfile: (profile: ProfileUserType) => void
     setPageThunkCreator: (userId: string) => void
 }
 
@@ -56,7 +55,6 @@ export class ProfileData extends React.Component<PropsType> {
     }
 
     render() {
-        if (!this.props.isAuth) {return <Redirect to={'/login'}/>}
         return <>
             <Profile profile={this.props.profile}/>
         </>
@@ -67,13 +65,16 @@ export class ProfileData extends React.Component<PropsType> {
 
 let mapStateToProps = (state: StateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
 })
 
 let mapDispatchToProps: MapDispatchToPropsType = {
     setPageThunkCreator
 }
 
-let ProfileDataWithRoute = withRouter(ProfileData)
+let AuthRedirectComponent = (props: PropsType) => {
+    return <ProfileData {...props}/>
+}
 
-export const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileDataWithRoute)
+let ProfileDataWithRoute = withRouter(AuthRedirectComponent)
+
+export const ProfileContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(ProfileDataWithRoute))

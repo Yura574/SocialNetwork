@@ -4,7 +4,6 @@ import {Preloader} from "../../../../common/preloader/Preloader";
 import {ProfileUserType} from "../ProfileContainer";
 import lookingJob from "../../../../assets/images/looking-for-job.jpg"
 import dontLookingJob from "../../../../assets/images/I-don-t-want-a-job-I-just-want-money.jpg"
-import {Redirect} from "react-router";
 
 type ProfileInfoType = {
     profile: ProfileUserType | null
