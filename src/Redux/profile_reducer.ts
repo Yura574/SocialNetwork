@@ -11,6 +11,7 @@ export type ProfilePage = {
     postData: Array<PostElementType>
     newPost: string
     profile: ProfileUserType | null
+    status: string
 }
 
 type AddPostAC_Type = {
@@ -24,10 +25,17 @@ type setUserProfileAC_Type = {
     type: 'SET_USER_PROFILE'
     profile: ProfileUserType
 }
+type getStatusAC_Type = {
+    type: 'GET_STATUS'
+    status: string
+}
+
+type actionType = AddPostAC_Type | OnChangePostTextAC_Type | setUserProfileAC_Type | getStatusAC_Type
 
 const ADD_POST = 'ADD_POST'
 const ON_CHANGE_POST_TEXT = 'ON_CHANGE_POST_TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const GET_STATUS = 'GET_STATUS'
 
 const initialState: ProfilePage = {
     postData: [
@@ -35,10 +43,11 @@ const initialState: ProfilePage = {
         {id: 1, message: 'My second post', like: 20}
     ],
     profile: null,
-    newPost: 'aaa'
+    newPost: 'aaa',
+    status: ''
 }
 
-export const profile_reducer = (state: ProfilePage = initialState, action: AddPostAC_Type | OnChangePostTextAC_Type | setUserProfileAC_Type): ProfilePage => {
+export const profile_reducer = (state: ProfilePage = initialState, action: actionType): ProfilePage => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -57,6 +66,11 @@ export const profile_reducer = (state: ProfilePage = initialState, action: AddPo
                 ...state,
                 profile: action.profile
             }
+        case GET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
 
         default:
             return state
@@ -70,12 +84,30 @@ export const onChangePostTextAC = (postText: string): OnChangePostTextAC_Type =>
     type: ON_CHANGE_POST_TEXT,
     newPostText: postText
 })
-export const setUserProfile = (profile: any): setUserProfileAC_Type => ({
+export const setUserProfile = (profile: ProfileUserType): setUserProfileAC_Type => ({
     type: SET_USER_PROFILE,
     profile
 })
+export const setStatus = (status: string): getStatusAC_Type => ({
+    type: GET_STATUS,
+    status
+})
+
+
 export const setPageThunkCreator = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.setPage(userId).then(response => {
        dispatch( setUserProfile(response.data))
+    })
+}
+export const getStatusThunkCreator = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId).then(response => {
+       dispatch( setStatus(response.data))
+    })
+}
+export const updateStatusThunkCreator = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status).then(response => {
+       if (response.data.resultCode === 0 ){
+           dispatch( setStatus(status))
+       }
     })
 }

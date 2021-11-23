@@ -1,10 +1,9 @@
 import React, {ComponentType} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {setPageThunkCreator} from "../../../Redux/profile_reducer";
+import {getStatusThunkCreator, setPageThunkCreator, updateStatusThunkCreator} from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/Redux-store";
 import { RouteComponentProps, withRouter} from "react-router";
-import {withAuthRedirect} from "../../../redirect/withAuthRedirect";
 import {compose} from "redux";
 
 
@@ -35,9 +34,12 @@ export type ProfileUserType = {
 }
 type MapStateToPropsType = {
     profile: ProfileUserType | null
+    status: string
 }
 type MapDispatchToPropsType = {
     setPageThunkCreator: (userId: string) => void
+    getStatusThunkCreator: (userId: string) => void
+    updateStatusThunkCreator: (userId: string) => void
 }
 
 type PathParamType = {
@@ -53,11 +55,12 @@ export class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         this.props.setPageThunkCreator(userId)
+        this.props.getStatusThunkCreator(userId)
     }
 
     render() {
         return <>
-            <Profile profile={this.props.profile}/>
+            <Profile profile={this.props.profile} status={ this.props.status} updateStatus={this.props.updateStatusThunkCreator} />
         </>
 
 
@@ -66,10 +69,13 @@ export class ProfileContainer extends React.Component<PropsType> {
 
 let mapStateToProps = (state: StateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
 })
 
 let mapDispatchToProps: MapDispatchToPropsType = {
-    setPageThunkCreator
+    setPageThunkCreator,
+    getStatusThunkCreator,
+    updateStatusThunkCreator
 }
 
 

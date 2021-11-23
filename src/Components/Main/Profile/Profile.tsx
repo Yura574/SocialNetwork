@@ -5,12 +5,14 @@ import {ProfileUserType} from "./ProfileContainer";
 
 type ProfileType = {
     profile: ProfileUserType | null
+    status:string
+    updateStatus: (status: string) => void
 }
 
 export function Profile(props: ProfileType) {
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={ props.status} updateStatus={props.updateStatus}/>
             <MyPostContainer/>
         </div>
     )

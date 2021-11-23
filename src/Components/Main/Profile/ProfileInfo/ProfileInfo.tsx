@@ -8,6 +8,8 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileUserType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export function ProfileInfo(props: ProfileInfoType) {
@@ -17,12 +19,6 @@ export function ProfileInfo(props: ProfileInfoType) {
 
     return (
         <div>
-            {/*<div>
-                <img
-                    src="https://media-exp1.licdn.com/dms/image/C4D1BAQGDmALg_8s-Yg/company-background_10000/0/1519799119530?e=2159024400&v=beta&t=4WV9YKR9L3PAEnppWmPPMk5xVnETtWvhZN8NexEzPwM"
-                    alt="img" className={classes.image}/>
-            </div>*/}
-
             <div className={classes.description}>
                 <img className={classes.ava}
                      src={props.profile.photos.large
@@ -31,7 +27,9 @@ export function ProfileInfo(props: ProfileInfoType) {
 
                 <div className={classes.profileData}>
                     <div>My name: {props.profile.fullName}</div>
-                    <ProfileStatus statusText={''}/>
+
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+
                     <div>About me: {props.profile.aboutMe}</div>
                     <div className={classes.contacts}>
                         <div>contacts:</div>
