@@ -28,7 +28,7 @@ export function ProfileInfo(props: ProfileInfoType) {
                 <div className={classes.profileData}>
                     <div>My name: {props.profile.fullName}</div>
 
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus  }/>
 
                     <div>About me: {props.profile.aboutMe}</div>
                     <div className={classes.contacts}>
