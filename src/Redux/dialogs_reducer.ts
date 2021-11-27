@@ -9,20 +9,14 @@ export type MessageElementType = {
 export type MessagesPage = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
-    newMessage: string
 }
 
 type AddMessageAC_Type = {
     type: 'ADD_MESSAGE'
+    newMessage: string
 }
-type OnChangeMessageText_type = {
-    type: 'ON_CHANGE_MESSAGE_TEXT',
-    newMessageText: string
-}
-
 
 const ADD_MESSAGE = 'ADD_MESSAGE'
-const ON_CHANGE_MESSAGE_TEXT = 'ON_CHANGE_MESSAGE_TEXT'
 
 const initialState: MessagesPage = {
     dialogsData: [
@@ -41,35 +35,22 @@ const initialState: MessagesPage = {
         {id: 6, message: 'What car is you ?'},
         {id: 7, message: 'What car is you bought?'},
     ],
-    newMessage: 'ddd'
 }
 
-export const dialogs_reducer = (state: MessagesPage = initialState, action: AddMessageAC_Type | OnChangeMessageText_type): MessagesPage => {
+export const dialogs_reducer = (state: MessagesPage = initialState, action: AddMessageAC_Type ): MessagesPage => {
     switch (action.type) {
         case ADD_MESSAGE:
-            const message = state.newMessage
+            const message = action.newMessage
             return {
                 ...state,
-                newMessage: '',
                 messageData: [...state.messageData, {id: 5, message: message}]
             }
-
-        case ON_CHANGE_MESSAGE_TEXT: {
-            return {
-                ...state,
-                newMessage: action.newMessageText
-            }
-        }
         default:
             return state
     }
 }
 
-export const addMessageAC = (): AddMessageAC_Type => ({
-    type: ADD_MESSAGE
-})
-
-export const onChangeMessageTextAC = (messageText: string): OnChangeMessageText_type => ({
-    type: ON_CHANGE_MESSAGE_TEXT,
-    newMessageText: messageText
+export const addMessageAC = (newMessage:string): AddMessageAC_Type => ({
+    type: ADD_MESSAGE,
+    newMessage
 })

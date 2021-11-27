@@ -1,9 +1,8 @@
 import React from "react";
 import classes from "./Login.module.css";
 import  {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {on} from "cluster";
 
-type FormDataType ={
+export type FormDataType ={
     login: string
     password: string
     rememberMe: boolean

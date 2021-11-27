@@ -13,7 +13,7 @@ export function Profile(props: ProfileType) {
     return (
         <div>
             <ProfileInfo profile={props.profile} status={ props.status} updateStatus={props.updateStatus}/>
-            <MyPostContainer/>
+            <MyPostContainer />
         </div>
     )
 }
