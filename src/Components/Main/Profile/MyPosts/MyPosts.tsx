@@ -3,6 +3,8 @@ import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
 import {PostElementType} from "../../../../Redux/profile_reducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {fieldsValidator, maxLengthCreator} from "../../../../validators/validators";
+import {Element} from "../../../../common/FormControls/FormControls";
 
 
 type MyPostsType = {
@@ -27,7 +29,7 @@ export function MyPosts(props: MyPostsType) {
                </div>
                 <div>
                     <div>{props.postData.map(p =>
-                        <Post
+                        <Post key={p.id}
                             message={p.message}
                             like={p.like}/>)}</div>
                 </div>
@@ -36,10 +38,14 @@ export function MyPosts(props: MyPostsType) {
     )
 }
 
+const maxLength30 = maxLengthCreator(30)
+const Input = Element("input")
+
 const NewPost = (props: InjectedFormProps<NewPostForm>)=> {
     return(
         <form onSubmit={props.handleSubmit}>
-            <Field component={'input'} name={'newPost'}/>
+            <Field component={Input}
+                   validate={[fieldsValidator, maxLength30]}  name={'newPost'}/>
             <div>
                 <button > add</button>
             </div>

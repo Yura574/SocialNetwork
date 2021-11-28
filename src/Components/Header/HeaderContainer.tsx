@@ -2,7 +2,7 @@ import React from "react";
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {StateType} from "../../Redux/Redux-store";
-import {authMeThunkCreator, DataAuthMeType, setUserAuthData} from "../../Redux/auth_reducer";
+import {authMeThunkCreator, DataAuthMeType} from "../../Redux/auth_reducer";
 
 type HeaderAPIDataType = {
     data: DataAuthMeType | null

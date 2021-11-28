@@ -3,6 +3,8 @@ import classes from "./Dialogs.module.css";
 import {DialogsElementType, MessageElementType} from "../../../Redux/dialogs_reducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {DialogsItem} from "./DialogsItem";
+import {Element} from "../../../common/FormControls/FormControls";
+import {fieldsValidator, maxLengthCreator} from "../../../validators/validators";
 
 type DialogsType = {
     dialogsData: Array<DialogsElementType>
@@ -41,10 +43,15 @@ export function Dialogs(props: DialogsType) {
     )
 }
 
+const maxLength50 = maxLengthCreator(50)
+const Input = Element('input')
+
 const NewMessage=(props: InjectedFormProps<MessageFormType>) => {
     return(
         <form onSubmit={props.handleSubmit}>
-            <Field name={'newMessage'} component={'input'}/>
+            <Field name={'newMessage'}
+                   validate={[fieldsValidator, maxLength50]}
+                   component={Input}/>
             <button > send</button>
         </form>
     )

@@ -35,7 +35,7 @@ const GET_STATUS = 'GET_STATUS'
 const initialState: ProfilePage = {
     postData: [
         {id: 1, message: 'My first post', like: 15},
-        {id: 1, message: 'My second post', like: 20}
+        {id: 2, message: 'My second post', like: 20}
     ],
     profile: null,
     status: ''
