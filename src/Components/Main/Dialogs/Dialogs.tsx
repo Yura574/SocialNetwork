@@ -5,6 +5,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {DialogsItem} from "./DialogsItem";
 import {Element} from "../../../common/FormControls/FormControls";
 import {fieldsValidator, maxLengthCreator} from "../../../validators/validators";
+import {MessageItem} from "./MessageItem";
 
 type DialogsType = {
     dialogsData: Array<DialogsElementType>
@@ -21,8 +22,8 @@ type MessageFormType = {
 
 export function Dialogs(props: DialogsType) {
 
-    const name = props.dialogsData.map(d =>  <div>{d.name}</div>)
-    const message = props.messageData.map(m => <div> {m.message}</div>)
+    const name = props.dialogsData.map(d =>  <div><DialogsItem id={d.id} name={d.name}/></div>)
+    const message = props.messageData.map(m => <div> <MessageItem message={m.message} id={m.id}/></div>)
 
     const onSubmit = (values: any ) => {
         props.sendMessage(values.newMessage)
@@ -32,7 +33,7 @@ export function Dialogs(props: DialogsType) {
             <div>Dialogs</div>
             <div className={classes.dialogs}>
                 <div className={classes.dialogsName}>
-                    <div><DialogsItem name={name} id={props.id}/></div>
+                    <div>{name}</div>
                 </div>
                 <div className={classes.dialogsMessages}>
                     {message}
