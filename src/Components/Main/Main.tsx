@@ -12,7 +12,7 @@ import {Login} from "./Login/Login";
 export function Main() {
     return (
         <div className={classes.main}>
-            <Route path={'/profile/:userId'} render={() =>
+            <Route path={'/profile/:userId?'} render={() =>
                 <ProfileContainer />}/>
             <Route path={'/dialogs'} render={() =>
                 <DialogsContainer/>}/>
