@@ -7,7 +7,7 @@ import {HeaderContainer} from "./Components/Header/HeaderContainer";
 function App() {
     return (
         <div className="App">
-            <HeaderContainer/>
+            <HeaderContainer />
             <NavBar/>
             <Main/>
         </div>

@@ -7,7 +7,7 @@ import {Setting} from "./Setting/Setting";
 import DialogsContainer from "./Dialogs/DialogsContainer";
 import UsersContainer from "./UsersPage/UsersContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
-import {Login} from "./Login/Login";
+import {LoginContainer} from "./Login/Login";
 
 export function Main() {
     return (
@@ -20,7 +20,7 @@ export function Main() {
             <Route path={'/music'} render={() => <Music/>}/>
             <Route path={'/setting'} render={() => <Setting />}/>
             <Route path={'/users'} render={() => <UsersContainer />}/>
-            <Route path={'/login'} render={() => <Login />}/>
+            <Route path={'/login'} render={() => <LoginContainer />}/>
         </div>
     )
 }

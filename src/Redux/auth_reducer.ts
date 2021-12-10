@@ -7,7 +7,9 @@ export type DataAuthMeType = {
     login: string
 }
 export type AuthMeType = {
-    data: DataAuthMeType | null
+    userId: string | null
+    email: string | null
+    login: string | null
     isAuth: boolean
 }
 
@@ -16,38 +18,61 @@ const SET_USER_AUTH_DATA = 'SET_USER_AUTH_DATA'
 
 type setUserAuthDataAC_Type = {
     type: 'SET_USER_AUTH_DATA'
-    data: DataAuthMeType
+    // userId: string | null
+    // email: string | null
+    // login: string | null
+    data: { userId: string | null, email: string | null , login: string | null, isAuth: boolean }
+    // isAuth: boolean
 }
 
 type ActionTypes = setUserAuthDataAC_Type
 
 const initialState: AuthMeType = {
-    data: null,
+    userId: null,
+    email: null,
+    login: null,
     isAuth: false
 }
 
-export const auth_reducer = (state: AuthMeType = initialState, action:ActionTypes): AuthMeType => {
+export const auth_reducer = (state: AuthMeType = initialState, action: ActionTypes): AuthMeType => {
     switch (action.type) {
         case SET_USER_AUTH_DATA:
             return {
                 ...state,
-                data: action.data,
-                isAuth: true
+                ...action.data,
+
             }
 
         default:
             return state
     }
 }
-export const setUserAuthData = (data: DataAuthMeType): setUserAuthDataAC_Type => ({
+export const setUserAuthData = (userId: string | null , email: string | null , login: string | null, isAuth: boolean): setUserAuthDataAC_Type => ({
     type: SET_USER_AUTH_DATA,
-    data
+    data: {userId, email, login, isAuth},
+    // isAuth
 })
 
 export const authMeThunkCreator = () => (dispatch: Dispatch) => {
     authAPI.authMe().then(response => {
         if (response.data.resultCode === 0) {
-            dispatch(setUserAuthData(response.data.data))
+            let {id, login, email} = response.data.data
+            dispatch(setUserAuthData(id, email, login, true))
+        }
+    })
+}
+
+export const loginThunkCreator = (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
+    authAPI.login(email, password, rememberMe).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(authMeThunkCreator())
+        }
+    })
+}
+export const logoutThunkCreator = () => (dispatch: any) => {
+    authAPI.logout().then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setUserAuthData(null, null, null, false))
         }
     })
 }

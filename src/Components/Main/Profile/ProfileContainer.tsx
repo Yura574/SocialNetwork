@@ -54,7 +54,7 @@ export class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if(!userId){``
+        if(!userId){
            userId  = '20685'
         }
         this.props.setPageThunkCreator(userId)

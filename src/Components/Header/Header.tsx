@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./Header.module.css";
-import { DataAuthMeType} from "../../Redux/auth_reducer";
 import { NavLink } from "react-router-dom";
 
 type HeaderType = {
-    data: DataAuthMeType | null
+    login: string | null
     isAuth: boolean
+    logoutThunkCreator: () => void
 }
 
 export function Header(props: HeaderType) {
@@ -16,7 +16,7 @@ export function Header(props: HeaderType) {
                 alt={'logo'}/>
             <div className={classes.loginBlock}>
                 {props.isAuth
-                    ? props.data?.login
+                    ? <div>{props.login} - <button onClick={props.logoutThunkCreator}>Logout</button></div>
                    : <NavLink to={'login'}>Login</NavLink>
                 }
             </div>
