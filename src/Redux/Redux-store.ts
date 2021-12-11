@@ -5,12 +5,14 @@ import {users_reducer} from "./users_reducer";
 import {auth_reducer} from "./auth_reducer";
 import thunk from "redux-thunk";
 import {reducer as formReducer} from "redux-form"
+import {app_reducer} from "./app_reducer";
 
 export const reducer = combineReducers({
     profilePage: profile_reducer,
     dialogsPage: dialogs_reducer,
     usersPage: users_reducer,
     auth: auth_reducer,
+    app: app_reducer,
     form: formReducer
 
 })
