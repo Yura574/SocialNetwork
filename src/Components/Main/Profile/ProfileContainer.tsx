@@ -3,9 +3,8 @@ import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getStatusThunkCreator, setPageThunkCreator, updateStatusThunkCreator} from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/Redux-store";
-import { RouteComponentProps} from "react-router";
+import { RouteComponentProps, withRouter} from "react-router";
 import {compose} from "redux";
-import {withAuthRedirect} from "../../../redirect/withAuthRedirect";
 
 
 type ContactsType = {
@@ -37,7 +36,6 @@ type MapStateToPropsType = {
     profile: ProfileUserType | null
     status: string
     authorizedUserId: any
-    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     setPageThunkCreator: (userId: string) => void
@@ -58,7 +56,7 @@ export class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if(!userId){
-           userId = this.props.authorizedUserId
+           userId  = this.props.authorizedUserId
             if(!userId){
                 this.props.history.push('/login')
             }
@@ -79,8 +77,7 @@ export class ProfileContainer extends React.Component<PropsType> {
 let mapStateToProps = (state: StateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
+    authorizedUserId: state.auth.userId
 })
 
 let mapDispatchToProps: MapDispatchToPropsType = {
@@ -92,5 +89,6 @@ let mapDispatchToProps: MapDispatchToPropsType = {
 
 
 export default compose<ComponentType> (
-    connect(mapStateToProps, mapDispatchToProps), withAuthRedirect
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter
 )(ProfileContainer)

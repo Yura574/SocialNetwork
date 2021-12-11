@@ -8,6 +8,7 @@ import {StateType} from "./Redux/Redux-store";
 import {initializeApp} from "./Redux/app_reducer";
 import {Preloader} from "./common/preloader/Preloader";
 import {compose} from "redux";
+import {withRouter} from "react-router";
 
 type AppType = {
     initializeApp: () => void
@@ -51,6 +52,6 @@ let mapDispatchToProps= {
 }
 
 
-export const AppContainer = compose<ComponentType>(connect(mapStateToProps, mapDispatchToProps))(App)
+export const AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps, mapDispatchToProps))(App)
 
 
