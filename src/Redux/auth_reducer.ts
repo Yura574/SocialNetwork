@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../API/api";
+import {stopSubmit} from "redux-form";
 
 export type DataAuthMeType = {
     userId: number
@@ -21,7 +22,7 @@ type setUserAuthDataAC_Type = {
     // userId: string | null
     // email: string | null
     // login: string | null
-    data: { userId: string | null, email: string | null , login: string | null, isAuth: boolean }
+    data: { userId: string | null, email: string | null, login: string | null, isAuth: boolean }
     // isAuth: boolean
 }
 
@@ -47,7 +48,7 @@ export const auth_reducer = (state: AuthMeType = initialState, action: ActionTyp
             return state
     }
 }
-export const setUserAuthData = (userId: string | null , email: string | null , login: string | null, isAuth: boolean): setUserAuthDataAC_Type => ({
+export const setUserAuthData = (userId: string | null, email: string | null, login: string | null, isAuth: boolean): setUserAuthDataAC_Type => ({
     type: SET_USER_AUTH_DATA,
     data: {userId, email, login, isAuth},
     // isAuth
@@ -66,10 +67,12 @@ export const loginThunkCreator = (email: string, password: string, rememberMe: b
     authAPI.login(email, password, rememberMe).then(response => {
         if (response.data.resultCode === 0) {
             dispatch(authMeThunkCreator())
+        } else {
+            dispatch(stopSubmit('login', {_error: response.data.messages}))
         }
     })
 }
-export const logoutThunkCreator = () => (dispatch: any) => {
+export const logoutThunkCreator = () => (dispatch: Dispatch) => {
     authAPI.logout().then(response => {
         if (response.data.resultCode === 0) {
             dispatch(setUserAuthData(null, null, null, false))

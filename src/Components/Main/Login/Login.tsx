@@ -22,10 +22,11 @@ const Input = Element('input')
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div><Field component={Input} validate={[fieldsValidator]} name={'login'} placeholder={'login'}/></div>
+            <div><Field component={Input} validate={[fieldsValidator]} name={'login'} placeholder={'email'}/></div>
             <div><Field component={Input} validate={[fieldsValidator]} name={'password'} placeholder={'password'}/>
             </div>
-            <div><Field component={Input} validate={[fieldsValidator]} name={'rememberMe'} type={"checkbox"}/></div>
+            <div><Field component={Input} name={'rememberMe'} type={"checkbox"}/></div>
+            {props.error && <div className={classes.errorEmail}>{props.error}</div>}
             <div>
                 <button>Login</button>
             </div>
@@ -38,7 +39,7 @@ export function Login(props: LoginType) {
     const onSubmit = (formData: FormDataType) => {
         props.loginThunkCreator(formData.login, formData.password, formData.rememberMe)
     }
-    if(props.isAuth){
+    if (props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
     return (
@@ -48,7 +49,8 @@ export function Login(props: LoginType) {
         </div>
     )
 }
-const mapStateToProps =(state: StateType)=>( {
+
+const mapStateToProps = (state: StateType) => ({
     isAuth: state.auth.isAuth
 })
 
