@@ -18,7 +18,7 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUserCount,
-    getUsers
+     getUsersSelector
 } from "../../../Redux/user-selected";
 
 
@@ -59,7 +59,6 @@ export class UserContainer extends React.Component <UsersContainerType> {
                    currentPage={this.props.currentPage}
                    onChangePage={this.onChangePage}
                    followingProgress={this.props.followingProgress}
-
                    unfollowThunkCreator={this.props.unfollowThunkCreator}
                    followThunkCreator={this.props.followThunkCreator}
             />
@@ -80,7 +79,7 @@ export class UserContainer extends React.Component <UsersContainerType> {
 // }
 const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
-        users: getUsers(state),
+        users: getUsersSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUserCount(state),
         currentPage: getCurrentPage(state),
