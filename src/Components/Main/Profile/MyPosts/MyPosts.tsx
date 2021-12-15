@@ -15,7 +15,7 @@ type NewPostForm = {
     newPost: string
 }
 
-export function MyPosts(props: MyPostsType) {
+export const MyPosts = React.memo((props: MyPostsType) => {
     const onSubmit = (values: any) => {
         props.addPost(values.newPost)
     }
@@ -36,7 +36,7 @@ export function MyPosts(props: MyPostsType) {
             </div>
         </div>
     )
-}
+});
 
 const maxLength30 = maxLengthCreator(30)
 const Input = Element("input")
