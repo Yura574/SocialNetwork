@@ -25,12 +25,17 @@ type getStatusAC_Type = {
     type: 'GET_STATUS'
     status: string
 }
+type deletePostAC_Type = {
+    type: 'DELETE_POST'
+    id: number
+}
 
-type actionType = AddPostAC_Type | setUserProfileAC_Type | getStatusAC_Type
+type actionType = AddPostAC_Type | setUserProfileAC_Type | getStatusAC_Type | deletePostAC_Type
 
 const ADD_POST = 'ADD_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const GET_STATUS = 'GET_STATUS'
+const DELETE_POST = 'DELETE_POST'
 
 const initialState: ProfilePage = {
     postData: [
@@ -47,6 +52,11 @@ export const profile_reducer = (state: ProfilePage = initialState, action: actio
             return {
                 ...state,
                 postData: [{id: 10, message: action.newPost, like: 0}, ...state.postData]
+            }
+        case DELETE_POST:
+            return {
+                ...state,
+                postData: state.postData.filter(p => p.id != action.id)
             }
 
         case SET_USER_PROFILE:
@@ -67,6 +77,10 @@ export const profile_reducer = (state: ProfilePage = initialState, action: actio
 export const addPostAC = (newPost: string): AddPostAC_Type => ({
     type: ADD_POST,
     newPost
+})
+export const deletePostAC = (id: number): deletePostAC_Type => ({
+    type: DELETE_POST,
+    id
 })
 
 export const setUserProfile = (profile: ProfileUserType): setUserProfileAC_Type => ({
