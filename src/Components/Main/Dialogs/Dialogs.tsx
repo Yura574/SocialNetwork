@@ -4,7 +4,7 @@ import {DialogsElementType, MessageElementType} from "../../../Redux/dialogs_red
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {DialogsItem} from "./DialogsItem";
 import {Element} from "../../../common/FormControls/FormControls";
-import {fieldsValidator, maxLengthCreator} from "../../../validators/validators";
+import {fieldsValidator, maxLengthCreator} from "../../../utils/validators/validators";
 import {MessageItem} from "./MessageItem";
 
 type DialogsType = {

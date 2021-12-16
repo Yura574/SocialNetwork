@@ -3,7 +3,7 @@ import {Post} from "./Post/Post";
 import classes from "./MyPosts.module.css";
 import {PostElementType} from "../../../../Redux/profile_reducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {fieldsValidator, maxLengthCreator} from "../../../../validators/validators";
+import {fieldsValidator, maxLengthCreator} from "../../../../utils/validators/validators";
 import {Element} from "../../../../common/FormControls/FormControls";
 
 

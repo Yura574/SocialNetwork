@@ -14,13 +14,6 @@ type AppType = {
     initializeApp: () => void
     initialized: boolean
 }
-//
-// type MapStateToPropsType = {
-//     initialized: boolean
-// }
-// type MapDispatchToPropsType = {
-//     initializeApp: () => void
-// }
 
 export class App extends React.Component<AppType> {
     componentDidMount() {

@@ -2,11 +2,11 @@ import React from "react";
 import classes from "./Login.module.css";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Element} from "../../../common/FormControls/FormControls";
-import {fieldsValidator} from "../../../validators/validators";
 import {connect} from "react-redux";
 import {loginThunkCreator} from "../../../Redux/auth_reducer";
 import {Redirect} from "react-router";
 import {StateType} from "../../../Redux/Redux-store";
+import {fieldsValidator} from "../../../utils/validators/validators";
 
 export type FormDataType = {
     login: string
@@ -19,14 +19,15 @@ type LoginType = {
 }
 const Input = Element('input')
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div><Field component={Input} validate={[fieldsValidator]} name={'login'} placeholder={'email'}/></div>
             <div><Field component={Input} validate={[fieldsValidator]} name={'password'} placeholder={'password'}/>
             </div>
             <div><Field component={Input} name={'rememberMe'} type={"checkbox"}/></div>
-            {props.error && <div className={classes.errorEmail}>{props.error}</div>}
+            {error && <div className={classes.errorEmail}>{error}</div>}
             <div>
                 <button>Login</button>
             </div>

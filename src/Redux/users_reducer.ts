@@ -158,39 +158,44 @@ export const setFollowingInProgress = (isFetching: boolean, userId: number): Set
 })
 
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
     dispatch(setToggleIsFetching(true))
-    userAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(setToggleIsFetching(false))
-            dispatch(setUsers(data.items))
-            dispatch(setTotalUsersCount(data.totalCount))
-        }
-    )
+    let data = await userAPI.getUsers(currentPage, pageSize)
+    dispatch(setToggleIsFetching(false))
+    dispatch(setUsers(data.items))
+    dispatch(setTotalUsersCount(data.totalCount))
 }
-export const onPageThunkCreator = (pageNumber: number, pageSize: number) => (dispatch: Dispatch) => {
+export const onPageThunkCreator = (pageNumber: number, pageSize: number) => async (dispatch: Dispatch) => {
     dispatch(setToggleIsFetching(true))
     dispatch(setCurrentPage(pageNumber))
-    userAPI.getUsers(pageNumber, pageSize).then(data => {
-            dispatch(setToggleIsFetching(false))
-            dispatch(setUsers(data.items))
-        }
-    )
+    let data = await userAPI.getUsers(pageNumber, pageSize)
+    dispatch(setToggleIsFetching(false))
+    dispatch(setUsers(data.items))
 }
-export const unfollowThunkCreator = (id: number) => (dispatch: Dispatch) => {
+
+const followUnfollow = async (dispatch: Dispatch, id: number, apiMethod: any, actionCreator: any) => {
     dispatch(setFollowingInProgress(true, id))
-    followAPI.unfollowUser(id).then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(unFollow(id))
-        }
-        dispatch(setFollowingInProgress(false, id))
-    })
+
+    dispatch(setFollowingInProgress(true, id))
+    let response = await apiMethod(id)
+
+    if (response.data.resultCode === 0) {
+        dispatch(actionCreator(id))
+    }
+    dispatch(setFollowingInProgress(false, id))
 }
-export const followThunkCreator = (id: number) => (dispatch: Dispatch) => {
-    dispatch(setFollowingInProgress(true, id))
-    followAPI.followUser(id).then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(follow(id))
-        }
-        dispatch(setFollowingInProgress(false, id))
-    })
+
+
+export const unfollowThunkCreator = (id: number) => async (dispatch: Dispatch) => {
+    let actionCreator = unFollow
+    let apiMethod = followAPI.unfollowUser.bind(id)
+
+
+    followUnfollow(dispatch, id, apiMethod, actionCreator)
+}
+
+export const followThunkCreator = (id: number) => async (dispatch: Dispatch) => {
+    let apiMethod = followAPI.followUser.bind(id)
+    let actionCreator = follow
+    followUnfollow(dispatch, id, apiMethod, actionCreator)
 }

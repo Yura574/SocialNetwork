@@ -2,7 +2,7 @@ import {ProfileUserType} from "../Components/Main/Profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {profileAPI} from "../API/api";
 
-export type PostElementType = {
+    export type PostElementType = {
     id: number,
     message: string,
     like: number
@@ -93,20 +93,19 @@ export const setStatus = (status: string): getStatusAC_Type => ({
 })
 
 
-export const setPageThunkCreator = (userId: string) => (dispatch: Dispatch) => {
-    profileAPI.setPage(userId).then(response => {
+export const setPageThunkCreator = (userId: string) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.setPage(userId)
        dispatch( setUserProfile(response.data))
-    })
+
 }
-export const getStatusThunkCreator = (userId: string) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId).then(response => {
+export const getStatusThunkCreator = (userId: string) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.getStatus(userId)
        dispatch( setStatus(response.data))
-    })
 }
-export const updateStatusThunkCreator = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status).then(response => {
+export const updateStatusThunkCreator = (status: string) => async (dispatch: Dispatch) => {
+  let response = await  profileAPI.updateStatus(status)
        if (response.data.resultCode === 0 ){
            dispatch( setStatus(status))
        }
-    })
+
 }
