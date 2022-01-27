@@ -2,18 +2,22 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import {DialogsItem} from "./DialogsItem";
 import {MessageItem} from "./MessageItem";
-import {DialogsElementType, MessageElementType} from "../../../Redux/state";
+import {
+    ActionType,
+    addMessageAC,
+    DialogsElementType,
+    MessageElementType,
+    updateNewMessageAC
+} from "../../../Redux/state";
 
 type DialogsType = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
     newMessageText: string
-    addMessage: () => void
-    addNewMessage: (newMessage: string)=> void
+    dispatch: (action: ActionType) => void
 }
 
 export function Dialogs(props: DialogsType) {
-    debugger
 
     const name = props.dialogsData.map(d => <DialogsItem name={d.name} id={d.id}/>)
     const message = props.messageData.map(m => <MessageItem message={m.message} id={m.id}/>)
@@ -21,12 +25,12 @@ export function Dialogs(props: DialogsType) {
     const newMessage = React.createRef<HTMLInputElement>()
 
     function sendMessage() {
-            props.addMessage()
+            props.dispatch(addMessageAC())
     }
     function onChangeNewMessage() {
         if(newMessage.current){
         let textMessage = newMessage.current.value
-            props.addNewMessage(textMessage)
+            props.dispatch(updateNewMessageAC(textMessage))
     }}
 
     return (

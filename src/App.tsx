@@ -4,7 +4,7 @@ import {Header} from "./Components/Header/Header";
 import {NavBar} from "./Components/Navbar/Navbar";
 import {Main} from "./Components/Main/Main";
 import {BrowserRouter} from "react-router-dom";
-import {MessagesPage, ProfilePage} from "./Redux/state";
+import {ActionType, MessagesPage, ProfilePage} from "./Redux/state";
 
 type StateType = {
     messagesPage: MessagesPage
@@ -13,10 +13,10 @@ type StateType = {
     addMessage: () => void
     newTextPost: (newText: string) => void
     addNewMessage: (newMessage:string) => void
+    dispatch: (action: ActionType) => void
 }
 
 function App(props: StateType) {
-    debugger
 
     return (
         <BrowserRouter>
@@ -25,10 +25,7 @@ function App(props: StateType) {
                 <NavBar/>
                 <Main messagesPage={props.messagesPage}
                       profilePage={props.profilePage}
-                      addPost={props.addPost}
-                      addMessage={props.addMessage}
-                      newTextPost={props.newTextPost}
-                      addNewMessage={props.addNewMessage}
+                      dispatch = {props.dispatch}
                 />
             </div>
         </BrowserRouter>

@@ -2,25 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import {addMessage, addNewMessage, addPost, newTextPost, StateType, subscribe} from "./Redux/state";
 import reportWebVitals from './reportWebVitals';
-import { state} from "./Redux/state";
+import {store} from "./Redux/state";
 
-export function render () {
+ function render() {
+
     ReactDOM.render(
-        <React.StrictMode>
-            <App messagesPage={state.messagesPage}
-                 profilePage={state.profilePage}
-                 addPost={addPost}
-                 addMessage={addMessage}
-                 newTextPost={newTextPost}
-                 addNewMessage={addNewMessage}/>
-        </React.StrictMode>,
+        <App messagesPage={store.getState().messagesPage}
+             profilePage={store.getState().profilePage}
+             addPost={store.addPost.bind(store)}
+             addMessage={store.addMessage.bind(store)}
+             newTextPost={store.newTextPost.bind(store)}
+             addNewMessage={store.addNewMessage.bind(store)}
+             dispatch={store.dispatch.bind(store)}
+        />,
         document.getElementById('root')
+
     );
 }
+
 render()
-subscribe(render)
+store.subscribe(render)
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
