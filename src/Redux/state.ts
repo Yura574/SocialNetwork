@@ -27,7 +27,7 @@ export type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
 }
-type StoreType = {
+ type StoreType = {
     _state: StateType
     getState: () => StateType
     rerender: () => void

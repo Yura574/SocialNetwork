@@ -2,20 +2,14 @@ import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import {DialogsItem} from "./DialogsItem";
 import {MessageItem} from "./MessageItem";
-import {
-    ActionType,
-
-    DialogsElementType,
-    MessageElementType,
-
-} from "../../../Redux/state";
-import {addMessageAC, updateNewMessageAC} from "../../../Redux/dialogsReducer";
+import {DialogsElementType, MessageElementType,} from "../../../Redux/state";
 
 type DialogsType = {
     dialogsData: Array<DialogsElementType>
     messageData: Array<MessageElementType>
     newMessageText: string
-    dispatch: (action: ActionType) => void
+    sendMessage: () => void
+    updateNewMessageAC: (textMessage: string) => void
 }
 
 export function Dialogs(props: DialogsType) {
@@ -24,11 +18,12 @@ export function Dialogs(props: DialogsType) {
     const message = props.messageData.map(m => <MessageItem message={m.message} id={m.id}/>)
 
     function sendMessage() {
-            props.dispatch(addMessageAC())
+        props.sendMessage()
     }
+
     function onChangeNewMessage(e: ChangeEvent<HTMLInputElement>) {
         let textMessage = e.currentTarget.value
-            props.dispatch(updateNewMessageAC(textMessage))
+        props.updateNewMessageAC(textMessage)
     }
 
     return (
@@ -41,7 +36,7 @@ export function Dialogs(props: DialogsType) {
                 </div>
                 <div className={classes.dialogsMessages}>
                     {message}
-                    <input  value={props.newMessageText} onChange={onChangeNewMessage}/>
+                    <input value={props.newMessageText} onChange={onChangeNewMessage}/>
                     <button onClick={sendMessage}> send</button>
                 </div>
             </div>

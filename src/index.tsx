@@ -5,15 +5,11 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {store} from "./Redux/redux-store";
 
- function render() {
+function render() {
 
     ReactDOM.render(
-        <App messagesPage={store.getState().dialogsPage}
-             profilePage={store.getState().profilePage}
-             dispatch={store.dispatch.bind(store)}
-        />,
+        <App store={store}/>,
         document.getElementById('root')
-
     );
 }
 
