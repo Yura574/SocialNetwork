@@ -3,17 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {store} from "./Redux/state";
+import {store} from "./Redux/redux-store";
 
  function render() {
 
     ReactDOM.render(
-        <App messagesPage={store.getState().messagesPage}
+        <App messagesPage={store.getState().dialogsPage}
              profilePage={store.getState().profilePage}
-             addPost={store.addPost.bind(store)}
-             addMessage={store.addMessage.bind(store)}
-             newTextPost={store.newTextPost.bind(store)}
-             addNewMessage={store.addNewMessage.bind(store)}
              dispatch={store.dispatch.bind(store)}
         />,
         document.getElementById('root')

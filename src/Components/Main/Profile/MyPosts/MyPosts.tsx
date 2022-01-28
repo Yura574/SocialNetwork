@@ -1,7 +1,8 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import {Post} from "../Post/Post";
 import classes from "./MyPosts.module.css";
-import {ActionType, addPostAC, PostElementType, updateNewPostTextAC} from "../../../../Redux/state";
+import {ActionType,  PostElementType, } from "../../../../Redux/state";
+import {addPostAC, updateNewPostTextAC} from "../../../../Redux/profileReducer";
 
 type MyPostsType = {
     postData: Array<PostElementType>
@@ -11,17 +12,17 @@ type MyPostsType = {
 
 export function MyPosts(props: MyPostsType) {
 
-    const newPostElement = React.createRef<HTMLTextAreaElement>()
+    // const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     function addPost() {
         props.dispatch(addPostAC())
     }
 
-    function newPostText() {
-        if (newPostElement.current) {
-            const newText = newPostElement.current.value
+    function newPostText(e: ChangeEvent<HTMLTextAreaElement>) {
+
+            const newText = e.currentTarget.value
             props.dispatch(updateNewPostTextAC(newText))
-        }
+
     }
 
 
@@ -30,7 +31,7 @@ export function MyPosts(props: MyPostsType) {
             <h3>My posts</h3>
             <div className={classes.postsWrapper}>
 
-                <textarea ref={newPostElement} onChange={newPostText} value={props.newPostText}/>
+                <textarea  onChange={newPostText} value={props.newPostText}/>
                 <div>
                     <button onClick={addPost}> add</button>
                 </div>

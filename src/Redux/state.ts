@@ -1,3 +1,6 @@
+import {AddPostACType, profileReducer, UpdateNewPostTextACType} from "./profileReducer";
+import {AddMessageACType, dialogsReducer, UpdateNewMessageACType} from "./dialogsReducer";
+
 export type DialogsElementType = {
     id: number
     name: string
@@ -31,32 +34,18 @@ type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionType) => void
 }
-type AddPostACType = {
-    type: "ADD_POST"
-}
-type UpdateNewPostTextACType = {
-    type: "UPDATE_NEW_POST_TEXT"
-    newText: string
-}
-type AddMessageACType = {
-    type: "ADD_MESSAGE"
-}
-type UpdateNewMessageACType = {
-    type: "UPDATE_NEW_MESSAGE"
-    newMessage: string
-}
+
+
 export type ActionType =
     AddPostACType
     | UpdateNewPostTextACType
     | AddMessageACType
     | UpdateNewMessageACType
 
-const ADD_POST = 'ADD_POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
-const ADD_MESSAGE = "ADD_MESSAGE"
-const UPDATE_NEW_MESSAGE ="UPDATE_NEW_MESSAGE"
 
-export const store: StoreType = {
+
+
+ const store: StoreType = {
     _state: {
         messagesPage: {
             dialogsData: [
@@ -97,52 +86,14 @@ export const store: StoreType = {
     },
 
     dispatch(action: ActionType) {
-        if (action.type === ADD_POST) {
-            const text: PostElementType = {
-                id: 5,
-                message: this.getState().profilePage.newPostText,
-                like: 0
-            }
-            this.getState().profilePage.postData.unshift(text)
-            this.getState().profilePage.newPostText = '';
-            this.rerender()
-        }
-        if (action.type === UPDATE_NEW_POST_TEXT) {
-            this.getState().profilePage.newPostText = action.newText
-            this.rerender()
-        }
-        if (action.type === ADD_MESSAGE) {
-            const message: MessageElementType = {
-                id: 10,
-                message: this.getState().messagesPage.newMessageText
-            }
-            this.getState().messagesPage.messageData.unshift(message)
-            this.getState().messagesPage.newMessageText = ''
-            this.rerender()
-        }
-        if(action.type === UPDATE_NEW_MESSAGE) {
-            this.getState().messagesPage.newMessageText = action.newMessage
-            this.rerender()
-        }
+        this.getState().profilePage = profileReducer(this.getState().profilePage, action)
+        this.getState().messagesPage = dialogsReducer(this.getState().messagesPage, action)
+        return this.rerender()
     },
 }
 
 
-export const addPostAC = (): AddPostACType => ({
-    type: ADD_POST
-})
-export const updateNewPostTextAC = (newText: string): UpdateNewPostTextACType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: newText
-})
-export const addMessageAC = (): AddMessageACType => ({
-    type: ADD_MESSAGE
-})
 
-export const updateNewMessageAC = (newMessage: string): UpdateNewMessageACType => ({
-    type: UPDATE_NEW_MESSAGE,
-    newMessage: newMessage
-})
 
 
 

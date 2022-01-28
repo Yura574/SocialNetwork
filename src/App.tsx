@@ -9,10 +9,6 @@ import {ActionType, MessagesPage, ProfilePage} from "./Redux/state";
 type StateType = {
     messagesPage: MessagesPage
     profilePage: ProfilePage
-    addPost: () => void
-    addMessage: () => void
-    newTextPost: (newText: string) => void
-    addNewMessage: (newMessage:string) => void
     dispatch: (action: ActionType) => void
 }
 
