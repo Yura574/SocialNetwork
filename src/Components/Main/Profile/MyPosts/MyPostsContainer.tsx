@@ -1,32 +1,37 @@
 import React from "react";
-import {addPostAC, updateNewPostTextAC} from "../../../../Redux/profileReducer";
+import {connect} from "react-redux";
 import {StoreType} from "../../../../Redux/redux-store";
+import {Dispatch} from "redux";
 import {MyPosts} from "./MyPosts";
+import {addPostAC, PostElementType, updateNewPostTextAC} from "../../../../Redux/profileReducer";
 
-type MyPostsType = {
-    store: StoreType
+type MapStatePropsType = {
+    postData: Array<PostElementType>
+    newPostText: string
+
+}
+type MapDispatchPropsType = {
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+}
+export type ProfileStatePropsType = MapDispatchPropsType & MapStatePropsType
+
+const mapStateToProps = (state: StoreType): MapStatePropsType => {
+    return {
+        newPostText: state.profilePage.newPostText,
+        postData: state.profilePage.postData
+    }
+}
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+    return {
+        addPost: () => {
+            dispatch(addPostAC())
+        },
+        updateNewPostText: (newText: string) => {
+            dispatch(updateNewPostTextAC(newText))
+        }
+    }
 }
 
-export function MyPostsContainer(props: MyPostsType) {
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
-    // const newPostElement = React.createRef<HTMLTextAreaElement>()
-
-    function addPost() {
-        props.store.dispatch(addPostAC())
-    }
-
-    function newPostText(newText: string) {
-
-        props.store.dispatch(updateNewPostTextAC(newText))
-
-    }
-
-
-    return (
-        <MyPosts postData={props.store.getState().profilePage.postData}
-                 newPostText={props.store.getState().profilePage.newPostText}
-                 addPost={addPost}
-                 updateNewPostTextAC={newPostText}
-        />
-    )
-}

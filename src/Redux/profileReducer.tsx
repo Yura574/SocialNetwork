@@ -1,5 +1,3 @@
-import {ActionType, PostElementType} from "./state";
-
 export  type AddPostACType = {
     type: "ADD_POST"
 }
@@ -11,9 +9,17 @@ export  type UpdateNewPostTextACType = {
 export const ADD_POST = 'ADD_POST'
 export const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 
+export type ActionType = AddPostACType | UpdateNewPostTextACType
+
+
 type InitialStateType = {
     postData: Array<PostElementType>
     newPostText: string
+}
+export type PostElementType = {
+    id: number,
+    message: string,
+    like: number
 }
 
 const initialState: InitialStateType = {

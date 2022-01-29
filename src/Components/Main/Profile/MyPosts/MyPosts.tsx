@@ -1,17 +1,11 @@
 import React, {ChangeEvent} from "react";
 import {Post} from "../Post/Post";
 import classes from "./MyPosts.module.css";
-import {PostElementType,} from "../../../../Redux/state";
+import {ProfileStatePropsType} from "./MyPostsContainer";
 
-type MyPostsType = {
-    postData: Array<PostElementType>
-    newPostText: string
-    addPost: () => void
-    updateNewPostTextAC: (newText: string) => void
 
-}
 
-export function MyPosts(props: MyPostsType) {
+export function MyPosts(props: ProfileStatePropsType) {
 
 
     function addPost() {
@@ -20,7 +14,7 @@ export function MyPosts(props: MyPostsType) {
 
     function newPostText(e: ChangeEvent<HTMLTextAreaElement>) {
         const newText = e.currentTarget.value
-        props.updateNewPostTextAC(newText)
+        props.updateNewPostText(newText)
     }
 
 
