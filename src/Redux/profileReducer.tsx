@@ -26,7 +26,7 @@ const initialState: InitialStateType = {
 
     postData: [
         {id: 1, message: 'My first post', like: 15},
-        {id: 1, message: 'My second post', like: 20}
+        {id: 2, message: 'My second post', like: 20}
     ],
     newPostText: 'as'
 }
@@ -34,17 +34,21 @@ const initialState: InitialStateType = {
 export const profileReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
         case ADD_POST:
-            const text: PostElementType = {
+            const post: PostElementType = {
                 id: 5,
                 message: state.newPostText,
                 like: 0
             }
-            state.postData.unshift(text)
-            state.newPostText = ''
-            return state
+            return {
+                ...state,
+                postData: [post, ...state.postData],
+                newPostText: ''
+            }
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText
-            return state
+            return {
+                ...state,
+                newPostText: action.newText
+            }
     }
     return state
 }

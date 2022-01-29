@@ -31,7 +31,7 @@ export function MyPosts(props: ProfileStatePropsType) {
 
             <div>
 
-                {props.postData.map(p => <Post message={p.message} like={p.like}/>)}
+                {props.postData.map(p => <Post key={p.id} message={p.message} like={p.like}/>)}
 
             </div>
         </div>
