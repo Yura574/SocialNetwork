@@ -1,12 +1,11 @@
 export type UserType = {
-    id: number
-    avatar: string
-    followed: boolean
     name: string
-    status: string
-    location: {
-        city: string
-        country: string
+    id: number
+    followed: boolean
+    status: string | null
+    photos: {
+        small: string | null
+        large: string | null
     }
 }
 type InitialStateType = {
@@ -45,7 +44,7 @@ export const userReducer = (state = initialState, action: ActionType): InitialSt
                 users: state.users.map(user => {
 
                     if (user.id === action.userID) {
-                       user.followed = false
+                        user.followed = false
                     }
                     return user
                 })
@@ -63,10 +62,10 @@ export const userReducer = (state = initialState, action: ActionType): InitialSt
                 })
             }
         case SET_USERS:
-            const users = action.users
+            // const users = action.users
             return {
-                ...state, users: [ ...users]
-    }
+                ...state, users: action.users
+            }
 
     }
     return state
@@ -74,13 +73,13 @@ export const userReducer = (state = initialState, action: ActionType): InitialSt
 
 export const followAC = (userID: number): followTypeAC => ({
     type: FOLLOW,
-    userID: userID
+    userID
 })
 export const unfollowAC = (userID: number): unfollowTypeAC => ({
     type: UNFOLLOW,
-    userID: userID
+    userID
 })
 export const setUsersAC = (users: Array<UserType>): setUsersTypeAC => ({
     type: SET_USERS,
-    users: users
+    users
 })
