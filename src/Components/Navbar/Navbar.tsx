@@ -10,6 +10,7 @@ export function NavBar() {
             <div><NavLink to={'/news'} className={classes.item} activeClassName={classes.active}>News</NavLink></div>
             <div><NavLink to={'/music'} className={classes.item} activeClassName={classes.active}>Music</NavLink></div>
             <div><NavLink to={'/setting'} className={classes.item} activeClassName={classes.active}>Setting</NavLink></div>
+            <div><NavLink to={'/users'} className={classes.item} activeClassName={classes.active}>Users</NavLink></div>
         </nav>
     )
 }
