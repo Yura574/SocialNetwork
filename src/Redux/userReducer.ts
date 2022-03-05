@@ -62,7 +62,6 @@ export const userReducer = (state = initialState, action: ActionType): InitialSt
                 })
             }
         case SET_USERS:
-            // const users = action.users
             return {
                 ...state, users: action.users
             }

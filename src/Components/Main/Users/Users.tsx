@@ -5,28 +5,6 @@ import axios from 'axios'
 
 export function Users(props: UsersType) {
 
-    // const user = [
-    //     {
-    //         id: 1, avatar: 'https://proslang.ru/wp-content/uploads/2019/03/avatarka_1-300x300.jpg',
-    //         followed: false, name: 'Yura', status: `I'am futured proger`, location: {city: 'Minsk', country: 'Belarus'},
-    //     },
-    //     {
-    //         id: 2,
-    //         avatar: 'https://proslang.ru/wp-content/uploads/2019/03/avatarka_1-300x300.jpg',
-    //         followed: false,
-    //         name: 'Sasha',
-    //         status: `I'am futured proger`,
-    //         location: {city: 'Minsk', country: 'Belarus'},
-    //     },
-    //     {
-    //         id: 3,
-    //         avatar: 'https://proslang.ru/wp-content/uploads/2019/03/avatarka_1-300x300.jpg',
-    //         followed: false,
-    //         name: 'Alenka',
-    //         status: `I'am futured proger`,
-    //         location: {city: 'Minsk', country: 'Belarus'},
-    //     }
-    // ]
     if (props.users.length === 0) {
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(data => {
 
