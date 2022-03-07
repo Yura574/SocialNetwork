@@ -5,16 +5,13 @@ import axios from 'axios'
 
 export class Users extends React.Component<UsersType> {
 
-    constructor(props: UsersType) {
-        super(props);
+componentDidMount() {
+    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(data => {
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(data => {
-
-                this.props.setUsers(data.data.items)
-            }
-        )
-    }
-
+            this.props.setUsers(data.data.items)
+        }
+    )
+}
 
     render() {
         return (
