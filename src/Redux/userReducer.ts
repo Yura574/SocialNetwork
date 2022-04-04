@@ -13,9 +13,16 @@ type InitialStateType = {
     totalUserCount: number,
     pageSize: number,
     currentPage: number
+    preloader: boolean
 }
 
-type ActionType = followTypeACType | unfollowTypeACType | setUsersTypeACType | setTotalUserCountACType | setCurrentPageACType
+type ActionType =
+    followTypeACType
+    | unfollowTypeACType
+    | setUsersTypeACType
+    | setTotalUserCountACType
+    | setCurrentPageACType
+    | setPreloaderACType
 
 
 type followTypeACType = {
@@ -38,18 +45,24 @@ type setCurrentPageACType = {
     type: 'SET_CURRENT_PAGE',
     currentPage: number
 }
+type setPreloaderACType = {
+    type: 'SET_PRELOADER'
+    turnOnOff: boolean
+}
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_PRELOADER = 'SET_PRELOADER'
 
 const initialState: InitialStateType = {
     users: [],
     totalUserCount: 0,
     pageSize: 100,
-    currentPage: 3
+    currentPage: 1,
+    preloader: false
 }
 export const userReducer = (state = initialState, action: ActionType): InitialStateType => {
 
@@ -88,6 +101,10 @@ export const userReducer = (state = initialState, action: ActionType): InitialSt
             return {
                 ...state, currentPage: action.currentPage
             }
+        case SET_PRELOADER:
+            return {
+                ...state, preloader: action.turnOnOff
+            }
     }
     return state
 }
@@ -111,4 +128,8 @@ export const setTotalUserCountAC = (totalUserCount: number): setTotalUserCountAC
 export const setCurrentPageAC = (currentPage: number): setCurrentPageACType => ({
     type: SET_CURRENT_PAGE,
     currentPage
+})
+export const setPreloaderAC = (turnOnOff: boolean): setPreloaderACType => ({
+    type: SET_PRELOADER,
+    turnOnOff
 })

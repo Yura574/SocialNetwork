@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {StoreType} from "../../../Redux/redux-store";
 import {
     followAC,
-    setCurrentPageAC,
+    setCurrentPageAC, setPreloaderAC,
     setTotalUserCountAC,
     setUsersAC,
     unfollowAC,
@@ -18,6 +18,7 @@ type MapStateToPropsType = {
     currentPage: number
     totalUserCount: number
     pageSize: number
+    preloader: boolean
 }
 type MapDispatchToProps = {
     follow: (userIs: number) => void
@@ -25,6 +26,7 @@ type MapDispatchToProps = {
     setUsers: (users: Array<UserType>) => void
     setTotalUserCount: (totalUserCount: number) => void
     setCurrentPage: (currentPage: number) => void
+    setPreloader: (turnOnOff: boolean) => void
 }
 export type UsersAPIComponentType = MapStateToPropsType & MapDispatchToProps
 
@@ -33,7 +35,8 @@ const MapStateToProps = (state: StoreType): MapStateToPropsType => {
         users: state.usersPage.users,
         currentPage: state.usersPage.currentPage,
         totalUserCount: state.usersPage.totalUserCount,
-        pageSize: state.usersPage.pageSize
+        pageSize: state.usersPage.pageSize,
+        preloader: state.usersPage.preloader
     }
 
 }
@@ -54,6 +57,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
         },
         setCurrentPage: (currentPage: number) => {
             dispatch(setCurrentPageAC(currentPage))
+        },
+        setPreloader: (turnOnOff: boolean) => {
+            dispatch(setPreloaderAC(turnOnOff))
         }
     }
 }
@@ -62,21 +68,22 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
 export class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
 
     componentDidMount() {
-
+this.props.setPreloader(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
             .then(data => {
                 this.props.setUsers(data.data.items)
                 this.props.setTotalUserCount(data.data.totalCount)
-                console.log(data)
+                this.props.setPreloader(false)
             })
     }
 
     changeCurrentPage = (el: number) => {
+        this.props.setPreloader(true)
         this.props.setCurrentPage(el)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${el}`)
             .then(data => {
                 this.props.setUsers(data.data.items)
-                console.log(data.data.items)
+                this.props.setPreloader(false)
             })
     }
 
@@ -91,6 +98,7 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
                 changeCurrentPage={this.changeCurrentPage}
+                preloader={this.props.preloader}
             />
         )
     }

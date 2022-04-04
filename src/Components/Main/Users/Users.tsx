@@ -1,7 +1,7 @@
-import {UsersAPIComponentType} from "./UsersContainer";
 import classes from "./User.module.css";
 import React from "react";
 import {UserType} from "../../../Redux/userReducer";
+import {Preloader} from "../../../preloder/Preloader";
 
 type UsersType ={
     totalUserCount: number
@@ -11,6 +11,7 @@ type UsersType ={
     users: UserType[]
     follow: (id: number)=> void
     unfollow: (id: number)=> void
+    preloader: boolean
 
 }
 
@@ -23,6 +24,7 @@ export const Users =(props: UsersType) => {
     return (
 
         <div className={classes.body}>
+           <div>{props.preloader &&<Preloader/>}</div>
             <h1>Users</h1>
             {pageNumber.map((el, index) =>
                 props.currentPage === el
