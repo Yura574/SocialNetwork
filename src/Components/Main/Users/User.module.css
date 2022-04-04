@@ -37,3 +37,7 @@
     padding: 10px 20px 0 0;
 
 }
+
+.currentPage{
+    font-weight: bold;
+}

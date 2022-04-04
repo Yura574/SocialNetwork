@@ -5,20 +5,43 @@ import axios from 'axios'
 
 export class Users extends React.Component<UsersType> {
 
-componentDidMount() {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(data => {
+    componentDidMount() {
 
-            this.props.setUsers(data.data.items)
-        }
-    )
-}
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+            .then(data => {
+                this.props.setUsers(data.data.items)
+                this.props.setTotalUserCount(data.data.totalCount)
+                console.log(data)
+            })
+    }
+
+    changeCurrentPage(el: number) {
+        debugger
+        this.props.setCurrentPage(el)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${el}`)
+            .then( data => {
+                this.props.setUsers(data.data.items)
+                console.log(data.data.items)
+            })
+    }
 
     render() {
+        let pageNumber = []
+        let page = Math.ceil(this.props.totalUserCount / this.props.pageSize)
+        for (let i = 1; i <= page ; i++) {
+            pageNumber.push(i)
+        }
         return (
+
             <div className={classes.body}>
-                <div>Users</div>
-                <div>{this.props.users.map(u =>
-                    <div>
+                <h1>Users</h1>
+                {pageNumber.map((el, index) =>
+                    this.props.currentPage === el
+                        ? <span key={index} className={classes.currentPage}> {el}</span >
+                        :  <span key={index} onClick={() => this.changeCurrentPage(el)}> {el}</span>)}
+
+                <div>{this.props.users.map((u,index) =>
+                    <div key={index}>
                         <div className={classes.avatarBlock}>
                             <div className={classes.userAvatar}>
                                 <img src={u.photos.small
