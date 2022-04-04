@@ -1,5 +1,4 @@
 import {connect} from "react-redux";
-import {Users} from "./Users";
 import {StoreType} from "../../../Redux/redux-store";
 import {
     followAC,
@@ -10,6 +9,9 @@ import {
     UserType
 } from "../../../Redux/userReducer";
 import {Dispatch} from "redux";
+import React from "react";
+import axios from "axios";
+import {Users} from "./Users";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -24,7 +26,7 @@ type MapDispatchToProps = {
     setTotalUserCount: (totalUserCount: number) => void
     setCurrentPage: (currentPage: number) => void
 }
-export type UsersType = MapStateToPropsType & MapDispatchToProps
+export type UsersAPIComponentType = MapStateToPropsType & MapDispatchToProps
 
 const MapStateToProps = (state: StoreType): MapStateToPropsType => {
     return {
@@ -55,4 +57,43 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
         }
     }
 }
-export const UsersContainer = connect(MapStateToProps, mapDispatchToProps)(Users)
+
+
+export class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
+
+    componentDidMount() {
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+            .then(data => {
+                this.props.setUsers(data.data.items)
+                this.props.setTotalUserCount(data.data.totalCount)
+                console.log(data)
+            })
+    }
+
+    changeCurrentPage = (el: number) => {
+        this.props.setCurrentPage(el)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${el}`)
+            .then(data => {
+                this.props.setUsers(data.data.items)
+                console.log(data.data.items)
+            })
+    }
+
+    render() {
+
+        return (
+            <Users
+                users={this.props.users}
+                currentPage={this.props.currentPage}
+                totalUserCount={this.props.totalUserCount}
+                pageSize={this.props.pageSize}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                changeCurrentPage={this.changeCurrentPage}
+            />
+        )
+    }
+}
+
+export const UsersContainer = connect(MapStateToProps, mapDispatchToProps)(UsersAPIComponent)
