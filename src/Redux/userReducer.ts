@@ -67,31 +67,23 @@ const initialState: InitialStateType = {
 export const userReducer = (state = initialState, action: ActionType): InitialStateType => {
 
     switch (action.type) {
+
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map(user => {
-
-                    if (user.id === action.userID) {
-                        user.followed = false
-                    }
-                    return user
-                })
+                users: state.users.map(user => user.id === action.userID? {...user, followed: false} :{...user} )
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(user => {
-
-                    if (user.id === action.userID) {
-                        user.followed = true
-                    }
-                    return user
-                })
+                users: state.users.map(user => user.id === action.userID? {...user, followed: true} :{...user} )
             }
         case SET_USERS:
             return {
-                ...state, users: action.users
+                ...state,
+                users: action.users
+
+
             }
         case SET_TOTAL_USER_COUNT:
             return {
@@ -109,27 +101,27 @@ export const userReducer = (state = initialState, action: ActionType): InitialSt
     return state
 }
 
-export const followAC = (userID: number): followTypeACType => ({
+export const follow = (userID: number): followTypeACType => ({
     type: FOLLOW,
     userID
 })
-export const unfollowAC = (userID: number): unfollowTypeACType => ({
+export const unfollow = (userID: number): unfollowTypeACType => ({
     type: UNFOLLOW,
     userID
 })
-export const setUsersAC = (users: Array<UserType>): setUsersTypeACType => ({
+export const setUsers = (users: Array<UserType>): setUsersTypeACType => ({
     type: SET_USERS,
     users
 })
-export const setTotalUserCountAC = (totalUserCount: number): setTotalUserCountACType => ({
+export const setTotalUserCount = (totalUserCount: number): setTotalUserCountACType => ({
     type: SET_TOTAL_USER_COUNT,
     totalUserCount
 })
-export const setCurrentPageAC = (currentPage: number): setCurrentPageACType => ({
+export const setCurrentPage = (currentPage: number): setCurrentPageACType => ({
     type: SET_CURRENT_PAGE,
     currentPage
 })
-export const setPreloaderAC = (turnOnOff: boolean): setPreloaderACType => ({
+export const setPreloader = (turnOnOff: boolean): setPreloaderACType => ({
     type: SET_PRELOADER,
     turnOnOff
 })

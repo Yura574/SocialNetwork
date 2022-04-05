@@ -1,13 +1,13 @@
 import React from "react";
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {ProfileInfoContainer} from "./ProfileInfo/ProfileInfoContainer";
 
 
 
 export function Profile() {
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfoContainer/>
             <MyPostsContainer />
         </div>
     )

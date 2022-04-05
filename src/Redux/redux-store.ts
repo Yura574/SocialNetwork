@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {userReducer} from "./userReducer";
+import {authReducer} from "./authReducer";
 
 declare global {
     interface Window {
@@ -12,7 +13,8 @@ declare global {
 let reducers = combineReducers({
         profilePage: profileReducer,
         dialogsPage: dialogsReducer,
-        usersPage: userReducer
+        usersPage: userReducer,
+        auth: authReducer
     }
 )
 

@@ -1,17 +1,16 @@
 import {connect} from "react-redux";
 import {StoreType} from "../../../Redux/redux-store";
 import {
-    followAC,
-    setCurrentPageAC, setPreloaderAC,
-    setTotalUserCountAC,
-    setUsersAC,
-    unfollowAC,
+    follow,
+    setCurrentPage, setPreloader,
+    setTotalUserCount,
+    setUsers,
+    unfollow,
     UserType
 } from "../../../Redux/userReducer";
-import {Dispatch} from "redux";
 import React from "react";
-import axios from "axios";
 import {Users} from "./Users";
+import {followAPI, userAPI} from "../../../api/api";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -41,35 +40,36 @@ const MapStateToProps = (state: StoreType): MapStateToPropsType => {
 
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setTotalUserCount: (totalUserCount: number) => {
-            dispatch(setTotalUserCountAC(totalUserCount))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setPreloader: (turnOnOff: boolean) => {
-            dispatch(setPreloaderAC(turnOnOff))
-        }
-    }
-}
-
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
+//     return {
+//         follow: (userId) => {
+//             dispatch(followAC(userId))
+//         },
+//         unfollow: (userId) => {
+//             dispatch(unfollowAC(userId))
+//         },
+//         setUsers: (users) => {
+//             dispatch(setUsersAC(users))
+//         },
+//         setTotalUserCount: (totalUserCount: number) => {
+//             dispatch(setTotalUserCountAC(totalUserCount))
+//         },
+//         setCurrentPage: (currentPage: number) => {
+//             dispatch(setCurrentPageAC(currentPage))
+//         },
+//         setPreloader: (turnOnOff: boolean) => {
+//             dispatch(setPreloaderAC(turnOnOff))
+//         }
+//     }
+// }
+//
 
 export class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
 
     componentDidMount() {
-this.props.setPreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+        this.props.setPreloader(true)
+
+        userAPI.getUsers(this.props.pageSize, this.props.currentPage)
             .then(data => {
                 this.props.setUsers(data.data.items)
                 this.props.setTotalUserCount(data.data.totalCount)
@@ -77,15 +77,38 @@ this.props.setPreloader(true)
             })
     }
 
-    changeCurrentPage = (el: number) => {
+    changeCurrentPage = (pageNumber: number) => {
         this.props.setPreloader(true)
-        this.props.setCurrentPage(el)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${el}`)
+        this.props.setCurrentPage(pageNumber)
+        userAPI.getUsers(this.props.pageSize, pageNumber)
             .then(data => {
                 this.props.setUsers(data.data.items)
                 this.props.setPreloader(false)
             })
     }
+    followAPI = (userId: number) => {
+        this.props.setPreloader(true)
+        followAPI.follow(userId)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    this.props.unfollow(userId)
+                }
+                this.props.setPreloader(false)
+
+            })
+    }
+
+    unfollowAPI = (userId: number) => {
+        this.props.setPreloader(true)
+        followAPI.unfollow(userId)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    this.props.follow(userId)
+                }
+                this.props.setPreloader(false)
+            })
+    }
+
 
     render() {
 
@@ -95,8 +118,8 @@ this.props.setPreloader(true)
                 currentPage={this.props.currentPage}
                 totalUserCount={this.props.totalUserCount}
                 pageSize={this.props.pageSize}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
+                follow={this.followAPI}
+                unfollow={this.unfollowAPI}
                 changeCurrentPage={this.changeCurrentPage}
                 preloader={this.props.preloader}
             />
@@ -104,4 +127,11 @@ this.props.setPreloader(true)
     }
 }
 
-export const UsersContainer = connect(MapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+export const UsersContainer = connect(MapStateToProps, {
+    follow,
+    setCurrentPage,
+    setPreloader,
+    setTotalUserCount,
+    setUsers,
+    unfollow
+})(UsersAPIComponent)

@@ -13,7 +13,7 @@ export function Main() {
 
     return (
         <div className={classes.main}>
-            <Route path={'/profile'} render={() => <Profile/>}/>
+            <Route path={'/profile/:userId?'} render={() => <Profile/>}/>
             <Route path={'/dialogs'}
                    render={() => <DialogsContainer/>}/>
             <Route path={'/news'} render={() => <News/>}/>

@@ -2,8 +2,12 @@
 .header {
     grid-area: header;
     background: rgba(21,176,255,0.75);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px 5px 5px;
 }
 .header img {
     width: 60px;
-    padding: 5px;
+    /*padding: 5px;*/
 }

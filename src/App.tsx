@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./Components/Header/Header";
 import {NavBar} from "./Components/Navbar/Navbar";
 import {Main} from "./Components/Main/Main";
 import {BrowserRouter} from "react-router-dom";
+import {HeaderContainer} from "./Components/Header/HeaderContainer";
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className="App">
-                <Header/>
+                <HeaderContainer/>
                 <NavBar/>
                 <Main/>
             </div>
