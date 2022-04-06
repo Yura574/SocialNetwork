@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import classes from "./Header.module.css";
 
 type HeaderType = {
@@ -15,7 +16,7 @@ export function Header(props: HeaderType) {
             <img
                 src={'https://i.pinimg.com/originals/3f/3d/d9/3f3dd9219f7bb1c9617cf4f154b70383.jpg'}
                 alt={'logo'}/>
-            <div>{ props.isAuth? props.login : 'Login'}</div>
+            <div>{ props.isAuth? props.login : <NavLink to={'login'}>Login</NavLink>}</div>
         </header>
     )
 }

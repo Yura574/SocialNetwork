@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../api/api";
+
 type SetAuthDataUserACType = {
     type: 'SET_AUTH_DATA_USER',
     data: AuthDataType
@@ -55,3 +58,12 @@ export const setResultCode = (resultCode: 0 | 1) : SetIsAuthACType => ({
     type: "SET_IS_AUTH",
     resultCode
 })
+
+export const authMe =() => (dispatch: Dispatch) => {
+    authAPI.authMe()
+        .then(res => {
+            dispatch(setAuthDataUser(res.data.data))
+            dispatch(setResultCode(res.data.resultCode))
+
+        })
+}

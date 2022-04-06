@@ -1,8 +1,9 @@
 import {connect} from "react-redux";
 import {StoreType} from "../../../Redux/redux-store";
 import {
-    follow,
-    setCurrentPage, setPreloader,
+    follow, followThunk, getUsersThunk,
+    setCurrentPage, setFollowingInProgress,
+    setPreloader,
     setTotalUserCount,
     setUsers,
     unfollow,
@@ -10,7 +11,7 @@ import {
 } from "../../../Redux/userReducer";
 import React from "react";
 import {Users} from "./Users";
-import {followAPI, userAPI} from "../../../api/api";
+import {Redirect} from "react-router";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -18,6 +19,8 @@ type MapStateToPropsType = {
     totalUserCount: number
     pageSize: number
     preloader: boolean
+    followingInProgress: number[]
+    isAuth: boolean
 }
 type MapDispatchToProps = {
     follow: (userIs: number) => void
@@ -26,6 +29,9 @@ type MapDispatchToProps = {
     setTotalUserCount: (totalUserCount: number) => void
     setCurrentPage: (currentPage: number) => void
     setPreloader: (turnOnOff: boolean) => void
+    setFollowingInProgress: (progress: boolean, userId: number) => void
+    getUsersThunk: (pageSize: number, currentPage: number) => void
+    followThunk: (userId: number, subscribe: boolean) => void
 }
 export type UsersAPIComponentType = MapStateToPropsType & MapDispatchToProps
 
@@ -35,103 +41,60 @@ const MapStateToProps = (state: StoreType): MapStateToPropsType => {
         currentPage: state.usersPage.currentPage,
         totalUserCount: state.usersPage.totalUserCount,
         pageSize: state.usersPage.pageSize,
-        preloader: state.usersPage.preloader
-    }
+        preloader: state.usersPage.preloader,
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
 
+    }
 }
 
-// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followAC(userId))
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unfollowAC(userId))
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setTotalUserCount: (totalUserCount: number) => {
-//             dispatch(setTotalUserCountAC(totalUserCount))
-//         },
-//         setCurrentPage: (currentPage: number) => {
-//             dispatch(setCurrentPageAC(currentPage))
-//         },
-//         setPreloader: (turnOnOff: boolean) => {
-//             dispatch(setPreloaderAC(turnOnOff))
-//         }
-//     }
-// }
-//
+const mapDispatchToProps: MapDispatchToProps ={
+    follow,
+    unfollow,
+    setUsers,
+    setTotalUserCount,
+    setCurrentPage,
+    setPreloader,
+    setFollowingInProgress,
+    getUsersThunk,
+    followThunk,
+}
+
 
 export class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
 
     componentDidMount() {
-        this.props.setPreloader(true)
-
-        userAPI.getUsers(this.props.pageSize, this.props.currentPage)
-            .then(data => {
-                this.props.setUsers(data.data.items)
-                this.props.setTotalUserCount(data.data.totalCount)
-                this.props.setPreloader(false)
-            })
+        this.props.getUsersThunk(this.props.pageSize, this.props.currentPage)
     }
 
     changeCurrentPage = (pageNumber: number) => {
-        this.props.setPreloader(true)
-        this.props.setCurrentPage(pageNumber)
-        userAPI.getUsers(this.props.pageSize, pageNumber)
-            .then(data => {
-                this.props.setUsers(data.data.items)
-                this.props.setPreloader(false)
-            })
+        this.props.getUsersThunk(this.props.pageSize, pageNumber)
     }
-    followAPI = (userId: number) => {
-        this.props.setPreloader(true)
-        followAPI.follow(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    this.props.unfollow(userId)
-                }
-                this.props.setPreloader(false)
-
-            })
+    followAPI = (userId: number, subscribe: boolean) => {
+        this.props.followThunk(userId, subscribe)
     }
 
-    unfollowAPI = (userId: number) => {
-        this.props.setPreloader(true)
-        followAPI.unfollow(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    this.props.follow(userId)
-                }
-                this.props.setPreloader(false)
-            })
-    }
+
 
 
     render() {
 
         return (
-            <Users
+            <>
+                {!this.props.isAuth && <Redirect to={'login'}/>}
+                    <Users
                 users={this.props.users}
                 currentPage={this.props.currentPage}
                 totalUserCount={this.props.totalUserCount}
                 pageSize={this.props.pageSize}
                 follow={this.followAPI}
-                unfollow={this.unfollowAPI}
                 changeCurrentPage={this.changeCurrentPage}
                 preloader={this.props.preloader}
+                followingInProgress={this.props.followingInProgress}
             />
+            </>
         )
     }
 }
 
-export const UsersContainer = connect(MapStateToProps, {
-    follow,
-    setCurrentPage,
-    setPreloader,
-    setTotalUserCount,
-    setUsers,
-    unfollow
-})(UsersAPIComponent)
+export const UsersContainer = connect(MapStateToProps, mapDispatchToProps)(UsersAPIComponent)

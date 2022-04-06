@@ -10,10 +10,9 @@ type UsersType ={
     currentPage: number
     changeCurrentPage: (page:number)=> void
     users: UserType[]
-    follow: (id: number)=> void
-    unfollow: (id: number)=> void
+    follow: (id: number, subscribe: boolean)=> void
     preloader: boolean
-
+    followingInProgress: number[]
 }
 
 export const Users =(props: UsersType) => {
@@ -27,10 +26,12 @@ export const Users =(props: UsersType) => {
         <div className={classes.body}>
            <div>{props.preloader &&<Preloader/>}</div>
             <h1>Users</h1>
-            {pageNumber.map((el, index) =>
-                props.currentPage === el
+            {pageNumber.map((el, index) =>{
+              return   props.currentPage === el
                     ? <span key={index} className={classes.currentPage}> {el}</span >
-                    :  <span key={index} onClick={() => props.changeCurrentPage(el)}> {el}</span>)}
+                    :  <span key={index} onClick={() => props.changeCurrentPage(el)}> {el}</span>})
+            }
+
 
             <div>{props.users.map((u,index) =>
                 <div key={index}>
@@ -42,16 +43,13 @@ export const Users =(props: UsersType) => {
                                 : 'https://proslang.ru/wp-content/uploads/2019/03/avatarka_1-300x300.jpg'}
                                  alt={'avatar'} className={classes.avatar}/>
                         </NavLink>
-                            {u.followed
-                                ?<button disabled={props.preloader && true} onClick={() => props.unfollow(u.id)}>follow</button>
-                                : <button disabled={props.preloader && true}  onClick={() => props.follow(u.id)}>unfollow</button>
-                                // : <button onClick={() => props.unfollow(u.id)}>follow</button>
+                            {
+                                u.followed
+                                ? <button disabled={props.followingInProgress.some(id => id === u.id) && true}
+                                          onClick={() => props.follow(u.id, false)}>unfollow</button>
+                                : <button disabled={props.followingInProgress.some(id => id === u.id) && true}
+                                          onClick={() => props.follow(u.id, true)}>follow</button>
                             }
-                            {/*<button onClick={() => {*/}
-                            {/*    u.followed ? props.unfollow(u.id) :  props.follow(u.id)*/}
-                            {/*}}>*/}
-                            {/*    {u.followed ?  'follow' : 'unfollow'}*/}
-                            {/*</button>*/}
                         </div>
                         <div className={classes.userInfo}>
                             <div className={classes.userName}>

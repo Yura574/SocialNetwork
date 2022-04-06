@@ -1,3 +1,7 @@
+import {Dispatch} from "redux";
+import {profileAPI} from "../api/api";
+import {setPreloader} from "./userReducer";
+
 export  type AddPostACType = {
     type: "ADD_POST"
 }
@@ -96,3 +100,14 @@ export const addProfile = (profile: ProfileType): AddProfileACType => ({
     type: ADD_PROFILE,
     profile
 })
+
+
+export const setProfile = (userId: string) => (dispatch: Dispatch) => {
+
+    dispatch(setPreloader(true))
+    profileAPI.getCurrentUser(userId)
+        .then(response => {
+            dispatch(addProfile(response.data))
+            dispatch(setPreloader(false))
+        })
+}

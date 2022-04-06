@@ -1,9 +1,9 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {userReducer} from "./userReducer";
 import {authReducer} from "./authReducer";
-
+import thunk from "redux-thunk";
 declare global {
     interface Window {
         store: any;
@@ -18,7 +18,7 @@ let reducers = combineReducers({
     }
 )
 
-export let store = createStore(reducers)
+export let store = createStore(reducers, applyMiddleware(thunk))
 
 window.store = store
 

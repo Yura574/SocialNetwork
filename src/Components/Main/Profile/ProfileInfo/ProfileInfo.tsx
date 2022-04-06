@@ -25,22 +25,21 @@ export function ProfileInfo(props: DescriptionType) {
                     <div>{props.profile?.lookingForAJobDescription}</div>
                     <div><h3>contacts:</h3>contacts:
                         <div> vk:
-                            <a href={`https://${props.profile?.contacts.vk}`}>{props.profile?.contacts.vk} </a>
+                            <a href={props.profile?.contacts.vk}>{props.profile?.contacts.vk} </a>
                         </div>
                         <div> GitHub:
-                            <a href={`https://${props.profile?.contacts.github}`}>{props.profile?.contacts.github} </a>
+                            <a href={props.profile?.contacts.github}>{props.profile?.contacts.github} </a>
                         </div>
                         <div> YouTube:
-                            <a href={`https://${props.profile?.contacts.youtube}`}>{props.profile?.contacts.youtube} </a>
+                            <a href={props.profile?.contacts.youtube}>{props.profile?.contacts.youtube} </a>
                         </div>
                         <div> Instagram:
-                            <a href={`https://${props.profile?.contacts.instagram}`}>{props.profile?.contacts.instagram} </a>
+                            <a href={props.profile?.contacts.instagram}>{props.profile?.contacts.instagram} </a>
                         </div>
                         <div> Twitter:
-                            <a href={`https://${props.profile?.contacts.twitter}`}>{props.profile?.contacts.twitter} </a>
+                            <a href={props.profile?.contacts.twitter}>{props.profile?.contacts.twitter} </a>
                         </div>
 
-                        a
 
                     </div>
                 </div>

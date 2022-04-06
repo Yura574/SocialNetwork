@@ -2,11 +2,11 @@ import React from "react";
 import {ProfileInfo} from "./ProfileInfo";
 import {connect} from "react-redux";
 import {StoreType} from "../../../../Redux/redux-store";
-import {addProfile, ProfileType} from "../../../../Redux/profileReducer";
+import {addProfile, ProfileType, setProfile} from "../../../../Redux/profileReducer";
 import {Preloader} from "../../../../preloder/Preloader";
 import {setPreloader} from "../../../../Redux/userReducer";
-import {RouteComponentProps, withRouter} from "react-router";
-import {profileAPI} from "../../../../api/api";
+import {Redirect, RouteComponentProps, withRouter} from "react-router";
+import {stat} from "fs";
 
 type ProfileInfoAPIContainerType = MapStateToProps & MapDispatchToProps
 type PathParamType = {
@@ -22,23 +22,17 @@ export class ProfileInfoAPIContainer extends React.Component<PropsType> {
         if(!userId){
             userId = '20685'
         }
-        this.props.setPreloader(true)
-        profileAPI.getCurrentUser(userId)
-            .then(response => {
-                this.props.addProfile(response.data)
-                this.props.setPreloader(false)
-            })
-        console.log(this.props)
+        this.props.setProfile(userId )
     }
 
     render() {
+        if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return <>
             {this.props.preloader
                 ? <Preloader/>
                 : <ProfileInfo profile={this.props.profile}
                 />
             }
-            ;
         </>
     }
 }
@@ -46,19 +40,23 @@ export class ProfileInfoAPIContainer extends React.Component<PropsType> {
 type MapStateToProps = {
     profile: ProfileType | null
     preloader: boolean
+    isAuth: boolean
 }
 type MapDispatchToProps = {
     addProfile: (profile: ProfileType) => void
     setPreloader: (turnOnOf: boolean)=> void
+    setProfile: (userId: string) => void
 }
 
 const mapStateToProps = (state: StoreType): MapStateToProps => ({
     profile: state.profilePage.profile,
-    preloader: state.usersPage.preloader
+    preloader: state.usersPage.preloader,
+    isAuth: state.auth.isAuth
 })
 const mapDispatchToProps: MapDispatchToProps = {
     setPreloader,
-    addProfile
+    addProfile,
+    setProfile
 }
 
 const ProfileInfoWithRoute = withRouter(ProfileInfoAPIContainer)

@@ -2,20 +2,13 @@ import React from "react";
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {StoreType} from "../../Redux/redux-store";
-import {AuthDataType, setAuthDataUser, setResultCode} from "../../Redux/authReducer";
-import {authAPI} from "../../api/api";
+import {AuthDataType, authMe} from "../../Redux/authReducer";
 
 type HeaderAPIComponentType = MapStateToProps & MapDispatchToProps
 
 export class HeaderAPIComponent extends React.Component<HeaderAPIComponentType> {
     componentDidMount() {
-
-        authAPI.authMe()
-            .then(res => {
-                this.props.setAuthDataUser(res.data.data)
-                this.props.setResultCode(res.data.resultCode)
-
-            })
+        this.props.authMe()
     }
 
     render() {
@@ -25,8 +18,6 @@ export class HeaderAPIComponent extends React.Component<HeaderAPIComponentType> 
                     id={this.props.data.id}
                     login={this.props.data.login}
                     email={this.props.data.email}/>
-
-
         )
     }
 }
@@ -37,8 +28,7 @@ type MapStateToProps = {
     data: AuthDataType
 }
 type MapDispatchToProps = {
-    setAuthDataUser: (data: AuthDataType) => void
-    setResultCode: (resultCode: 0 | 1) => void
+    authMe: () => void
 }
 const mapStateToProps = (state: StoreType): MapStateToProps => ({
     isAuth: state.auth.isAuth,
@@ -46,8 +36,7 @@ const mapStateToProps = (state: StoreType): MapStateToProps => ({
 })
 
 const mapDispatchToProps: MapDispatchToProps = {
-    setAuthDataUser,
-    setResultCode
+    authMe
 }
 
 
