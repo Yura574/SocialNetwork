@@ -7,6 +7,7 @@ import {Preloader} from "../../../../preloder/Preloader";
 import {setPreloader} from "../../../../Redux/userReducer";
 import {Redirect, RouteComponentProps, withRouter} from "react-router";
 import {stat} from "fs";
+import {withAuthRedirect} from "../../../../HOC/withAuthRedirect";
 
 type ProfileInfoAPIContainerType = MapStateToProps & MapDispatchToProps
 type PathParamType = {
@@ -26,7 +27,7 @@ export class ProfileInfoAPIContainer extends React.Component<PropsType> {
     }
 
     render() {
-        if(!this.props.isAuth) return <Redirect to={'/login'}/>
+        // if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return <>
             {this.props.preloader
                 ? <Preloader/>
@@ -40,7 +41,7 @@ export class ProfileInfoAPIContainer extends React.Component<PropsType> {
 type MapStateToProps = {
     profile: ProfileType | null
     preloader: boolean
-    isAuth: boolean
+    // isAuth: boolean
 }
 type MapDispatchToProps = {
     addProfile: (profile: ProfileType) => void
@@ -51,7 +52,7 @@ type MapDispatchToProps = {
 const mapStateToProps = (state: StoreType): MapStateToProps => ({
     profile: state.profilePage.profile,
     preloader: state.usersPage.preloader,
-    isAuth: state.auth.isAuth
+    // isAuth: state.auth.isAuth
 })
 const mapDispatchToProps: MapDispatchToProps = {
     setPreloader,
@@ -61,4 +62,4 @@ const mapDispatchToProps: MapDispatchToProps = {
 
 const ProfileInfoWithRoute = withRouter(ProfileInfoAPIContainer)
 
-export const ProfileInfoContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileInfoWithRoute)
+export const ProfileInfoContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(ProfileInfoWithRoute))

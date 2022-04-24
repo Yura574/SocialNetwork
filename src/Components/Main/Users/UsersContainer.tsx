@@ -20,7 +20,7 @@ type MapStateToPropsType = {
     pageSize: number
     preloader: boolean
     followingInProgress: number[]
-    isAuth: boolean
+    // isAuth: boolean
 }
 type MapDispatchToProps = {
     follow: (userIs: number) => void
@@ -43,7 +43,7 @@ const MapStateToProps = (state: StoreType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         preloader: state.usersPage.preloader,
         followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
+        // isAuth: state.auth.isAuth
 
     }
 }
@@ -81,7 +81,7 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
 
         return (
             <>
-                {!this.props.isAuth && <Redirect to={'login'}/>}
+                {/*{!this.props.isAuth && <Redirect to={'login'}/>}*/}
                     <Users
                 users={this.props.users}
                 currentPage={this.props.currentPage}
