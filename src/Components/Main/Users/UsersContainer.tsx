@@ -9,9 +9,11 @@ import {
     unfollow,
     UserType
 } from "../../../Redux/userReducer";
-import React from "react";
+import React, {ComponentType} from "react";
 import {Users} from "./Users";
 import {Redirect} from "react-router";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../../HOC/withAuthRedirect";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -97,4 +99,8 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
     }
 }
 
-export const UsersContainer = connect(MapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+export const UsersContainer = compose<ComponentType>(
+    connect(MapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)
+(UsersAPIComponent)

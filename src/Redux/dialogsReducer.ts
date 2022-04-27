@@ -1,5 +1,6 @@
 export  type AddMessageACType = {
     type: "ADD_MESSAGE"
+    messageText: string
 }
 export  type UpdateNewMessageACType = {
     type: "UPDATE_NEW_MESSAGE"
@@ -51,7 +52,7 @@ export const dialogsReducer = (state = initialState, action: ActionType): Dialog
         case ADD_MESSAGE:
             const message: MessageElementType = {
                 id: 7,
-                message: state.newMessageText
+                message: action.messageText
             }
             return {
                 ...state,
@@ -68,7 +69,7 @@ export const dialogsReducer = (state = initialState, action: ActionType): Dialog
     }
 }
 
-export const addMessageAC = (): AddMessageACType => ({type: ADD_MESSAGE})
+export const addMessageAC = (messageText: string): AddMessageACType => ({type: ADD_MESSAGE, messageText})
 
 export const updateNewMessageAC = (newMessage: string): UpdateNewMessageACType => ({
     type: UPDATE_NEW_MESSAGE,

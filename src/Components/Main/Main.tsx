@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Main.module.css";
-import {Route} from "react-router";
+import {Redirect, Route} from "react-router";
 import {Profile} from "./Profile/Profile";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
@@ -15,13 +15,13 @@ export function Main() {
     return (
         <div className={classes.main}>
             <Route path={'/profile/:userId?'} render={() => <Profile/>}/>
-            <Route path={'/dialogs'}
-                   render={() => <DialogsContainer/>}/>
+            <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
             <Route path={'/news'} render={() => <News/>}/>
             <Route path={'/music'} render={() => <Music/>}/>
             <Route path={'/setting'} render={() => <Setting/>}/>
-            <Route path={'/users'} render={() => <UsersContainer />}/>
-            <Route path={'/login'} render={() => <Login />}/>
-                </div>
-                )
-            }
+            <Route path={'/users'} render={() => <UsersContainer/>}/>
+            <Route path={'/login'} render={() => <Login/>}/>
+            <Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>
+        </div>
+    )
+}

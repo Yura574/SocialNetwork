@@ -2,7 +2,7 @@ import React from "react";
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {StoreType} from "../../Redux/redux-store";
-import {AuthDataType, authMe} from "../../Redux/authReducer";
+import {AuthDataType, authMe, logoutTC} from "../../Redux/authReducer";
 
 type HeaderAPIComponentType = MapStateToProps & MapDispatchToProps
 
@@ -17,7 +17,9 @@ export class HeaderAPIComponent extends React.Component<HeaderAPIComponentType> 
             <Header isAuth={this.props.isAuth}
                     id={this.props.data.id}
                     login={this.props.data.login}
-                    email={this.props.data.email}/>
+                    email={this.props.data.email}
+                    logout={this.props.logoutTC}
+            />
         )
     }
 }
@@ -29,6 +31,7 @@ type MapStateToProps = {
 }
 type MapDispatchToProps = {
     authMe: () => void
+    logoutTC: () => void
 }
 const mapStateToProps = (state: StoreType): MapStateToProps => ({
     isAuth: state.auth.isAuth,
@@ -36,7 +39,8 @@ const mapStateToProps = (state: StoreType): MapStateToProps => ({
 })
 
 const mapDispatchToProps: MapDispatchToProps = {
-    authMe
+    authMe,
+    logoutTC
 }
 
 

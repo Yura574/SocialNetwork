@@ -7,7 +7,7 @@ import {ProfileInfoContainer} from "./ProfileInfo/ProfileInfoContainer";
 export function Profile() {
     return (
         <div>
-            <ProfileInfoContainer/>
+            <ProfileInfoContainer />
             <MyPostsContainer />
         </div>
     )

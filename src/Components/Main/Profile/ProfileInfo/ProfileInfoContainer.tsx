@@ -1,13 +1,14 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {ProfileInfo} from "./ProfileInfo";
 import {connect} from "react-redux";
 import {StoreType} from "../../../../Redux/redux-store";
-import {addProfile, ProfileType, setProfile} from "../../../../Redux/profileReducer";
+import {addProfile, getStatus, ProfileType, setProfile} from "../../../../Redux/profileReducer";
 import {Preloader} from "../../../../preloder/Preloader";
 import {setPreloader} from "../../../../Redux/userReducer";
-import {Redirect, RouteComponentProps, withRouter} from "react-router";
-import {stat} from "fs";
+import { RouteComponentProps, withRouter} from "react-router";
 import {withAuthRedirect} from "../../../../HOC/withAuthRedirect";
+import {authMe} from "../../../../Redux/authReducer";
+import { compose } from "redux";
 
 type ProfileInfoAPIContainerType = MapStateToProps & MapDispatchToProps
 type PathParamType = {
@@ -19,15 +20,19 @@ type PropsType = RouteComponentProps<PathParamType> & ProfileInfoAPIContainerTyp
 export class ProfileInfoAPIContainer extends React.Component<PropsType> {
 
     componentDidMount() {
+        debugger
         let userId = this.props.match.params.userId
         if(!userId){
             userId = '20685'
         }
+        this.props.getStatus(userId)
+
         this.props.setProfile(userId )
+        // this.props.authMe()
+
     }
 
     render() {
-        // if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return <>
             {this.props.preloader
                 ? <Preloader/>
@@ -47,19 +52,25 @@ type MapDispatchToProps = {
     addProfile: (profile: ProfileType) => void
     setPreloader: (turnOnOf: boolean)=> void
     setProfile: (userId: string) => void
+    authMe: () => void
+    getStatus: (userId: string) => void
 }
 
 const mapStateToProps = (state: StoreType): MapStateToProps => ({
     profile: state.profilePage.profile,
     preloader: state.usersPage.preloader,
-    // isAuth: state.auth.isAuth
 })
 const mapDispatchToProps: MapDispatchToProps = {
     setPreloader,
     addProfile,
-    setProfile
+    setProfile,
+    authMe,
+    getStatus
 }
 
-const ProfileInfoWithRoute = withRouter(ProfileInfoAPIContainer)
 
-export const ProfileInfoContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(ProfileInfoWithRoute))
+export const ProfileInfoContainer = compose<ComponentType>(
+        connect(mapStateToProps, mapDispatchToProps),
+        withRouter,
+        withAuthRedirect,
+    )(ProfileInfoAPIContainer)

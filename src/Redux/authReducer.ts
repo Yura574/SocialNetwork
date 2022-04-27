@@ -7,7 +7,7 @@ type SetAuthDataUserACType = {
 }
 type SetIsAuthACType = {
     type: "SET_IS_AUTH"
-    resultCode: 0 | 1
+    isAuth: boolean
 }
 
 type ActionType = SetAuthDataUserACType | SetIsAuthACType
@@ -21,6 +21,12 @@ type InitialStateType = {
     isAuth: boolean
     data: AuthDataType
 
+}
+export type DataLoginType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: boolean
 }
 const initialState: InitialStateType = {
     isAuth: false,
@@ -42,7 +48,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
         case "SET_IS_AUTH" :
             return {
                 ...state,
-                isAuth: action.resultCode === 0
+                isAuth: action.isAuth
             }
         default:
             return state
@@ -54,16 +60,43 @@ export const setAuthDataUser = (data: AuthDataType): SetAuthDataUserACType => ({
     type: "SET_AUTH_DATA_USER",
     data
 })
-export const setResultCode = (resultCode: 0 | 1) : SetIsAuthACType => ({
+export const setIsAuth = (isAuth: boolean): SetIsAuthACType => ({
     type: "SET_IS_AUTH",
-    resultCode
+    isAuth
 })
 
-export const authMe =() => (dispatch: Dispatch) => {
+export const authMe = () => (dispatch: Dispatch) => {
+    debugger
     authAPI.authMe()
         .then(res => {
-            dispatch(setAuthDataUser(res.data.data))
-            dispatch(setResultCode(res.data.resultCode))
+            if(res.data.resultCode === 0){
+                dispatch(setAuthDataUser(res.data.data))
+                dispatch(setIsAuth(true))
+            }
+
+
+        })
+}
+
+export const loginTC = (email: string, password: string, rememberMe?: boolean, captcha?: boolean) => (dispatch: Dispatch) => {
+    authAPI.login(email, password, rememberMe, captcha)
+        .then(res => {
+            if(res.data.resultCode === 0){
+                dispatch(setIsAuth(true))
+            }
+
+
+        })
+}
+
+export const logoutTC = () => (dispatch: Dispatch) => {
+    authAPI.logout()
+        .then(res => {
+            debugger
+            if(res.data.resultCode === 0){
+                dispatch(setIsAuth(false))
+            }
+
 
         })
 }
